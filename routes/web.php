@@ -19,7 +19,7 @@ use App\Http\Controllers\EventController;
 Route::get('/', [EventController::class, 'index'])->name('events.index');
 Route::get('/register/{event_id}', [EventController::class, 'register'])->name('event.register');
 Route::get('/details/{event_id}', [EventController::class, 'details'])->name('event.details');
-Route::post('/event_register', [EventController::class, 'event_register'])->name('event_register');
+Route::get('/event_register', [EventController::class, 'event_register'])->name('event_register');
 
 
 // Route::get('/', function () {

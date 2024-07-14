@@ -185,4 +185,9 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+
+    'merchantid' => env('MERCHANTID', 'default_value'),
+        'appid' => env('APPID', 'default_value'),
+        'appname' => env('APPNAME', 'default_value'),
+        'connect_ips_baseurl' => env('CONNECT_IPS_BASEURL', 'default_value'),
 ];
