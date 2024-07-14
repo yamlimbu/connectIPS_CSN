@@ -20,10 +20,14 @@ class EventRegisterRequest extends FormRequest
             'last_name' => 'required|string',
             'email_address' => 'required|email',
             'phone_number' => 'required|string',
-            'event_category_ticket_ids' => 'required|array',
-            'event_category_ticket_ids.*' => 'required|string',
-            'total_amount' => 'required|numeric',
-            'transaction_id' => 'required|string',
+
+            // 'event_category_ticket_ids[0]' => 'required|array',
+            // 'event_category_ticket_ids[1]' => 'required|array',
+
+            'payment_method' => 'required',
+
+            // 'total_amount' => 'required|numeric',
+            // 'transaction_id' => 'required|string',
         ];
     }
 }
