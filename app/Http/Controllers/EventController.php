@@ -138,4 +138,14 @@ class EventController extends Controller
         }
         return $hash;
     }
+
+    public function processPaymentSuccess()
+    {
+        echo 'Success';
+    }
+
+    public function processPaymentFail()
+    {
+        echo 'Fail';
+    }
 }
