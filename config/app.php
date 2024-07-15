@@ -190,4 +190,6 @@ return [
         'appid' => env('APPID', 'default_value'),
         'appname' => env('APPNAME', 'default_value'),
         'connect_ips_baseurl' => env('CONNECT_IPS_BASEURL', 'default_value'),
+        'txncrncy' => env('TXNCRNCY', 'default_value'),
+
 ];

@@ -11,10 +11,10 @@
                 <input type="text" name="APPID" id="APPID" value="{{ config('app.appid') }}" />
 
                 <label for="APPNAME">APP NAME</label>
-                <input type="text" name="APPNAME" id="APPNAME" value="Cardiac-Society" />
+                <input type="text" name="APPNAME" id="APPNAME" value="Cardiac Society" />
 
                 <label for="TXNID">TXN ID</label>
-                <input type="text" name="TXNID" id="TXNID" value="txn-1233" />
+                <input type="text" name="TXNID" id="TXNID" value="txn-333333" />
 
                 <label for="TXNDATE">TXN DATE</label>
                 <input type="text" name="TXNDATE" id="TXNDATE" value="15-03-2022" />
