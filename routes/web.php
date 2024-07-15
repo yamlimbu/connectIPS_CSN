@@ -24,5 +24,5 @@ Route::post('/event_register', [EventController::class, 'event_register'])->name
 Route::post('/final_submit', [EventController::class, 'final_submit'])->name('final_submit');
 
 Route::get('/preview', [EventController::class, 'preview'])->name('preview');
-Route::get('/success', [EventController::class, 'success'])->name('success');
-Route::get('/fail', [EventController::class, 'fail'])->name('fail');
+Route::get('/event-register/success', [EventController::class, 'success'])->name('success');
+Route::get('/event-register/fail', [EventController::class, 'fail'])->name('fail');
