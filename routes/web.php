@@ -19,10 +19,8 @@ use App\Http\Controllers\EventController;
 Route::get('/', [EventController::class, 'index'])->name('events.index');
 Route::get('/register/{event_id}', [EventController::class, 'register'])->name('event.register');
 Route::get('/details/{event_id}', [EventController::class, 'details'])->name('event.details');
-Route::get('/event_register', [EventController::class, 'event_register'])->name('event_register');
-Route::get('/event-register/success', [EventController::class, 'processPaymentSuccess'])->name('event.register');
+Route::post('/event_register', [EventController::class, 'event_register'])->name('event_register');
 
-Route::get('/event-register/fail', [EventController::class, 'processPaymentFail'])->name('event.fail');
 
 // Route::get('/', function () {
 //     return view('welcome');
