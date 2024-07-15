@@ -57,10 +57,19 @@ class EventController extends Controller
     }
 
 
+
+
+
     function event_register(EventRegisterRequest $request)
     {
         if ($request->registration_form == 'submitted') {
+            return redirect(route('preview'));
+        }
+    }
 
+    function final_submit(Request $request)
+    {
+        if ($request->registration_form == 'submitted') {
             // dd($request->all());
             $postdata = [
                 'event_id' => $request->input('event_id'),
@@ -70,7 +79,6 @@ class EventController extends Controller
                 'last_name' => $request->input('last_name'),
                 'email_address' => $request->input('email_address'),
                 'phone_number' => $request->input('phone_number'),
-                // 'event_category_ticket_ids' => $request->input('event_category_ticket_ids'),
                 'event_category_ticket_ids[0]' => 1,
                 'event_category_ticket_ids[1]' => 3,
                 'payment_method' => $request->input('payment_method'),
@@ -82,14 +90,45 @@ class EventController extends Controller
             ];
 
             // dd($postdata);
-            $response = $this->apiService->post('/event/register', $postdata);
-            dd($response->json());
+            // $response = $this->apiService->post('/event/register', $postdata);
 
-            if ($response->successful()) {
-                return redirect()->back()->with('success', 'Registration successful!');
-            } else {
-                return redirect()->back()->withErrors(['error' => 'Registration failed. Please try again.'])->withInput();
-            }
+            return redirect(route('success'));
+
+
+            // dd($response->json());
+
+            // if ($response->successful()) {
+            //     return redirect()->back()->with('success', 'Registration successful!');
+            // } else {
+            //     return redirect()->back()->withErrors(['error' => 'Registration failed. Please try again.'])->withInput();
+            // }
         }
+    }
+
+
+
+    public function preview()
+    {
+        // Return the success view
+        return view('preview');
+    }
+
+    public function success()
+    {
+        // Set a success message in the session
+        session()->flash('success', "Transaction has been successfully completed.");
+
+        // Return the success view
+        return view('success');
+    }
+
+
+    public function fail()
+    {
+        // Set a success message in the session
+        session()->flash('error', "Transaction has been terminated.");
+
+        // Return the success view
+        return view('fail');
     }
 }

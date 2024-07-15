@@ -74,483 +74,171 @@
                         </div>
                         <h4><span>Ticket Type</span></h4>
 
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            name="event_category_ticket_ids[1_1]" id="ticket_4" value="4">
-                                        <label class="form-check-label" for="ticket_4">
-                                            <strong>Pre Congress Registration</strong>
-                                        </label>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label>Nursing Conference (24th Oct, 2024)</label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[1_1]" id="ticket_4" value="4">
-                                                <label class="form-check-label" for="ticket_4">
-                                                    Early bird -
-                                                    1500.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[1_1]" id="ticket_3" value="3">
-                                                <label class="form-check-label" for="ticket_3">
-                                                    Late &amp; On-site -
-                                                    3000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Post Graduate Course (24th Oct, 2024)</label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[1_3]" id="ticket_6" value="6">
-                                                <label class="form-check-label" for="ticket_6">
-                                                    Early Bird -
-                                                    20000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[1_3]" id="ticket_5" value="5">
-                                                <label class="form-check-label" for="ticket_5">
-                                                    Late &amp; On-site -
-                                                    10000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            name="event_category_ticket_ids[1_1]" id="ticket_4" value="4">
-                                        <label class="form-check-label" for="ticket_4">
-                                            <strong>Main Congress </strong>
-
-                                        </label>
-
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Life Member of CSN</label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[2_2]" id="ticket_1" value="1">
-                                                <label class="form-check-label" for="ticket_1">
-                                                    Early bird -
-                                                    3000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[2_2]" id="ticket_2" value="2">
-                                                <label class="form-check-label" for="ticket_2">
-                                                    Late &amp; On-site -
-                                                    1500.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Nepali Delegates</label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[2_4]" id="ticket_8" value="8">
-                                                <label class="form-check-label" for="ticket_8">
-                                                    Early Bird -
-                                                    20000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[2_4]" id="ticket_7" value="7">
-                                                <label class="form-check-label" for="ticket_7">
-                                                    Late &amp; On-site -
-                                                    12000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Nurses / Residents</label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[2_5]" id="ticket_10" value="10">
-                                                <label class="form-check-label" for="ticket_10">
-                                                    Early Bird -
-                                                    10000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[2_5]" id="ticket_9" value="9">
-                                                <label class="form-check-label" for="ticket_9">
-                                                    Late &amp; On-site -
-                                                    5000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        {{-- <div class="form-row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            name="event_category_ticket_ids[1_1]" id="ticket_4" value="4">
-                                        <label class="form-check-label" for="ticket_4">
-                                            <strong>Pre Congress Registration</strong>
-                                        </label>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label>Nursing Conference (24th Oct, 2024)</label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[1_1]" id="ticket_4" value="4">
-                                                <label class="form-check-label" for="ticket_4">
-                                                    Early bird -
-                                                    1500.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[1_1]" id="ticket_3" value="3">
-                                                <label class="form-check-label" for="ticket_3">
-                                                    Late &amp; On-site -
-                                                    3000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Post Graduate Course (24th Oct, 2024)</label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[1_3]" id="ticket_6" value="6">
-                                                <label class="form-check-label" for="ticket_6">
-                                                    Early Bird -
-                                                    20000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[1_3]" id="ticket_5" value="5">
-                                                <label class="form-check-label" for="ticket_5">
-                                                    Late &amp; On-site -
-                                                    10000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            name="event_category_ticket_ids[1_1]" id="ticket_4" value="4">
-                                        <label class="form-check-label" for="ticket_4">
-                                            <strong>Main Congress </strong>
-
-                                        </label>
-
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Life Member of CSN</label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[2_2]" id="ticket_1" value="1">
-                                                <label class="form-check-label" for="ticket_1">
-                                                    Early bird -
-                                                    3000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[2_2]" id="ticket_2" value="2">
-                                                <label class="form-check-label" for="ticket_2">
-                                                    Late &amp; On-site -
-                                                    1500.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Nepali Delegates</label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[2_4]" id="ticket_8" value="8">
-                                                <label class="form-check-label" for="ticket_8">
-                                                    Early Bird -
-                                                    20000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[2_4]" id="ticket_7" value="7">
-                                                <label class="form-check-label" for="ticket_7">
-                                                    Late &amp; On-site -
-                                                    12000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Nurses / Residents</label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[2_5]" id="ticket_10" value="10">
-                                                <label class="form-check-label" for="ticket_10">
-                                                    Early Bird -
-                                                    10000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    name="event_category_ticket_ids[2_5]" id="ticket_9" value="9">
-                                                <label class="form-check-label" for="ticket_9">
-                                                    Late &amp; On-site -
-                                                    5000.00
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-
-
 
                         <div class="form-row">
-
-                            {{-- <div class="form-row">
-                                @isset($data['eventCategories'])
-                                    @foreach ($data['eventCategories'] as $category)
-                                        @if (!empty($category['tickets']))
-                                            @foreach ($category['tickets'] as $ticketIndex => $ticket)
-                                                @if (!empty($ticket['tickets']))
-                                                    <div class="form-group col-lg-12">
-                                                        <label>{{ $category['title'] . '/' . $ticket['title'] }}</label>
-                                                        <div class="row">
-                                                            @php
-                                                                // Sort tickets to have "Early bird" first
-                                                                usort($ticket['tickets'], function ($a, $b) {
-                                                                    return $a['event_category_ticket_name'] ===
-                                                                        'Early bird'
-                                                                        ? -1
-                                                                        : 1;
-                                                                });
-                                                            @endphp
-                                                            @foreach ($ticket['tickets'] as $subTicket)
-                                                                <div class="col-md-4">
-                                                                    <div class="card">
-                                                                        <div class="card-body">
-                                                                            <div class="form-check">
-                                                                                <input class="form-check-input" type="radio"
-                                                                                    name="event_category_ticket_ids[{{ $category['id'] }}_{{ $ticket['id'] }}]"
-                                                                                    id="ticket_{{ $subTicket['id'] }}"
-                                                                                    value="{{ $subTicket['id'] }}">
-                                                                                <label class="form-check-label"
-                                                                                    for="ticket_{{ $subTicket['id'] }}">
-                                                                                    <strong>{{ $subTicket['event_category_ticket_name'] }}</strong><br>
-                                                                                    <span>{{ $subTicket['price'] }}</span>
-                                                                                </label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
-                                                        @if ($errors->has('event_category_ticket_ids'))
-                                                            <span
-                                                                class="text-danger">{{ $errors->first('event_category_ticket_ids') }}</span>
-                                                        @endif
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    @endforeach
-                                @endisset
-                            </div> --}}
-
-
-                            {{-- @isset($data['eventCategories'])
-                                @foreach ($data['eventCategories'] as $ticketIndex => $category)
+                            @isset($data['eventCategories'])
+                                @foreach ($data['eventCategories'] as $category)
                                     @if (!empty($category['tickets']))
-                                        @foreach ($category['tickets'] as $ticket)
-                                            @if (!empty($ticket['tickets']))
-                                                <div class="form-group col-lg-4">
-                                                    <label
-                                                        for="ticket_{{ $ticket['id'] }}">{{ $category['title'] . '/' . $ticket['title'] }}</label>
-                                                    <select name="event_category_ticket_ids[{{ $ticketIndex }}]"
-                                                        class="form-control wide" id="ticket_{{ $ticket['id'] }}">
-                                                        @php
-                                                            usort($ticket['tickets'], function ($a, $b) {
-                                                                return $a['event_category_ticket_name'] === 'Early bird'
-                                                                    ? -1
-                                                                    : 1;
-                                                            });
-                                                        @endphp
-                                                        @foreach ($ticket['tickets'] as $subTicket)
-                                                            <option value="{{ $subTicket['id'] }}">
-                                                                {{ $subTicket['event_category_ticket_name'] }} -
-                                                                {{ $subTicket['price'] }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    @if ($errors->has('event_category_ticket_ids'))
-                                                        <span
-                                                            class="text-danger">{{ $errors->first('event_category_ticket_ids') }}</span>
-                                                    @endif
-                                                </div>
-                                            @endif
-                                        @endforeach
+                                        <div class="col-md-12">
+                                            <strong>{{ $category['title'] }}</strong>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Ticket Name</th>
+                                                        <th>Early Bird</th>
+                                                        <th>Late & On-site</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($category['tickets'] as $ticket)
+                                                        @if (!empty($ticket['tickets']))
+                                                            <tr>
+                                                                <td width="50%">
+                                                                    <div class="form-group col-lg-12">
+
+                                                                        @if ($category['id'] == 1)
+                                                                            <input class="form-check-input" type="radio"
+                                                                                name="event_category_ticket_ids[0]"
+                                                                                id="ticket_{{ $ticket['id'] }}"
+                                                                                value="{{ $ticket['id'] }}">
+                                                                        @endif
+
+                                                                        @if ($category['id'] == 2)
+                                                                            <input class="form-check-input" type="radio"
+                                                                                name="event_category_ticket_ids[1]"
+                                                                                id="ticket_{{ $ticket['id'] }}"
+                                                                                value="{{ $ticket['id'] }}">
+                                                                        @endif
+
+
+
+                                                                        {{ $ticket['title'] }}
+                                                                    </div>
+
+                                                                </td>
+                                                                @php
+                                                                    $early_bird =
+                                                                        $ticket['tickets'][0]['price'] ?? 'N/A';
+                                                                    $late_on_site =
+                                                                        $ticket['tickets'][1]['price'] ?? 'N/A';
+                                                                @endphp
+                                                                <td>{{ $early_bird }}</td>
+                                                                <td>{{ $late_on_site }}</td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     @endif
                                 @endforeach
-                            @endisset --}}
-
-
+                            @endisset
                         </div>
+
 
                         <h4>
                             <span>Payment Method</span>
                         </h4>
-                        <div class="form-row">
+                        <div class="form-row border">
                             <div class="col-md-3">
-                                <div class="form-check img-box ">
-                                    {{-- ConnectIPS  --}}
-                                    <input class="form-check-input" type="radio" name="payment_option" id="connectips"
-                                        value="connectips">
+                                <div class="form-check img-box">
+                                    <input class="form-check-input" type="radio" name="payment_method" id="connectips"
+                                        value="connectips" {{ old('payment_method') == 'connectips' ? 'checked' : '' }}
+                                        style="margin-top: 30px;">
                                     <label class="form-check-label" for="connectips">
-                                        <img src="{{ asset('images/connectips.png') }}" alt="ConnectIPS" width="100">
+                                        <img src="{{ asset('images/connectips.png') }}" alt="ConnectIPS" width="90">
                                     </label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-check img-box pull-left">
-                                    {{-- FonePay --}}
-                                    <input class="form-check-input" type="radio" name="payment_option" id="fonepay"
-                                        value="fonepay">
+                                    <input class="form-check-input" type="radio" name="payment_method" id="fonepay"
+                                        value="fonepay" {{ old('payment_method') == 'fonepay' ? 'checked' : '' }}
+                                        style="margin-top: 30px;">
                                     <label class="form-check-label" for="fonepay">
-                                        <img src="{{ asset('images/fonepay.png') }}" alt="Fonepay" width="100">
+                                        <img src="{{ asset('images/fonepay.png') }}" alt="Fonepay" width="90">
                                     </label>
                                 </div>
                             </div>
+                            @if ($errors->has('payment_method'))
+                                <span class="text-danger">{{ $errors->first('payment_method') }}</span>
+                            @endif
                         </div>
-
 
 
 
                         <input type="hidden" name="payment_receipt" id="payment_receipt" value="434RR">
                         <input type="hidden" name="payment_status" id="payment_status" value="pending">
-
                         <input type="hidden" name="total_amount" id="total_amount" value="300">
                         <input type="hidden" name="transaction_id" id="transaction_id" value="123">
 
 
-                        <div class="form-row">
-                            <div class="btn-box">
-                                <button type="submit pull-right" name="registration_form" value="submitted"
-                                    class="btn">Submit Now</button>
+
+                        <div class="form-row mt-4">
+                            <div class="col-md-12">
+                                <button type="submit" name="registration_form" value="submitted"
+                                    class="btn btn-primary float-right">Register Now</button>
                             </div>
                         </div>
 
 
                     </form>
-
-
                 </div>
             </div>
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.ticket-options-select').on('change', function() {
+                var selectedId = $(this).attr('id');
+                var value = $(this).val();
+                console.log(selectedId + ' option selected:', value);
+                $('[id^="' + selectedId + '_container"]').addClass('d-none');
+                if (value) {
+                    $('#' + selectedId + '_container').removeClass('d-none');
+                }
+            });
+
+            // Initial trigger to set the state based on current selections
+            $('.ticket-options-select').trigger('change');
+        });
+    </script>
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            $('#nursing_conference_post_graduate_course').on('change', function() {
+                var value = $(this).val();
+                console.log('Nursing/PG course selected:', value);
+                $('#nursing_conference_options').addClass('d-none');
+                $('#post_graduate_course_options').addClass('d-none');
+                if (value === 'nursing_conference') {
+                    $('#nursing_conference_options').removeClass('d-none');
+                } else if (value === 'post_graduate_course') {
+                    $('#post_graduate_course_options').removeClass('d-none');
+                }
+            });
+
+            $('#main_congress_options').on('change', function() {
+                var value = $(this).val();
+                console.log('Main congress option selected:', value);
+                $('#life_member_options').addClass('d-none');
+                $('#nepali_delegates_options').addClass('d-none');
+                $('#nurses_residents_options').addClass('d-none');
+                if (value === 'life_member') {
+                    $('#life_member_options').removeClass('d-none');
+                } else if (value === 'nepali_delegates') {
+                    $('#nepali_delegates_options').removeClass('d-none');
+                } else if (value === 'nurses_residents') {
+                    $('#nurses_residents_options').removeClass('d-none');
+                }
+            });
+        });
+    </script>
+@endpush
