@@ -2,11 +2,9 @@
 @section('page-content')
     <section class="book_section layout_padding">
         <div class="container">
-
-
             <div class="row">
                 <div class="col">
-                    <form method="POST" action="{{ route('final_submit') }}">
+                    <form method="POST" action="{{ config('app.connect_ips_baseurl') }}">
                         @csrf
                         <input type="hidden" name="event_id" value="1">
                         <h4 class="mb-4"><span>Registration Form Preview</span></h4>
@@ -126,10 +124,43 @@
 
                         </div>
 
-                        <input type="hidden" name="payment_receipt" id="payment_receipt" value="434RR">
-                        <input type="hidden" name="payment_status" id="payment_status" value="pending">
-                        <input type="hidden" name="total_amount" id="total_amount" value="300">
-                        <input type="hidden" name="transaction_id" id="transaction_id" value="123">
+
+
+
+
+
+                <input type="hidden" name="MERCHANTID" id="MERCHANTID" value="{{ config('app.merchantid') }}" />
+
+
+                <input type="hidden" name="APPID" id="APPID" value="{{ config('app.appid') }}" />
+
+
+                <input type="hidden" name="APPNAME" id="APPNAME" value="{{ config('app.appname') }}" />
+
+
+                <input type="hidden" name="TXNID" id="TXNID" value="{{$data['txnid']}}" />
+
+
+                <input type="hidden" name="TXNDATE" id="TXNDATE" value="{{$data['currentDate']}}" />
+
+
+                <input type="hidden" name="TXNCRNCY" id="TXNCRNCY" value="NPR" />
+
+
+                <input type="hidden" name="TXNAMT" id="TXNAMT" value="{{$data['txnamt']}}" />
+
+
+                <input type="hidden" name="REFERENCEID" id="REFERENCEID" value="REF-001" />
+
+
+                <input type="hidden" name="REMARKS" id="REMARKS" value="RMKS-001" />
+
+
+                <input type="hidden" name="PARTICULARS" id="PARTICULARS" value="PART-001" />
+
+
+                <input type="hidden" name="TOKEN" id="TOKEN" value="{{$data['token']}}" />
+
 
                         <div class="form-row mt-4">
                             <div class="col-md-12">
