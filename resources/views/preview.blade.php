@@ -10,117 +10,108 @@
                         <h4 class="mb-4"><span>Registration Form Preview</span></h4>
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="nmc_registration_number"><strong>NMC Number</strong> </label>:- 122222
+                                <label for="nmc_registration_number"><strong>NMC Number</strong> </label>:-                                 {{ $data['nmc_registration_number'] ?? 'N/A' }}
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="nmc_registration_number"><strong>First Name</strong> </label>:- Rajendra
-                                Jha
+                                <label for="nmc_registration_number"><strong>First Name</strong> </label>:-                                 {{ $data['first_name'] ?? 'N/A' }}
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="nmc_registration_number"><strong>Middle Name</strong> </label>:- Kumar
+                                <label for="nmc_registration_number"><strong>Middle Name</strong> </label>:-                                 {{ $data['middle_name'] ?? 'N/A' }}
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="nmc_registration_number"><strong>Last Name</strong> </label>:- Jha
+                                <label for="nmc_registration_number"><strong>Last Name</strong> </label>:-                                 {{ $data['last_name'] ?? 'N/A' }}
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="nmc_registration_number"><strong>Email Address</strong> </label>:-
-                                1233@gmail.com
-                            </div>
+                                {{ $data['email_address'] ?? 'N/A' }}                            </div>
                         </div>
 
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="nmc_registration_number"><strong>Phone Number</strong> </label>:- +9779851148062
+                                <label for="nmc_registration_number"><strong>Phone Number</strong> </label>:-                                 {{ $data['phone_number'] ?? 'N/A' }}
                             </div>
                         </div>
 
                         <h4 class="mb-4"><span>Ticket Type</span></h4>
 
                         <div class="form-row mb-4">
-                            <div class="col-md-12">
-                                <strong>Pre Congress Registration</strong>
+                        @foreach ($paymentDetails as $paymentDetail)
+                                        <div class="col-md-12">
+                                            <strong>{{$paymentDetail['category_title']}}</strong>
+                                            <table class="table table-bordered mt-3">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Ticket Name</th>
+                                                        <th>Early Bird</th>
+                                                        <th>Late & On-site</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="50%">{{ $paymentDetail['title'] }}</td>
+                                                        <td>{{ ($paymentDetail['event_category_ticket_name'] == 'Early Bird') ? $paymentDetail['price'] : '-' }}</td>
+                                                        <td>{{ ($paymentDetail['event_category_ticket_name'] == 'Late & On-site') ? $paymentDetail['price'] : '-' }}</td>
+
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                @endforeach
+
                                 <table class="table table-bordered mt-3">
-                                    <thead>
-                                        <tr>
-                                            <th>Ticket Name</th>
-                                            <th>Early Bird</th>
-                                            <th>Late & On-site</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td width="50%">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="event_category_ticket_ids[0]" id="ticket_1" value="1"
-                                                        checked>
-                                                    <label class="form-check-label" for="ticket_1">
-                                                        Nursing Conference (24th Oct, 2024)
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>1500.00</td>
-                                            <td>-</td>
-                                        </tr>
 
-                                    </tbody>
-                                </table>
-                            </div>
+<tbody>
+    <tr>
+        <td width="50%"><strong>Total</strong></td>
+        <td width="50%">{{ number_format($data['txnamt'] / 100, 2, '.', ',') }}</td>
+    </tr>
+</tbody>
+</table>
 
-                            <div class="col-md-12">
-                                <strong>Main Congress (25th &amp; 26th Oct, 2024)</strong>
-                                <table class="table table-bordered mt-3">
-                                    <thead>
-                                        <tr>
-                                            <th>Ticket Name</th>
-                                            <th>Early Bird</th>
-                                            <th>Late & On-site</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td width="50%">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="event_category_ticket_ids[1]" id="ticket_2" value="2"
-                                                        checked>
-                                                    <label class="form-check-label" for="ticket_2">
-                                                        Life Member of CSN
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td>3000.00</td>
-                                            <td>-</td>
-                                        </tr>
 
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
 
                         <h4 class="mb-4"><span>Payment Method</span></h4>
 
                         <div class="form-row border">
-                            <div class="col-md-3">
-                                <div class="form-check img-box">
-                                    <input class="form-check-input" type="radio" name="payment_method" id="connectips"
-                                        value="connectips" checked>
-                                    <label class="form-check-label" for="connectips">
-                                        <img src="{{ asset('images/connectips.png') }}" alt="ConnectIPS" width="90">
-                                    </label>
+                        @if (isset($data['payment_method']) && $data['payment_method'] == 'connectips')
+                                <div class="col-md-3">
+                                    <div class="form-check img-box payment_icon">
+                                        <input class="form-check-input" type="radio" name="payment_method" id="connectips"
+                                            value="connectips"
+                                            {{ ($data['payment_method'] ?? '') == 'connectips' ? 'checked' : '' }}
+                                            style="margin-top: 30px;">
+                                        <label class="form-check-label" for="connectips">
+                                            <img src="{{ asset('images/connectips.png') }}" alt="ConnectIPS"
+                                                width="90">
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                <div class="col-md-6">
+                                    <div class="form-check img-box pull-left payment_icon">
+                                        <input class="form-check-input" type="radio" name="payment_method" id="fonepay"
+                                            value="fonepay"
+                                            {{ ($data['payment_method'] ?? '') == 'fonepay' ? 'checked' : '' }}
+                                            style="margin-top: 30px;">
+                                        <label class="form-check-label" for="fonepay">
+                                            <img src="{{ asset('images/fonepay.png') }}" alt="Fonepay" width="90">
+                                        </label>
+                                    </div>
+                                </div>
+                            @endif
 
                         </div>
 
@@ -166,6 +157,8 @@
                             <div class="col-md-12">
                                 <button type="submit" name="registration_form" value="submitted"
                                     class="btn btn-primary float-right">Final Submit</button>
+                                    <a href="{{ route('event.register', 1) }}" class="btn btn-danger float-right"
+                                    style="margin: 15px 10px;">Back</a>
                             </div>
                         </div>
                     </form>
