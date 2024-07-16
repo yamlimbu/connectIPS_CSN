@@ -8,9 +8,8 @@
                     <div class="icon-container">
                         <img src="{{ asset('images/success.png') }}" alt="Success Icon" class="success-icon">
                     </div>
-                    <h2 class="success-title">Registration success!! You have successfully completed the registration
-                        process.</h2>
-                    <p class="success-description">{{ session('success') }}</p>
+                    <h2 class="success-title">Registration success!! </h2>
+                    <p class="success-description">You have successfully completed the registration process.</p>
                     <a href="{{ url('/') }}" class="btn btn-primary mt-4">Go to Homepage</a>
                 </div>
             @endif
