@@ -14,7 +14,7 @@
 
     <title>CSN</title>
 
-    <link rel="shortcut icon" type="image" href="https://csn.checkout.com.np/frontend/images/favicon.png" />
+    <link rel="shortcut icon" type="image" href="{{ asset('images/favicon.png') }}" />
 
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.css') }}" />
@@ -65,6 +65,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <!-- datepicker -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+
+    <script type="text/javascript" src="https://csn.checkout.com.np/frontend/js/jquery.countdown.js"></script>
+
+
     <!-- custom js -->
     <script src="{{ asset('js/custom.js') }}"></script>
 

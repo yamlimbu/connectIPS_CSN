@@ -3,7 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use App\Rules\AtLeastOneTicket;
+use Illuminate\Validation\Rule;
+use App\Models\EventCategory;
 class EventRegisterRequest extends FormRequest
 {
     public function authorize()
@@ -13,21 +15,44 @@ class EventRegisterRequest extends FormRequest
 
     public function rules()
     {
+        $event_id = $this->input('event_id');
+        $categories = EventCategory::pluck('id')->toArray();
+
         return [
             'nmc_registration_number' => 'required|string',
             'first_name' => 'required|string',
             'middle_name' => 'nullable|string',
             'last_name' => 'required|string',
-            'email_address' => 'required|email',
+            'email_address' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('event_registrations')->where(function ($query) use ($event_id) {
+                    return $query->where('event_id', $event_id);
+                }),
+            ],
             'phone_number' => 'required|string',
-
-            // 'event_category_ticket_ids[0]' => 'required|array',
-            // 'event_category_ticket_ids[1]' => 'required|array',
-
+            'event_category_ticket_prices_ids' => [
+                        'required',
+                        'array',
+                        new AtLeastOneTicket($categories),
+            ],
+            'event_category_ticket_prices_ids.*' => 'exists:event_category_ticket_prices,id',
             'payment_method' => 'required',
+        ];
+    }
 
-            // 'total_amount' => 'required|numeric',
-            // 'transaction_id' => 'required|string',
+    public function messages()
+    {
+        return [
+            'event_category_ticket_prices_ids.required' => 'You must select at least one ticket type.',
+            'nmc_registration_number.required' => 'Please enter your NMC Registration Number.',
+            'first_name.required' => 'Please enter your First Name.',
+            'last_name.required' => 'Please enter your Last Name.',
+            'email_address.required' => 'Please enter your Email Address.',
+            'email_address.email' => 'Please enter a valid Email Address.',
+            'phone_number.required' => 'Please enter your Phone Number.',
+            'payment_method.required' => 'Please select a Payment Method.',
         ];
     }
 }

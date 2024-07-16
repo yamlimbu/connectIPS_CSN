@@ -113,20 +113,74 @@
             <h4>
                 <span> Payment Options </span>
             </h4>
-            <div class="row">
+            <div class="row p_t_i">
 
-                <div class="col-md-6">
-                    <div class="img-box pull-right">
-                        <img src="{{ asset('images/connectips.png') }}" alt="" width="150">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="image-container">
+                                <img src="{{ asset('images/connectips.png') }}" alt="Connect IPS" width="150">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="image-container">
+                                <img src="{{ asset('images/fonepay.png') }}" alt="Fonepay" width="150">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="img-box">
-                        <img src="{{ asset('images/fonepay.png') }}" alt="" width="150">
+
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border">
+                    <div class="counter">
+
+                        <ul id="countdown">
+                            <li><span class="days">00</span>
+                                <p class="days_text">Days</p>
+                            </li>
+                            <li class="seperator s2">:</li>
+                            <li><span class="hours">00</span>
+                                <p class="hours_text">Hours</p>
+                            </li>
+                            <li class="seperator s2">:</li>
+                            <li><span class="minutes">00</span>
+                                <p class="minutes_text">Minutes</p>
+                            </li>
+                            <li class="seperator s2">:</li>
+                            <li><span class="seconds">00</span>
+                                <p class="seconds_text">Seconds</p>
+                            </li>
+                        </ul>
+
                     </div>
                 </div>
 
             </div>
         </div>
     </section>
+
+
+
 @endsection
+
+@push('scripts')
+    <script class="source" type="text/javascript">
+        var nextyear = '10/25/2024 11:00:01';
+        var now = new Date();
+        var day = now.getDate();
+        var month = now.getMonth() + 1;
+        var year = now.getFullYear() + 1;
+
+        // var nextyear = '12/02/2022 01:01:01';
+
+        $('#countdown').countdown({
+            date: nextyear, // TODO Date format: 07/27/2017 17:00:00
+            offset: +2, // TODO Your Timezone Offset
+            day: 'Day',
+            days: 'Days',
+            hideOnComplete: true
+        }, function(container) {
+            alert('Done!');
+        });
+    </script>
+@endpush

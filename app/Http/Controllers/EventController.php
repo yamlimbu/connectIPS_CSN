@@ -41,11 +41,22 @@ class EventController extends Controller
     public function register($event_id)
     {
         // Fetch data from the API
-        $response = $this->apiService->get('/event/1/tickets');
+        // $response = $this->apiService->get('/event/1/tickets');
 
 
-        // Decode the JSON response
-        $data = $response->json('data');
+        // // // Decode the JSON response
+        // $data = $response->json('data');
+
+        $data =$event = Event::with([
+            'eventCategories' => function ($query) {
+                $query->with([
+                    'tickets' => function ($query) {
+                        $query->with('prices');
+                    }
+                ]);
+            }
+        ])
+        ->find($event_id);
 
         // Pass data to the view
         return view('register', compact('data', 'event_id'));
@@ -71,17 +82,10 @@ class EventController extends Controller
     {
         if ($request->registration_form == 'submitted') {
             $validatedData = $request->validated();
-            //dd($validatedData);
+
             //return redirect(route('preview'));
             $request->session()->put('data', $validatedData);
 
-            // return redirect()->route('preview', ['nmc_registration_number' => $validatedData['nmc_registration_number'],
-            // 'first_name' => $validatedData['first_name'],
-            // 'middle_name' => $validatedData['middle_name'],
-            // 'last_name' => $validatedData['last_name'],
-            // 'phone_number' => $validatedData['phone_number'],
-            // 'email_address' => $validatedData['email_address'],
-            // 'payment_method' => $validatedData['payment_method']])->with('data', $validatedData);
             return redirect()->route('preview');
 
         }
@@ -147,16 +151,24 @@ class EventController extends Controller
         $last_name = $payment_data['last_name'];
         $email_address = $payment_data['email_address'];
         $phone_number = $payment_data['phone_number'];
-        $txnamt = $payment_data['total_amount'] ?? 2000;
+
         $payment_method = 'connectIPS';
         $currentDate = Carbon::now()->format('d-m-Y');
         $event_id = 1;
         $event = Event::find($event_id);
+        $response = $this->apiService->get('/event/1/tickets');
+        // Decode the JSON response
+        $tickets = $response->json('data');
 
-        $event_category_ticket_ids = [1,4];
+        $event_category_ticket_prices_ids =  array_map('intval', $payment_data['event_category_ticket_prices_ids']);
+
         ///
         $txnid = StringHelper::generateUniqueRandomString(18, 'payment_token', EventRegistrationHold::class);
-        $paymentDetails = $this->fetchPaymentDetails($event_id, $event_category_ticket_ids);
+        $paymentDetails = $this->fetchPaymentDetails($event_id, $event_category_ticket_prices_ids);
+
+        $priceSum = array_sum(array_column($paymentDetails, 'price'));
+
+        $txnamt = $priceSum * 100;
         $combainedDetails = [
             'Event Title' => $event->name,
             'NMC Registration Number' => $nmc_registration_number,
@@ -165,7 +177,7 @@ class EventController extends Controller
             'last_name' => $last_name,
             'email_address' => $email_address,
             'phone_number' => $phone_number,
-            'txnamt' => $txnamt,
+            'txnamt' => $txnamt/100,
             'payment_method' => $payment_method,
             'Ticket Details ' => $paymentDetails
         ];
@@ -173,18 +185,7 @@ class EventController extends Controller
         $paymentDetailsJson = json_encode($combainedDetails, JSON_PRETTY_PRINT);
 
         $hold = EventRegistrationHold::create([
-            /*'event_id' => $event_id,
-            'nmc_registration_number' => $validatedData['nmc_registration_number'],
-            'first_name' => $validatedData['first_name'],
-            'middle_name' => $validatedData['middle_name'],
-            'last_name' => $validatedData['last_name'],
-            'email_address' => $validatedData['email_address'],
-            'phone_number' => $validatedData['phone_number'],
-            'payment_details' => $paymentDetailsJson,
-            'payment_method' => $validatedData['payment_method'],
-            'payment_token' =>$uniqueString,
-            'total_amount' => $validatedData['total_amount'],
-            'status' => 'not_submitted',*/
+
             'event_id' => $event_id,
             'nmc_registration_number' => $nmc_registration_number,
             'first_name' => $first_name,
@@ -195,7 +196,7 @@ class EventController extends Controller
             'payment_details' => $paymentDetailsJson,
             'payment_method' => $payment_method,
             'payment_token' =>$txnid,
-            'total_amount' => $txnamt,
+            'total_amount' => $txnamt/100,
             'status' => 'not_submitted',
         ]);
 
@@ -216,9 +217,11 @@ class EventController extends Controller
             'currentDate' => $currentDate,
             'txnamt' => $txnamt,
             'token' => $this->generateHash($string),
+            'payment_method' => $payment_method,
+            'event_category_ticket_prices_ids' => $payment_data['event_category_ticket_prices_ids']
         ];
 
-        return view('preview', compact('data'));
+        return view('preview', compact('data', 'tickets', 'paymentDetails'));
     }
 
     public function success()
@@ -284,34 +287,45 @@ class EventController extends Controller
         return $hash;
     }
 
-    private function fetchPaymentDetails($event_id, $event_category_ticket_ids)
+    private function fetchPaymentDetails($event_id, $event_category_ticket_prices_ids)
     {
         //return $this->eventRegistration->fetchPaymentDetails($event_id, $event_category_ticket_ids);
 
-        $paymentDetails = EventCategoryTicket::join('event_categories', 'event_category_tickets.event_category_id', '=', 'event_categories.id')
-            ->join('events', 'event_categories.event_id', '=', 'events.id')
-            ->where('events.id', $event_id)
-            ->whereIn('event_category_tickets.id', $event_category_ticket_ids)
-            ->select(
-                'event_categories.title as category_title',
-                'event_category_tickets.id',
-                'event_category_tickets.title',
-                'event_category_tickets.location',
-                'event_category_tickets.start_date',
-                'event_category_tickets.end_date'
-            )
-            ->get()
-            ->map(function ($item) {
-                return [
-                    'category_title' => $item->category_title,
-                    'ticket_id' => $item->id,
-                    'title' => $item->title,
-                    'location' => $item->location,
-                    'start_date' => $item->start_date,
-                    'end_date' => $item->end_date,
-                ];
-            })
-            ->toArray();
-            return $paymentDetails;
+        $paymentDetails = EventCategoryTicketPrice::join('event_category_tickets', 'event_category_ticket_prices.event_category_ticket_id', '=', 'event_category_tickets.id')
+    ->join('event_categories', 'event_category_tickets.event_category_id', '=', 'event_categories.id')
+    ->join('events', 'event_categories.event_id', '=', 'events.id')
+    ->where('events.id', $event_id)
+    ->whereIn('event_category_ticket_prices.id', $event_category_ticket_prices_ids)
+    ->select(
+        'event_categories.title as category_title',
+        'event_category_tickets.id as ticket_id',
+        'event_category_tickets.title',
+        'event_category_tickets.location',
+        'event_category_tickets.start_date',
+        'event_category_tickets.end_date',
+        'event_category_ticket_prices.price',
+        'event_category_ticket_prices.id as ticket_price_id',
+        'event_category_ticket_prices.event_category_ticket_name as event_category_ticket_name'
+    )
+    ->get()
+    ->map(function ($item) {
+        return [
+            'category_title' => $item->category_title,
+            'ticket_id' => $item->ticket_id,
+            'title' => $item->title,
+            'location' => $item->location,
+            'start_date' => $item->start_date,
+            'end_date' => $item->end_date,
+            'price' => $item->price,
+            'event_category_ticket_name' => $item->event_category_ticket_name,
+        ];
+    })
+    ->toArray();
+
+return $paymentDetails;
+
     }
+
+
+
 }

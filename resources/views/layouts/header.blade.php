@@ -1,4 +1,4 @@
-  <header class="header_section">
+<header class="header_section">
       {{-- <div class="header_top">
           <div class="container">
               <div class="contact_nav">
@@ -50,18 +50,18 @@
                           </ul>
                       </div>
                       <div class="quote_btn-container">
-                          <a href="{{ URL::to('/') }}">
-                              <i class="fa fa-home" aria-hidden="true"></i>
-                              <span>
-                                  Home
-                              </span>
-                          </a>
 
-                          {{-- <form class="form-inline">
-                                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                </form> --}}
+                          @if (URL::current() == route('event.register', 1))
+                              <a href="{{ URL::to('/') }}">
+                                  <i class="fa fa-home" aria-hidden="true"></i>
+                                  <span>Home</span>
+                              </a>
+                          @else
+                              <a href="{{ route('event.register', 1) }}">
+                                  Register Now
+                              </a>
+                          @endif
+
 
 
                       </div>
