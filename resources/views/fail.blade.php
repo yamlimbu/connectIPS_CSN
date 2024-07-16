@@ -8,7 +8,8 @@
                     <div class="icon-container">
                         <img src="{{ asset('images/error.png') }}" alt="Error Icon" class="error-icon">
                     </div>
-                    <h2 class="error-title">Registration Failed!</h2>
+                    <h2 class="error-title">Registration Unsuccessful! We regret to inform you that your registration was not
+                        completed successfully.</h2>
                     <p class="error-description">{{ session('error') }}</p>
                     <a href="{{ url('/') }}" class="btn btn-primary mt-4">Go to Homepage</a>
                     <a href="{{ url('/register/1') }}" class="btn btn-secondary mt-4">Try Again</a>

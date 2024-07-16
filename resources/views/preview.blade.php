@@ -94,15 +94,14 @@
                         </div>
 
                         <h4 class="mb-4"><span>Payment Method</span></h4>
-
                         <div class="form-row border">
-                            @if (isset($data['payment_method']) && $data['payment_method'] == 'connectips')
+                            @if (isset($data['payment_method']) && $data['payment_method'] == 'connectIPS')
                                 <div class="col-md-3">
                                     <div class="form-check img-box payment_icon">
                                         <input class="form-check-input" type="radio" name="payment_method" id="connectips"
-                                            value="connectips"
-                                            {{ ($data['payment_method'] ?? '') == 'connectips' ? 'checked' : '' }}
-                                            style="margin-top: 30px;">
+                                            value="connectIPS"
+                                            {{ $data['payment_method'] == 'connectIPS' ? 'checked' : '' }}
+                                            style="margin-top: 15px;">
                                         <label class="form-check-label" for="connectips">
                                             <img src="{{ asset('images/connectips.png') }}" alt="ConnectIPS"
                                                 width="90">
@@ -113,9 +112,8 @@
                                 <div class="col-md-6">
                                     <div class="form-check img-box pull-left payment_icon">
                                         <input class="form-check-input" type="radio" name="payment_method" id="fonepay"
-                                            value="fonepay"
-                                            {{ ($data['payment_method'] ?? '') == 'fonepay' ? 'checked' : '' }}
-                                            style="margin-top: 30px;">
+                                            value="fonepay" {{ $data['payment_method'] == 'fonepay' ? 'checked' : '' }}
+                                            style="margin-top: 15px;">
                                         <label class="form-check-label" for="fonepay">
                                             <img src="{{ asset('images/fonepay.png') }}" alt="Fonepay" width="90">
                                         </label>
