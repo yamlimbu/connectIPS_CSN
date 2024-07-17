@@ -195,6 +195,7 @@ class EventController extends Controller
         $string = "MERCHANTID=$merchantid,APPID=$appid,APPNAME=$appname,TXNID=$txnid,TXNDATE=$currentDate,TXNCRNCY=NPR,TXNAMT=$txnamt,REFERENCEID=REF-001,REMARKS=RMKS-001,PARTICULARS=PART-001,TOKEN=TOKEN";
 
         $data = [
+            'event_name' => $event->name,
             'event_id' => $event_id,
             'nmc_registration_number' => $nmc_registration_number,
             'first_name' => $first_name,
