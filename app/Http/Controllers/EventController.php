@@ -17,7 +17,8 @@ use App\Models\Event;
 use Illuminate\Support\Facades\DB;
 use App\Models\EventRegistrationPaymentOrder;
 use App\Models\EventRegistration;
-
+use App\Mail\EventCodeMail;
+use Illuminate\Support\Facades\Mail;
 class EventController extends Controller
 {
     protected $apiService;
@@ -158,12 +159,15 @@ class EventController extends Controller
         $txnid = StringHelper::generateUniqueRandomString(18, 'payment_token', EventRegistrationHold::class);
         $paymentDetails = $this->fetchPaymentDetails($event_id, $event_category_ticket_prices_ids);
 
+
+        $ticketDetails = $this->fetchTicketDetails($event_id, $event_category_ticket_prices_ids);
+
         $priceSum = array_sum(array_column($paymentDetails, 'price'));
 
         $txnamt = $priceSum * 100;
         $combainedDetails = [
-            'Event Title' => $event->name,
-            'NMC Registration Number' => $nmc_registration_number,
+            'event_title' => $event->name,
+            'nmc_registration_number' => $nmc_registration_number,
             'first_name' => $first_name,
             'middle_name' => $middle_name,
             'last_name' => $last_name,
@@ -171,7 +175,7 @@ class EventController extends Controller
             'phone_number' => $phone_number,
             'txnamt' => $txnamt / 100,
             'payment_method' => $payment_method,
-            'Ticket Details ' => $paymentDetails
+            'ticket_details' => $ticketDetails
         ];
 
         $paymentDetailsJson = json_encode($combainedDetails, JSON_PRETTY_PRINT);
@@ -304,7 +308,6 @@ class EventController extends Controller
         }
         return $hash;
     }
-
     private function fetchPaymentDetails($event_id, $event_category_ticket_prices_ids)
     {
         //return $this->eventRegistration->fetchPaymentDetails($event_id, $event_category_ticket_ids);
@@ -344,6 +347,45 @@ class EventController extends Controller
 
         return $paymentDetails;
     }
+    private function fetchTicketDetails($event_id, $event_category_ticket_prices_ids)
+    {
+        $paymentDetails = EventCategoryTicketPrice::join('event_category_tickets', 'event_category_ticket_prices.event_category_ticket_id', '=', 'event_category_tickets.id')
+        ->join('event_categories', 'event_category_tickets.event_category_id', '=', 'event_categories.id')
+        ->join('events', 'event_categories.event_id', '=', 'events.id')
+        ->where('events.id', $event_id)
+        ->whereIn('event_category_ticket_prices.id', $event_category_ticket_prices_ids)
+        ->select(
+            'events.name as event_name',
+            'events.location as event_location',
+            'event_categories.title as category_title',
+            'event_category_tickets.title as ticket_title',
+            'event_category_ticket_prices.price'
+        )
+        ->orderBy('event_categories.id', 'asc')  // Order by category ID in ascending order
+        ->orderBy('event_category_tickets.id', 'asc')  // Order by ticket ID in ascending order
+        ->get()
+        ->groupBy('event_name')
+        ->mapWithKeys(function ($eventGroup, $eventName) {
+            return [
+                'event' => [
+                    'title' => $eventGroup->first()->event_name,
+                    'location' => $eventGroup->first()->event_location,
+                    'categories' => $eventGroup->groupBy('category_title')->map(function ($categoryGroup) {
+                        return $categoryGroup->map(function ($item) {
+                            return [
+                                'ticket' => $item->ticket_title,
+                                'price' => $item->price,
+                            ];
+                        })->sortBy('price')->values();  // Sort tickets by price
+                    })->toArray()
+                ]
+            ];
+        })
+        ->toArray();
+
+
+        return $paymentDetails;
+    }
 
     public function moveDataToEventRegistration($txnid){
 
@@ -363,6 +405,7 @@ class EventController extends Controller
                 'last_name' => $hold->last_name,
                 'email_address' => $hold->email_address,
                 'phone_number' => $hold->phone_number,
+                'payment_token' => $hold->phone_number,
             ]);
 
             // Fetch event details
@@ -378,17 +421,11 @@ class EventController extends Controller
                 'phone_number' => $hold->phone_number,
             ];
 
-            // Combine the payment details
-            $combinedPaymentDetails = $this->combinePaymentDetails(
-                $validatedData,
-                $event->title,
-                json_decode($hold->payment_details, true)
-            );
 
             // Create a new payment order record
             $paymentOrder = EventRegistrationPaymentOrder::create([
                 'event_registration_id' => $registration->id,
-                'payment_details' => $combinedPaymentDetails, // Store as JSONB
+                'payment_details' => $hold->payment_details, // Store as JSONB
                 'payment_method' => $hold->payment_method,
                 'payment_receipt' => $hold->payment_receipt, // assuming correct field
                 'payment_status' => $hold->payment_status,   // assuming correct field
@@ -402,6 +439,7 @@ class EventController extends Controller
 
             // Optionally delete the hold record
             $hold->delete();
+            Mail::to($registration->email_address)->send(new EventCodeMail($registration->event_token));
 
             return response()->json(['']);
 

@@ -19,6 +19,7 @@ class EventRegistration extends Model
         'email_address',
         'phone_number',
         'event_token',
+        'payment_token',
     ];
 
     /**
