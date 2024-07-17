@@ -405,7 +405,7 @@ class EventController extends Controller
                 'last_name' => $hold->last_name,
                 'email_address' => $hold->email_address,
                 'phone_number' => $hold->phone_number,
-                'payment_token' => $hold->phone_number,
+                'payment_token' => $hold->payment_token,
             ]);
 
             // Fetch event details
