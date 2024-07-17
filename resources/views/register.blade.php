@@ -16,11 +16,14 @@
             @endif
 
             <div class="row">
+
                 <div class="col">
+
                     <form method="POST" action="{{ route('event_register') }}">
+                    <h3 style="text-align: center;"><span>{{$data->name}}</span></h3>
                         @csrf
                         <input type="hidden" name="event_id" value="{{ $event_id }}">
-                        <h4><span>Registration Form</span></h4>
+                        <h4><span>Your details</span></h4>
                         <div class="form-row ">
                             <div class="form-group col-lg-4">
                                 <label for="nmc_registration_number">NMC Number</label>
@@ -72,7 +75,7 @@
                                 @endif
                             </div>
                         </div>
-                        <h4><span>Ticket Type</span></h4>
+                        <h4><span>Please select the ticket you want to purchase</span></h4>
 
 
                         <div class="form-row">
@@ -86,8 +89,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>Ticket</th>
-                                                    <th>Early Bird</th>
-                                                    <th>Late</th>
+                                                    <th>Early Bird (Till 20th Oct 2024)</th>
+                                                    <th>Late & On-Site</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -102,7 +105,9 @@
                                                             'Late & On-site',
                                                         );
                                                         $oldPriceId = old("event_category_ticket_prices_ids.{$category->id}", session("data.event_category_ticket_prices_ids.{$category->id}"));
-
+                                                        $cutoffDate = \Carbon\Carbon::create(2024, 10, 19);
+                                                        $currentDate = \Carbon\Carbon::now();
+                                                        $isDisabled = $currentDate->lessThan($cutoffDate);
 
                                                     @endphp
                                                     <tr>
@@ -132,7 +137,8 @@
                                                                         name="event_category_ticket_prices_ids[{{ $category->id }}]"
                                                                         id="ticket_{{ $ticket->id }}_late_onsite"
                                                                         value="{{ $lateOnsitePrice->id }}"
-                                                                        {{ $oldPriceId == $lateOnsitePrice->id ? 'checked' : '' }}>
+                                                                        {{ $oldPriceId == $lateOnsitePrice->id ? 'checked' : '' }}
+                                                                        {{ $isDisabled ? 'disabled' : '' }}>
                                                                     {{ $lateOnsitePrice->price }}
                                                                 </div>
                                                             @else
@@ -193,7 +199,7 @@
                         <div class="form-row mt-4">
                             <div class="col-md-12">
                                 <button type="submit" name="registration_form" value="submitted"
-                                    class="btn btn-primary float-right">Register Now</button>
+                                    class="btn btn-primary float-right">Register</button>
                             </div>
                         </div>
 

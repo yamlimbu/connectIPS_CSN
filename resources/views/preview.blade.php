@@ -49,7 +49,7 @@
                             </div>
                         </div>
 
-                        <h4 class="mb-4"><span>Ticket Type</span></h4>
+                        <h4 class="mb-4"><span>Ticket you want to purchase</span></h4>
 
                         <div class="form-row mb-4">
                             @foreach ($paymentDetails as $paymentDetail)
@@ -60,8 +60,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>Ticket</th>
-                                                    <th>Early Bird</th>
-                                                    <th>Late</th>
+                                                    <th>Early Bird (Till 20th Oct 2024)</th>
+                                                    <th>Late & On-Site</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -164,7 +164,7 @@
                         <div class="form-row mt-4">
                             <div class="col-md-12">
                                 <button type="submit" name="registration_form" value="submitted"
-                                    class="btn btn-primary float-right">Final Submit</button>
+                                    class="btn btn-primary float-right">Proceed to Payment</button>
                                 <a href="{{ route('event.register', 1) }}" class="btn btn-danger float-right"
                                     style="margin: 15px 10px;">Back</a>
                             </div>
