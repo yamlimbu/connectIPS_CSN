@@ -131,7 +131,7 @@
                     </div>
                 </div>
 
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <div class="counter">
 
                         <ul id="countdown">
