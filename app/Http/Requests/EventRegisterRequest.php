@@ -37,7 +37,7 @@ class EventRegisterRequest extends FormRequest
                 new AtLeastOneTicket($categories),
             ],
             'event_category_ticket_prices_ids.*' => 'exists:event_category_ticket_prices,id',
-            'payment_method' => 'required',
+            // 'payment_method' => 'required',
         ];
     }
 
@@ -51,7 +51,7 @@ class EventRegisterRequest extends FormRequest
             'email_address.required' => 'Please enter your Email Address.',
             'email_address.email' => 'Please enter a valid Email Address.',
             'phone_number.required' => 'Please enter your Phone Number.',
-            'payment_method.required' => 'Please select a Payment Method.',
+            // 'payment_method.required' => 'Please select a Payment Method.',
         ];
     }
 }

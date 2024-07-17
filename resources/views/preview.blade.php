@@ -59,9 +59,9 @@
                                         <table class="table table-bordered mt-3">
                                             <thead>
                                                 <tr>
-                                                    <th>Ticket Name</th>
+                                                    <th>Ticket</th>
                                                     <th>Early Bird</th>
-                                                    <th>Late & On-site</th>
+                                                    <th>Late</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -93,7 +93,7 @@
 
                         </div>
 
-                        <h4 class="mb-4"><span>Payment Method</span></h4>
+                        <!-- <h4 class="mb-4"><span>Payment Method</span></h4>
                         <div class="form-row border">
                             @if (isset($data['payment_method']) && $data['payment_method'] == 'connectIPS')
                                 <div class="col-md-3">
@@ -121,7 +121,7 @@
                                 </div>
                             @endif
 
-                        </div>
+                        </div> -->
 
 
 
