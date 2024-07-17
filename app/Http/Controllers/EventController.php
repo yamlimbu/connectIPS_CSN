@@ -44,23 +44,22 @@ class EventController extends Controller
 
     public function register($event_id)
     {
-        // Fetch data from the API
-        // $response = $this->apiService->get('/event/1/tickets');
+        // Fetch data from DB
 
-
-        // // // Decode the JSON response
-        // $data = $response->json('data');
-
-        $data = $event = Event::with([
+        $data = Event::with([
             'eventCategories' => function ($query) {
-                $query->with([
+                $query->orderBy('id')->with([
                     'tickets' => function ($query) {
-                        $query->with('prices');
+                        $query->orderBy('id')->with([
+                            'prices' => function ($query) {
+                                $query->orderBy('id');
+                            }
+                        ]);
                     }
                 ]);
             }
-        ])
-            ->find($event_id);
+        ])->findOrFail($event_id);
+
 
         // Pass data to the view
         return view('register', compact('data', 'event_id'));
@@ -117,19 +116,9 @@ class EventController extends Controller
                 'transaction_id' => $request->input('transaction_id'),
             ];
 
-            // dd($postdata);
-            // $response = $this->apiService->post('/event/register', $postdata);
-
             return redirect(route('success'));
 
 
-            // dd($response->json());
-
-            // if ($response->successful()) {
-            //     return redirect()->back()->with('success', 'Registration successful!');
-            // } else {
-            //     return redirect()->back()->withErrors(['error' => 'Registration failed. Please try again.'])->withInput();
-            // }
         }
     }
 
@@ -243,7 +232,8 @@ class EventController extends Controller
 
         // Set a success message in the session
         session()->flash('success', "Transaction has been successfully completed.");
-
+        // Clear the session data
+        session()->forget('data');
         // Return the success view
         return view('success');
     }
@@ -334,6 +324,8 @@ class EventController extends Controller
                 'event_category_ticket_prices.id as ticket_price_id',
                 'event_category_ticket_prices.event_category_ticket_name as event_category_ticket_name'
             )
+            ->orderBy('event_categories.id', 'asc') // Order by start date in ascending order
+            ->orderBy('event_category_tickets.id', 'asc') // Order by price in descending order
             ->get()
             ->map(function ($item) {
                 return [

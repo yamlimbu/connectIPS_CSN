@@ -26,7 +26,7 @@
                                 <label for="nmc_registration_number">NMC Number</label>
                                 <input type="text" class="form-control" id="nmc_registration_number"
                                     name="nmc_registration_number" placeholder=""
-                                    value="{{ old('nmc_registration_number') }}">
+                                    value="{{ old('nmc_registration_number', session('data.nmc_registration_number')) }}">
                                 @if ($errors->has('nmc_registration_number'))
                                     <span class="text-danger">{{ $errors->first('nmc_registration_number') }}</span>
                                 @endif
@@ -34,7 +34,7 @@
                             <div class="form-group col-lg-4">
                                 <label for="first_name">First Name</label>
                                 <input type="text" class="form-control" id="first_name" name="first_name" placeholder=""
-                                    value="{{ old('first_name') }}">
+                                    value="{{ old('first_name', session('data.first_name')) }}">
                                 @if ($errors->has('first_name'))
                                     <span class="text-danger">{{ $errors->first('first_name') }}</span>
                                 @endif
@@ -42,7 +42,7 @@
                             <div class="form-group col-lg-4">
                                 <label for="middle_name">Middle Name</label>
                                 <input type="text" class="form-control" id="middle_name" name="middle_name"
-                                    placeholder="" value="{{ old('middle_name') }}">
+                                    placeholder="" value="{{ old('middle_name', session('data.middle_name')) }}">
                                 @if ($errors->has('middle_name'))
                                     <span class="text-danger">{{ $errors->first('middle_name') }}</span>
                                 @endif
@@ -50,15 +50,15 @@
                             <div class="form-group col-lg-4">
                                 <label for="last_name">Last Name</label>
                                 <input type="text" class="form-control" id="last_name" name="last_name" placeholder=""
-                                    value="{{ old('last_name') }}">
+                                    value="{{ old('last_name', session('data.last_name')) }}">
                                 @if ($errors->has('last_name'))
-                                    <span class="text-danger">{{ $errors->first('last_name') }}</span>
+                                    <span class="text-danger">{{ $errors->first('last_name', session('data.last_name')) }}</span>
                                 @endif
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="email_address">Email Address</label>
                                 <input type="text" class="form-control" id="email_address" name="email_address"
-                                    placeholder="" value="{{ old('email_address') }}">
+                                    placeholder="" value="{{ old('email_address', session('data.email_address')) }}">
                                 @if ($errors->has('email_address'))
                                     <span class="text-danger">{{ $errors->first('email_address') }}</span>
                                 @endif
@@ -66,7 +66,7 @@
                             <div class="form-group col-lg-4">
                                 <label for="phone_number">Phone Number</label>
                                 <input type="text" class="form-control" id="phone_number" name="phone_number"
-                                    placeholder="" value="{{ old('phone_number') }}">
+                                    placeholder="" value="{{ old('phone_number',session('data.phone_number')) }}">
                                 @if ($errors->has('phone_number'))
                                     <span class="text-danger">{{ $errors->first('phone_number') }}</span>
                                 @endif
@@ -85,9 +85,9 @@
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Ticket Name</th>
+                                                    <th>Ticket</th>
                                                     <th>Early Bird</th>
-                                                    <th>Late &amp; On-site</th>
+                                                    <th>Late</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -101,9 +101,8 @@
                                                             'event_category_ticket_name',
                                                             'Late & On-site',
                                                         );
-                                                        $oldPriceId = old(
-                                                            "event_category_ticket_prices_ids.{$category->id}",
-                                                        );
+                                                        $oldPriceId = old("event_category_ticket_prices_ids.{$category->id}", session("data.event_category_ticket_prices_ids.{$category->id}"));
+
 
                                                     @endphp
                                                     <tr>
@@ -153,7 +152,7 @@
 
 
 
-                        <h4>
+                        <!-- <h4>
                             <span>Payment Method</span>
                         </h4>
                         <div class="form-row border">
@@ -180,7 +179,7 @@
                             @if ($errors->has('payment_method'))
                                 <span class="text-danger">{{ $errors->first('payment_method') }}</span>
                             @endif
-                        </div>
+                        </div> -->
 
 
 
