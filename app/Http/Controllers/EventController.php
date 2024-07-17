@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Session;
 use App\Models\EventCategoryTicket;
 use App\Models\EventCategoryTicketPrice;
 use App\Models\Event;
+use Illuminate\Support\Facades\DB;
+use App\Models\EventRegistrationPaymentOrder;
+use App\Models\EventRegistration;
+
 class EventController extends Controller
 {
     protected $apiService;
@@ -47,7 +51,7 @@ class EventController extends Controller
         // // // Decode the JSON response
         // $data = $response->json('data');
 
-        $data =$event = Event::with([
+        $data = $event = Event::with([
             'eventCategories' => function ($query) {
                 $query->with([
                     'tickets' => function ($query) {
@@ -56,7 +60,7 @@ class EventController extends Controller
                 ]);
             }
         ])
-        ->find($event_id);
+            ->find($event_id);
 
         // Pass data to the view
         return view('register', compact('data', 'event_id'));
@@ -87,7 +91,6 @@ class EventController extends Controller
             $request->session()->put('data', $validatedData);
 
             return redirect()->route('preview');
-
         }
     }
 
@@ -141,7 +144,7 @@ class EventController extends Controller
         $txncrncy = config('app.txncrncy');
         $payment_data = session('data');
 
-          // Check if $paymentData is not empty
+        // Check if $paymentData is not empty
         if (empty($payment_data)) {
             return redirect()->route('register/1')->withErrors('No payment data found for preview.');
         }
@@ -177,7 +180,7 @@ class EventController extends Controller
             'last_name' => $last_name,
             'email_address' => $email_address,
             'phone_number' => $phone_number,
-            'txnamt' => $txnamt/100,
+            'txnamt' => $txnamt / 100,
             'payment_method' => $payment_method,
             'Ticket Details ' => $paymentDetails
         ];
@@ -195,8 +198,8 @@ class EventController extends Controller
             'phone_number' => $phone_number,
             'payment_details' => $paymentDetailsJson,
             'payment_method' => $payment_method,
-            'payment_token' =>$txnid,
-            'total_amount' => $txnamt/100,
+            'payment_token' => $txnid,
+            'total_amount' => $txnamt / 100,
             'status' => 'not_submitted',
         ]);
 
@@ -224,8 +227,20 @@ class EventController extends Controller
         return view('preview', compact('data', 'tickets', 'paymentDetails'));
     }
 
-    public function success()
+    public function success(Request $request)
     {
+        $txnid = $request->query('TXNID');
+        $hold = EventRegistrationHold::where('payment_token', $txnid)->first();
+
+        // Check if the hold record was found
+        if (!$hold) {
+
+            // If not found, redirect to home page with an error message
+            return redirect('/')->with('status', 'Event registration hold record not found.');
+
+        }
+        $this->moveDataToEventRegistration($txnid);
+
         // Set a success message in the session
         session()->flash('success', "Transaction has been successfully completed.");
 
@@ -234,13 +249,25 @@ class EventController extends Controller
     }
 
 
-    public function fail()
+    public function fail(Request $request)
     {
-        // Set a success message in the session
-        session()->flash('error', "Transaction has been terminated.");
+       // Fetch the transaction ID from the request query parameters
+       $txnid = $request->query('TXNID');
 
-        // Return the success view
-        return view('fail');
+       // Optionally, fetch the hold record based on the transaction ID
+       $hold = EventRegistrationHold::where('payment_token', $txnid)->first();
+
+       // Check if the hold record exists
+       if ($hold) {
+           // Delete the hold record to clean up stale data
+           $hold->delete();
+       }
+       // Set a success message in the session
+
+       session()->flash('error', "Transaction has been terminated.");
+
+       // Return the success view
+       return view('fail');
     }
     function generateHash($string)
     {
@@ -292,40 +319,120 @@ class EventController extends Controller
         //return $this->eventRegistration->fetchPaymentDetails($event_id, $event_category_ticket_ids);
 
         $paymentDetails = EventCategoryTicketPrice::join('event_category_tickets', 'event_category_ticket_prices.event_category_ticket_id', '=', 'event_category_tickets.id')
-    ->join('event_categories', 'event_category_tickets.event_category_id', '=', 'event_categories.id')
-    ->join('events', 'event_categories.event_id', '=', 'events.id')
-    ->where('events.id', $event_id)
-    ->whereIn('event_category_ticket_prices.id', $event_category_ticket_prices_ids)
-    ->select(
-        'event_categories.title as category_title',
-        'event_category_tickets.id as ticket_id',
-        'event_category_tickets.title',
-        'event_category_tickets.location',
-        'event_category_tickets.start_date',
-        'event_category_tickets.end_date',
-        'event_category_ticket_prices.price',
-        'event_category_ticket_prices.id as ticket_price_id',
-        'event_category_ticket_prices.event_category_ticket_name as event_category_ticket_name'
-    )
-    ->get()
-    ->map(function ($item) {
-        return [
-            'category_title' => $item->category_title,
-            'ticket_id' => $item->ticket_id,
-            'title' => $item->title,
-            'location' => $item->location,
-            'start_date' => $item->start_date,
-            'end_date' => $item->end_date,
-            'price' => $item->price,
-            'event_category_ticket_name' => $item->event_category_ticket_name,
-        ];
-    })
-    ->toArray();
+            ->join('event_categories', 'event_category_tickets.event_category_id', '=', 'event_categories.id')
+            ->join('events', 'event_categories.event_id', '=', 'events.id')
+            ->where('events.id', $event_id)
+            ->whereIn('event_category_ticket_prices.id', $event_category_ticket_prices_ids)
+            ->select(
+                'event_categories.title as category_title',
+                'event_category_tickets.id as ticket_id',
+                'event_category_tickets.title',
+                'event_category_tickets.location',
+                'event_category_tickets.start_date',
+                'event_category_tickets.end_date',
+                'event_category_ticket_prices.price',
+                'event_category_ticket_prices.id as ticket_price_id',
+                'event_category_ticket_prices.event_category_ticket_name as event_category_ticket_name'
+            )
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'category_title' => $item->category_title,
+                    'ticket_id' => $item->ticket_id,
+                    'title' => $item->title,
+                    'location' => $item->location,
+                    'start_date' => $item->start_date,
+                    'end_date' => $item->end_date,
+                    'price' => $item->price,
+                    'event_category_ticket_name' => $item->event_category_ticket_name,
+                ];
+            })
+            ->toArray();
 
-return $paymentDetails;
+        return $paymentDetails;
+    }
+
+    public function moveDataToEventRegistration($txnid){
+
+        try {
+            // Start transaction
+            DB::beginTransaction();
+
+            // Fetch data from event registration hold
+            $hold = EventRegistrationHold::where('payment_token', $txnid)->first();
+
+            // Create a new event registration record
+            $registration = EventRegistration::create([
+                'event_id' => $hold->event_id,
+                'nmc_registration_number' => $hold->nmc_registration_number,
+                'first_name' => $hold->first_name,
+                'middle_name' => $hold->middle_name,
+                'last_name' => $hold->last_name,
+                'email_address' => $hold->email_address,
+                'phone_number' => $hold->phone_number,
+            ]);
+
+            // Fetch event details
+            $event = Event::findOrFail($hold->event_id);
+
+            // Prepare validated data
+            $validatedData = [
+                'nmc_registration_number' => $hold->nmc_registration_number,
+                'first_name' => $hold->first_name,
+                'middle_name' => $hold->middle_name,
+                'last_name' => $hold->last_name,
+                'email_address' => $hold->email_address,
+                'phone_number' => $hold->phone_number,
+            ];
+
+            // Combine the payment details
+            $combinedPaymentDetails = $this->combinePaymentDetails(
+                $validatedData,
+                $event->title,
+                json_decode($hold->payment_details, true)
+            );
+
+            // Create a new payment order record
+            $paymentOrder = EventRegistrationPaymentOrder::create([
+                'event_registration_id' => $registration->id,
+                'payment_details' => $combinedPaymentDetails, // Store as JSONB
+                'payment_method' => $hold->payment_method,
+                'payment_receipt' => $hold->payment_receipt, // assuming correct field
+                'payment_status' => $hold->payment_status,   // assuming correct field
+                'transaction_id' => $txnid,
+                'total_amount' => $hold->total_amount,
+                'payment_date' => now(),
+            ]);
+
+            // Commit transaction
+            DB::commit();
+
+            // Optionally delete the hold record
+            $hold->delete();
+
+            return response()->json(['']);
+
+        } catch (Exception $e) {
+            // Rollback transaction on error
+            DB::rollBack();
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+        }
+
+
 
     }
 
-
-
+    public function combinePaymentDetails($validatedData, $eventTitle, $paymentDetails)
+    {
+        return [
+            'nmc_registration_number' => $validatedData['nmc_registration_number'],
+            'first_name' => $validatedData['first_name'],
+            'middle_name' => $validatedData['middle_name'],
+            'last_name' => $validatedData['last_name'],
+            'email_address' => $validatedData['email_address'],
+            'phone_number' => $validatedData['phone_number'],
+            'event_title' => $eventTitle,
+            'payment_details' => $paymentDetails,
+        ];
+    }
 }

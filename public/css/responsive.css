@@ -165,3 +165,36 @@
     max-width: 1170px;
   }
 }
+
+
+/* Ensure responsiveness */
+@media (max-width: 767px) {
+  .counter {
+    padding: 15px;
+    /* Adjust padding for smaller screens */
+  }
+
+  .image-container img {
+    width: 100%;
+    /* Make images responsive */
+    max-width: 150px;
+    padding-top: 15px;
+    /* Maintain a maximum width */
+  }
+
+
+}
+
+@media (max-width: 575px) {
+  .counter {
+    padding: 10px;
+    /* Further adjust padding for very small screens */
+  }
+
+  .image-container img {
+    width: 100%;
+    /* Ensure images are fully responsive */
+    max-width: 120px;
+    /* Reduce max width on very small screens */
+  }
+}

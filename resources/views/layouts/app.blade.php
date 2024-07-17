@@ -66,7 +66,7 @@
     <!-- datepicker -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
 
-    <script type="text/javascript" src="https://csn.checkout.com.np/frontend/js/jquery.countdown.js"></script>
+    <script src="{{ asset('js/countdown.js') }}"></script>
 
 
     <!-- custom js -->
