@@ -16,8 +16,7 @@ class EventRegisterRequest extends FormRequest
     public function rules()
     {
         $event_id = $this->input('event_id');
-        $categories = EventCategory::pluck('id')->toArray();
-
+        $categories = EventCategory::all();
         return [
             'nmc_registration_number' => 'required|string',
             'first_name' => 'required|string',
@@ -32,10 +31,10 @@ class EventRegisterRequest extends FormRequest
                 }),
             ],
             'phone_number' => 'required|string',
-            'event_category_ticket_prices_ids' => [
-                        'required',
-                        'array',
-                        new AtLeastOneTicket($categories),
+'event_category_ticket_prices_ids' => [
+                'required',
+                'array',
+                new AtLeastOneTicket($categories),
             ],
             'event_category_ticket_prices_ids.*' => 'exists:event_category_ticket_prices,id',
             'payment_method' => 'required',
@@ -45,7 +44,7 @@ class EventRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'event_category_ticket_prices_ids.required' => 'You must select at least one ticket type.',
+            'event_category_ticket_prices_ids.required' => 'Please select a ticket type',
             'nmc_registration_number.required' => 'Please enter your NMC Registration Number.',
             'first_name.required' => 'Please enter your First Name.',
             'last_name.required' => 'Please enter your Last Name.',

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
@@ -14,17 +15,19 @@ class AtLeastOneTicket implements Rule
 
     public function passes($attribute, $value)
     {
-        foreach ($this->categories as $categoryId) {
-            if (!array_key_exists($categoryId, $value)) {
-                return false;
+        foreach ($this->categories as $category) {
+            $categoryId = is_object($category) ? $category->id : $category;
+
+            if (array_key_exists($categoryId, $value) && !empty($value[$categoryId])) {
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     public function message()
     {
-        return 'You must select at least one ticket from each category.';
+        return 'At least one ticket must be selected from all categories.';
     }
 }

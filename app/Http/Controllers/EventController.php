@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Session;
 use App\Models\EventCategoryTicket;
 use App\Models\EventCategoryTicketPrice;
 use App\Models\Event;
+use Illuminate\Support\Facades\DB;
+use App\Models\EventRegistrationPaymentOrder;
+use App\Models\EventRegistration;
 
 class EventController extends Controller
 {
@@ -224,8 +227,20 @@ class EventController extends Controller
         return view('preview', compact('data', 'tickets', 'paymentDetails'));
     }
 
-    public function success()
+    public function success(Request $request)
     {
+        $txnid = $request->query('TXNID');
+        $hold = EventRegistrationHold::where('payment_token', $txnid)->first();
+
+        // Check if the hold record was found
+        if (!$hold) {
+
+            // If not found, redirect to home page with an error message
+            return redirect('/')->with('status', 'Event registration hold record not found.');
+
+        }
+        $this->moveDataToEventRegistration($txnid);
+
         // Set a success message in the session
         session()->flash('success', "Transaction has been successfully completed.");
 
@@ -234,13 +249,25 @@ class EventController extends Controller
     }
 
 
-    public function fail()
+    public function fail(Request $request)
     {
-        // Set a success message in the session
-        session()->flash('error', "Transaction has been terminated.");
+       // Fetch the transaction ID from the request query parameters
+       $txnid = $request->query('TXNID');
 
-        // Return the success view
-        return view('fail');
+       // Optionally, fetch the hold record based on the transaction ID
+       $hold = EventRegistrationHold::where('payment_token', $txnid)->first();
+
+       // Check if the hold record exists
+       if ($hold) {
+           // Delete the hold record to clean up stale data
+           $hold->delete();
+       }
+       // Set a success message in the session
+
+       session()->flash('error', "Transaction has been terminated.");
+
+       // Return the success view
+       return view('fail');
     }
     function generateHash($string)
     {
@@ -323,5 +350,89 @@ class EventController extends Controller
             ->toArray();
 
         return $paymentDetails;
+    }
+
+    public function moveDataToEventRegistration($txnid){
+
+        try {
+            // Start transaction
+            DB::beginTransaction();
+
+            // Fetch data from event registration hold
+            $hold = EventRegistrationHold::where('payment_token', $txnid)->first();
+
+            // Create a new event registration record
+            $registration = EventRegistration::create([
+                'event_id' => $hold->event_id,
+                'nmc_registration_number' => $hold->nmc_registration_number,
+                'first_name' => $hold->first_name,
+                'middle_name' => $hold->middle_name,
+                'last_name' => $hold->last_name,
+                'email_address' => $hold->email_address,
+                'phone_number' => $hold->phone_number,
+            ]);
+
+            // Fetch event details
+            $event = Event::findOrFail($hold->event_id);
+
+            // Prepare validated data
+            $validatedData = [
+                'nmc_registration_number' => $hold->nmc_registration_number,
+                'first_name' => $hold->first_name,
+                'middle_name' => $hold->middle_name,
+                'last_name' => $hold->last_name,
+                'email_address' => $hold->email_address,
+                'phone_number' => $hold->phone_number,
+            ];
+
+            // Combine the payment details
+            $combinedPaymentDetails = $this->combinePaymentDetails(
+                $validatedData,
+                $event->title,
+                json_decode($hold->payment_details, true)
+            );
+
+            // Create a new payment order record
+            $paymentOrder = EventRegistrationPaymentOrder::create([
+                'event_registration_id' => $registration->id,
+                'payment_details' => $combinedPaymentDetails, // Store as JSONB
+                'payment_method' => $hold->payment_method,
+                'payment_receipt' => $hold->payment_receipt, // assuming correct field
+                'payment_status' => $hold->payment_status,   // assuming correct field
+                'transaction_id' => $txnid,
+                'total_amount' => $hold->total_amount,
+                'payment_date' => now(),
+            ]);
+
+            // Commit transaction
+            DB::commit();
+
+            // Optionally delete the hold record
+            $hold->delete();
+
+            return response()->json(['']);
+
+        } catch (Exception $e) {
+            // Rollback transaction on error
+            DB::rollBack();
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
+        }
+
+
+
+    }
+
+    public function combinePaymentDetails($validatedData, $eventTitle, $paymentDetails)
+    {
+        return [
+            'nmc_registration_number' => $validatedData['nmc_registration_number'],
+            'first_name' => $validatedData['first_name'],
+            'middle_name' => $validatedData['middle_name'],
+            'last_name' => $validatedData['last_name'],
+            'email_address' => $validatedData['email_address'],
+            'phone_number' => $validatedData['phone_number'],
+            'event_title' => $eventTitle,
+            'payment_details' => $paymentDetails,
+        ];
     }
 }
