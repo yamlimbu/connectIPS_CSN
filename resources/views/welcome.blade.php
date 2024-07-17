@@ -75,13 +75,13 @@
                 <div class="col-md-5">
                     <div class="img-box">
                         <img width="700" src="images/slider-img.jpg"
-                            alt="XXII Internation Congress On Management Of Cardiovascular Disease">
+                            alt="XXII International Congress On Management Of Cardiovascular Disease">
                     </div>
                 </div>
                 <div class="col-md-7">
                     <div class="detail-box">
                         <h3>
-                            XXII Internation Congress On Management Of Cardiovascular Disease
+                            XXII International Congress On Management Of Cardiovascular Disease
                         </h3>
                         <p>
                             <strong>Date:</strong>
@@ -94,14 +94,7 @@
                         <p>
                             Conquering heart disease in the himalayan region
                         </p>
-                        <p>
-                            <strong>Registration Fee</strong></p>
-                            <p>Life Member of CSN: 10000</p>
-                            <p>Nepali Delegates: 12000</p>
-                            <p>Nurses / Residents: 5000</p>
-                            <p>Alied Cardiovascular Specialists: 5000</p>
-                            <p>International Delegates: USD 120</p>
-                            <p>Delegates from Saarc Countries: USD 100</p>
+
                         <a href="{{ route('event.register', 1) }}">
                             Register Now
                         </a>
