@@ -5,9 +5,10 @@
             <div class="row">
                 <div class="col">
                     <form method="POST" action="{{ config('app.connect_ips_baseurl') }}">
+                    <h3 style="text-align: center;"><span>{{$data['event_name']}}</span></h3>
                         @csrf
                         <input type="hidden" name="event_id" value="1">
-                        <h4 class="mb-4"><span>Registration Form Preview</span></h4>
+                        <h4 class="mb-4"><span>Your Details</span></h4>
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label for="nmc_registration_number"><strong>NMC Number</strong> </label>:-
