@@ -75,30 +75,33 @@
                 <div class="col-md-5">
                     <div class="img-box">
                         <img width="700" src="images/slider-img.jpg"
-                            alt="XII Internation Congress On Management Of Cardiovascular Disease">
+                            alt="XXII Internation Congress On Management Of Cardiovascular Disease">
                     </div>
                 </div>
                 <div class="col-md-7">
                     <div class="detail-box">
                         <h3>
-                            XII Internation Congress On Management Of Cardiovascular Disease
+                            XXII Internation Congress On Management Of Cardiovascular Disease
                         </h3>
                         <p>
-                            <strong>Start Date:</strong>
-                            July 3, 2024
-                        </p>
-                        <p>
-                            <strong>End Date:</strong>
-                            August 9, 2024
+                            <strong>Date:</strong>
+                            25 - 26 October 2024
                         </p>
                         <p>
                             <strong>Venue:</strong>
-                            Kathmandu nepal
+                            Kathmandu Nepal
                         </p>
                         <p>
-                            When looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                            distribution of letters, as opposed to
+                            Conquering heart disease in the himalayan region
                         </p>
+                        <p>
+                            <strong>Registration Fee</strong></p>
+                            <p>Life Member of CSN: 10000</p>
+                            <p>Nepali Delegates: 12000</p>
+                            <p>Nurses / Residents: 5000</p>
+                            <p>Alied Cardiovascular Specialists: 5000</p>
+                            <p>International Delegates: USD 120</p>
+                            <p>Delegates from Saarc Countries: USD 100</p>
                         <a href="{{ route('event.register', 1) }}">
                             Register Now
                         </a>
