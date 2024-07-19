@@ -19,6 +19,7 @@ use App\Models\EventRegistrationPaymentOrder;
 use App\Models\EventRegistration;
 use App\Mail\EventCodeMail;
 use Illuminate\Support\Facades\Mail;
+
 class EventController extends Controller
 {
     protected $apiService;
@@ -118,8 +119,6 @@ class EventController extends Controller
             ];
 
             return redirect(route('success'));
-
-
         }
     }
 
@@ -214,6 +213,7 @@ class EventController extends Controller
             'currentDate' => $currentDate,
             'txnamt' => $txnamt,
             'token' => $this->generateHash($string),
+            'token' => 'sss',
             'payment_method' => $payment_method,
             'event_category_ticket_prices_ids' => $payment_data['event_category_ticket_prices_ids']
         ];
@@ -231,7 +231,6 @@ class EventController extends Controller
 
             // If not found, redirect to home page with an error message
             return redirect('/')->with('status', 'Event registration hold record not found.');
-
         }
         $this->moveDataToEventRegistration($txnid);
 
@@ -246,23 +245,23 @@ class EventController extends Controller
 
     public function fail(Request $request)
     {
-       // Fetch the transaction ID from the request query parameters
-       $txnid = $request->query('TXNID');
+        // Fetch the transaction ID from the request query parameters
+        $txnid = $request->query('TXNID');
 
-       // Optionally, fetch the hold record based on the transaction ID
-       $hold = EventRegistrationHold::where('payment_token', $txnid)->first();
+        // Optionally, fetch the hold record based on the transaction ID
+        $hold = EventRegistrationHold::where('payment_token', $txnid)->first();
 
-       // Check if the hold record exists
-       if ($hold) {
-           // Delete the hold record to clean up stale data
-           $hold->delete();
-       }
-       // Set a success message in the session
+        // Check if the hold record exists
+        if ($hold) {
+            // Delete the hold record to clean up stale data
+            $hold->delete();
+        }
+        // Set a success message in the session
 
-       session()->flash('error', "Transaction has been terminated.");
+        session()->flash('error', "Transaction has been terminated.");
 
-       // Return the success view
-       return view('fail');
+        // Return the success view
+        return view('fail');
     }
     function generateHash($string)
     {
@@ -350,44 +349,45 @@ class EventController extends Controller
     private function fetchTicketDetails($event_id, $event_category_ticket_prices_ids)
     {
         $paymentDetails = EventCategoryTicketPrice::join('event_category_tickets', 'event_category_ticket_prices.event_category_ticket_id', '=', 'event_category_tickets.id')
-        ->join('event_categories', 'event_category_tickets.event_category_id', '=', 'event_categories.id')
-        ->join('events', 'event_categories.event_id', '=', 'events.id')
-        ->where('events.id', $event_id)
-        ->whereIn('event_category_ticket_prices.id', $event_category_ticket_prices_ids)
-        ->select(
-            'events.name as event_name',
-            'events.location as event_location',
-            'event_categories.title as category_title',
-            'event_category_tickets.title as ticket_title',
-            'event_category_ticket_prices.price'
-        )
-        ->orderBy('event_categories.id', 'asc')  // Order by category ID in ascending order
-        ->orderBy('event_category_tickets.id', 'asc')  // Order by ticket ID in ascending order
-        ->get()
-        ->groupBy('event_name')
-        ->mapWithKeys(function ($eventGroup, $eventName) {
-            return [
-                'event' => [
-                    'title' => $eventGroup->first()->event_name,
-                    'location' => $eventGroup->first()->event_location,
-                    'categories' => $eventGroup->groupBy('category_title')->map(function ($categoryGroup) {
-                        return $categoryGroup->map(function ($item) {
-                            return [
-                                'ticket' => $item->ticket_title,
-                                'price' => $item->price,
-                            ];
-                        })->sortBy('price')->values();  // Sort tickets by price
-                    })->toArray()
-                ]
-            ];
-        })
-        ->toArray();
+            ->join('event_categories', 'event_category_tickets.event_category_id', '=', 'event_categories.id')
+            ->join('events', 'event_categories.event_id', '=', 'events.id')
+            ->where('events.id', $event_id)
+            ->whereIn('event_category_ticket_prices.id', $event_category_ticket_prices_ids)
+            ->select(
+                'events.name as event_name',
+                'events.location as event_location',
+                'event_categories.title as category_title',
+                'event_category_tickets.title as ticket_title',
+                'event_category_ticket_prices.price'
+            )
+            ->orderBy('event_categories.id', 'asc')  // Order by category ID in ascending order
+            ->orderBy('event_category_tickets.id', 'asc')  // Order by ticket ID in ascending order
+            ->get()
+            ->groupBy('event_name')
+            ->mapWithKeys(function ($eventGroup, $eventName) {
+                return [
+                    'event' => [
+                        'title' => $eventGroup->first()->event_name,
+                        'location' => $eventGroup->first()->event_location,
+                        'categories' => $eventGroup->groupBy('category_title')->map(function ($categoryGroup) {
+                            return $categoryGroup->map(function ($item) {
+                                return [
+                                    'ticket' => $item->ticket_title,
+                                    'price' => $item->price,
+                                ];
+                            })->sortBy('price')->values();  // Sort tickets by price
+                        })->toArray()
+                    ]
+                ];
+            })
+            ->toArray();
 
 
         return $paymentDetails;
     }
 
-    public function moveDataToEventRegistration($txnid){
+    public function moveDataToEventRegistration($txnid)
+    {
 
         try {
             // Start transaction
@@ -442,15 +442,11 @@ class EventController extends Controller
             Mail::to($registration->email_address)->send(new EventCodeMail($registration->event_token));
 
             return response()->json(['']);
-
         } catch (Exception $e) {
             // Rollback transaction on error
             DB::rollBack();
             return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
         }
-
-
-
     }
 
     public function combinePaymentDetails($validatedData, $eventTitle, $paymentDetails)
