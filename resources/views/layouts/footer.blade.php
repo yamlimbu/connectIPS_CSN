@@ -62,7 +62,7 @@
  <!-- end info_section -->
 
  <!-- footer section -->
- <footer class="footer_section bg-light text-center p-3">
+ <footer class="footer-section text-center p-3">
      <div class="container">
          &copy; <span id="displayYear"></span> CSN All Rights Reserved.
      </div>

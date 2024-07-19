@@ -73,15 +73,15 @@ use Illuminate\Support\Str;
         <div class="row h-100 align-content-center justify-content-between">
             <div class="col-md-7">
                 <div class="detail-box py-4 py-md-0">
-                    <p class="banner-title small-text fw-bold text-uppercase">Conquering heart disease in the himalayan region</p>
+                    <p class="banner-title small-text fw-bold mb-1 mb-md-2">Conquering heart disease in the himalayan region</p>
 
-                    <h3 class="banner-title extra-bold">XXII International Congress On <br> Management Of Cardiovascular Disease</h3>
+                    <h3 class="banner-title main">XXII International Congress On <br> Management Of Cardiovascular Disease</h3>
 
-                    <p>
+                    <p class="mb-1">
                         <strong>Date:</strong>
                         25 - 26 October 2024
                     </p>
-                    <p>
+                    <p class="mb-2 mb-md-4">
                         <strong>Venue:</strong>
                         Kathmandu, Nepal
                     </p>
@@ -111,29 +111,30 @@ use Illuminate\Support\Str;
                     </a> -->
                 </div>
             </div>
-            <div class="col-md-4 align-self-center">
+            <div class="col-md-4 align-self-center pb-4 pb-md-0">
                 <div class="card">
                     <div class="card-body reg-fee">
                         <div class="overlay-img"></div>
                         <div class="fee-content">
-                            <div class="banner-title extra-bold text-uppercase mb-3">Registration Fee</div>
-                            <div class="mb-2">
+                            <div class="banner-title fw-bold text-uppercase mb-2 mb-md-3">Registration Fee</div>
+                            <div class="mb-1 mb-md-2">
                                 <span class="fw-bold">CSN Members:-</span>
                                 <span>Rs 10000</span>
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-1 mb-md-2">
                                 <span class="fw-bold">Delegates:-</span>
                                 <span>Rs 12000</span>
                             </div>
-                           
-                            <div class="mb-2">
+
+                            <div class="mb-1 mb-md-2">
                                 <span class="fw-bold">Residents/Fellow:-</span>
                                 <span>Rs 5000</span>
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-3 mb-md-2">
                                 <span class="fw-bold">Cardiovascular Specialists:-</span>
                                 <span>Rs 5000</span>
                             </div>
+                            <a href="http://127.0.0.1:8000/register/1" class="btn btn-navy text-danger d-md-none">Register Now</a>
                         </div>
                     </div>
                 </div>
@@ -143,16 +144,16 @@ use Illuminate\Support\Str;
     </div>
 </section>
 
-<section class="pt-5">
+<section class="py-4 py-md-5">
     <div class="container">
         <div class="payment-section">
-            <div class="mb-4">
-                <h3>Payment Options </h3>
+            <div class="mb-4 text-center">
+                <h3 class="mb-1">Payment Options </h3>
                 <div class="line"></div>
             </div>
             <div class="card payment border-0">
-                <div class="card-body">
-                    <div class="payment-methods d-flex gap-2">
+                <div class="card-body p-0">
+                    <div class="payment-methods d-flex gap-2 justify-content-center w-100">
                         <div class="image-box">
                             <img src="{{ asset('images/connectips.png') }}" alt="Connect IPS">
                         </div>
@@ -160,7 +161,6 @@ use Illuminate\Support\Str;
                             <img src="{{ asset('images/fonepay.png') }}" alt="Fonepay">
                         </div>
                     </div>
-                    <div class="overlay-img"></div>
                 </div>
             </div>
         </div>
