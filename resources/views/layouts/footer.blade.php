@@ -62,11 +62,9 @@
  <!-- end info_section -->
 
  <!-- footer section -->
- <footer class="footer_section">
+ <footer class="footer_section bg-light text-center p-3">
      <div class="container">
-         <p>
-             &copy; <span id="displayYear"></span> CSN All Rights Reserved.
-         </p>
+         &copy; <span id="displayYear"></span> CSN All Rights Reserved.
      </div>
  </footer>
  <!-- footer section -->
