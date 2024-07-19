@@ -12,7 +12,8 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>CSN</title>
+    <title>Cardiac Society of Nepal :: XXII International Congress On
+    Management Of Cardiovascular Disease</title>
 
     <link rel="shortcut icon" type="image" href="{{ asset('images/favicon.png') }}" />
 
