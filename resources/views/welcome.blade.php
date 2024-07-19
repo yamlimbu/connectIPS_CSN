@@ -72,7 +72,7 @@ use Illuminate\Support\Str;
     <div class="container h-100">
         <div class="row h-100 align-content-center justify-content-between">
             <div class="col-md-7">
-                <div class="detail-box py-4 py-md-0">
+                <div class="detail-box py-4 py-md-0 mb-4 mb-md-0">
                     <p class="banner-title small-text fw-bold mb-1 mb-md-2">Conquering heart disease in the himalayan region</p>
 
                     <h3 class="banner-title main">XXII International Congress On <br> Management Of Cardiovascular Disease</h3>
