@@ -36,7 +36,7 @@
                     <img src="{{ asset('images/logo.png') }}" alt="">
                     <div class="brand-title">
                         <span>Cardiac Society of Nepal</span> <br>
-                        <span class="text-danger">Regional Conference</span>
+                        <span class="text-danger">International Conference</span>
                     </div>
                 </a>
 

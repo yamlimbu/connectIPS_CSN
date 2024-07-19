@@ -118,16 +118,21 @@ use Illuminate\Support\Str;
                         <div class="fee-content">
                             <div class="banner-title extra-bold text-uppercase mb-3">Registration Fee</div>
                             <div class="mb-2">
-                                <span class="fw-bold">Delegates:-</span>
-                                <span>Rs 3000</span>
+                                <span class="fw-bold">CSN Members:-</span>
+                                <span>Rs 10000</span>
                             </div>
                             <div class="mb-2">
-                                <span class="fw-bold">CSN Members:-</span>
-                                <span>Rs 2000</span>
+                                <span class="fw-bold">Delegates:-</span>
+                                <span>Rs 12000</span>
                             </div>
+                           
                             <div class="mb-2">
                                 <span class="fw-bold">Residents/Fellow:-</span>
-                                <span>Rs 1000</span>
+                                <span>Rs 5000</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="fw-bold">Cardiovascular Specialists:-</span>
+                                <span>Rs 5000</span>
                             </div>
                         </div>
                     </div>
