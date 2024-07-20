@@ -1,6 +1,6 @@
 <header class="header_section">
     <div class="header-top text-center text-white">
-        <div class="container d-flex justify-content-center align-items-center gap-3">
+        <div class="container d-flex justify-content-center align-items-center gap-2">
             <div>Join us for Management Of Cardiovascular Disease 2024, October 25-26 in Kathmandu, Nepal.</div>
             <a href="{{ route('event.register', 1) }}" class="btn btn-navy hover">Join Us</a>
         </div>
