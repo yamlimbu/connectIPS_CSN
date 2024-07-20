@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('page-content')
-<section class="register-section py-4">
+<section class="register-section py-4 fixed-vh">
     <div class="container">
         <form method="POST" action="{{ config('app.connect_ips_baseurl') }}">
             @csrf
             <div class="card">
-                <div class="card-header fw-bold text-uppercase p-2 p-md-3">Your Details</div>
+                <div class="card-header fw-bold p-2 p-md-3">Your Details</div>
                 <div class="card-body p-2 p-md-3">
                     <input type="hidden" name="event_id" value="1">
                     <div class="row mb-2 mb-md-4">
@@ -35,9 +35,10 @@
                         </div>
                     </div>
 
-                    <div class="form-row mb-4">
+                    <div>
                         @foreach ($paymentDetails as $paymentDetail)
-                        <div class="col-md-12">
+
+                        <div class="mb-3">
                             <div class="heading mb-2">{{ $paymentDetail['category_title'] }}</div>
                             <div class="table-responsive">
                                 <table class="table table-bordered">
@@ -50,7 +51,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td width="50%">{{ $paymentDetail['title'] }}</td>
+                                            <td>{{ $paymentDetail['title'] }}</td>
                                             <td>{{ $paymentDetail['event_category_ticket_name'] == 'Early Bird' ? $paymentDetail['price'] : '-' }}
                                             </td>
                                             <td>{{ $paymentDetail['event_category_ticket_name'] == 'Late & On-site' ? $paymentDetail['price'] : '-' }}
@@ -64,14 +65,18 @@
                         </div>
                         @endforeach
 
-                        <table class="table table-bordered ">
+                        <!-- <table class="table table-bordered ">
                             <tbody>
                                 <tr>
                                     <td width="50%"><strong>Total</strong></td>
                                     <td width="50%">{{ number_format($data['txnamt'] / 100, 2, '.', ',') }}</td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> -->
+                        <div class="d-flex gap-2 mb-4">
+                            <div><strong>Total Amount:</strong></div>
+                            <div>{{ number_format($data['txnamt'] / 100, 2, '.', ',') }}</div>
+                        </div>
 
 
                     </div>
@@ -147,8 +152,8 @@
 
                 </div>
                 <div class="card-footer text-end">
-                    <button type="submit" name="registration_form" value="submitted" class="btn btn-primary btn-sm">Proceed to Payment</button>
-                    <a href="{{ route('event.register', 1) }}" class="btn btn-danger btn-sm">Back</a>
+                    <button type="submit" name="registration_form" value="submitted" class="btn btn-primary me-2">Proceed to Payment</button>
+                    <a href="{{ route('event.register', 1) }}" class="btn btn-danger">Back</a>
                 </div>
             </div>
         </form>

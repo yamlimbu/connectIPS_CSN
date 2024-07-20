@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page-content')
-<section class="message-section fixed-vh d-flex align-items-center">
+<section class="message-section fixed-vh d-flex align-items-start">
     <div class="container text-center">
         @if (session('success'))
         <div class="alert success-message">

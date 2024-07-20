@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap");
-
 ::-webkit-scrollbar {
   width: 3px;
   height: 5px;
@@ -12,27 +11,28 @@
 :root {
   --csn--blue-text: #404042;
   --csn--primary: #404042;
+  --text-gray: #424647;
+  --red-light: #ca1f20;
+  --red-dark: #991818;
   --font-family: "Overpass", sans-serif;
 }
 
 body {
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-family: var(--font-family);
   background-color: white;
   color: var(--bs-dark);
   height: 100%;
 }
-
 @media (max-width: 768px) {
   body {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
 }
 
 .container {
   padding: 0 2.75rem !important;
 }
-
 @media (max-width: 768px) {
   .container {
     padding: 0 1.65rem !important;
@@ -40,42 +40,60 @@ body {
 }
 
 .header-top {
-  /* background: linear-gradient(270deg, #164a58, #357a8e); */
   background: linear-gradient(270deg, #8f1717, #d22122);
-
   padding: 0.75rem 0;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
-
 @media (max-width: 768px) {
   .header-top {
     font-size: 0.5rem;
   }
 }
 
-@media (max-width: 768px) {
-  .btn {
-    font-size: 10px;
-    white-space: nowrap;
-  }
+.btn {
+  font-size: 0.8rem;
+  border-radius: 1px;
+  white-space: nowrap;
 }
-
-.btn-navy {
-  background-color: #307285;
-  border-color: #317386;
+.btn.btn-navy {
+  background-color: var(--red-light);
+  border-color: var(--red-light);
   color: #fff;
 }
-
-.btn-navy.hover:hover {
+.btn.btn-navy.hover:hover {
   background-color: #fff;
   color: #000;
 }
-
-.btn-navy.text-danger {
+.btn.btn-navy.text-danger {
   background-color: white;
-  color: #c0161d !important;
-  border: #c0161d !important;
+  color: var(--red-light) !important;
+  border: var(--red-light) !important;
   font-weight: 700;
+}
+.btn.btn-gray {
+  background-color: #fff;
+  color: var(--text-gray);
+  border: 1px solid var(--text-gray);
+}
+.btn.btn-gray:hover {
+  background-color: var(--text-gray);
+  color: #fff;
+}
+.btn.countdown-div {
+  background: var(--text-gray);
+  border: 1px solid var(--text-gray);
+  color: #fff;
+}
+@media (max-width: 768px) {
+  .btn.countdown-div {
+    font-size: 0.5rem;
+    padding: 4px;
+  }
+}
+@media (max-width: 768px) {
+  .btn {
+    font-size: 0.6rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -83,16 +101,14 @@ body {
     font-size: 0.65rem;
   }
 }
-
 .banner-title.main {
-  background: -webkit-repeating-linear-gradient(58deg, #295865, #00b4e8) !important;
+  background: -webkit-repeating-linear-gradient(58deg, #991818, #c71f20) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   text-transform: uppercase;
   font-weight: 900;
   font-size: 1.4rem;
 }
-
 @media (max-width: 768px) {
   .banner-title.main {
     font-size: 0.8rem;
@@ -100,11 +116,10 @@ body {
 }
 
 .navbar-brand img {
-  width: 65px;
+  width: 55px;
   border: 1px solid #959595;
   border-radius: 50%;
 }
-
 @media (max-width: 768px) {
   .navbar-brand img {
     width: 38px;
@@ -112,26 +127,24 @@ body {
 }
 
 .brand-title {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 800;
   line-height: 1.4;
+  text-transform: uppercase;
 }
-
 @media (max-width: 768px) {
   .brand-title {
     font-size: 10px;
   }
 }
-
 .brand-title .text-blue {
-  color: #307285;
+  color: var(--red-dark);
 }
 
 .slider_section {
   height: 60vh;
-  background-image: linear-gradient(2deg, rgba(187, 240, 255, 0.3490196078), #f3f2f2);
+  background-image: linear-gradient(2deg, rgba(198, 31, 32, 0.04), #f3f2f2);
 }
-
 @media (max-width: 768px) {
   .slider_section {
     height: 100%;
@@ -144,7 +157,6 @@ body {
   color: #fff;
   padding: 27px;
 }
-
 .reg-fee .overlay-img {
   position: absolute;
   background-image: url(../images/bg-img.jpg);
@@ -153,32 +165,26 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
-
 .reg-fee .fee-content {
   position: absolute;
   z-index: 1;
   font-size: 0.85rem;
+  white-space: nowrap;
 }
-
 @media (max-width: 768px) {
   .reg-fee .fee-content {
     font-size: 0.55rem;
-    right: 23%;
     text-align: center;
-    top: 20px;
   }
 }
-
 .reg-fee .fee-content .banner-title {
   font-size: 0.86rem;
 }
-
 @media (max-width: 768px) {
   .reg-fee .fee-content .banner-title {
     font-size: 0.7rem;
   }
 }
-
 @media (max-width: 768px) {
   .reg-fee {
     height: 170px;
@@ -186,46 +192,26 @@ body {
   }
 }
 
-.countdown-div {
-  background: #357a8e;
-  border: 1px solid #357a8e;
-  padding: 7px;
-  color: #fff;
-  width: 92px;
-  font-size: 0.8rem;
-}
-
-@media (max-width: 768px) {
-  .countdown-div {
-    font-size: 0.48rem;
-    padding: 5px;
-    width: 56px;
-  }
-}
-
 .payment-section h3 {
   font-size: 1.2rem;
   font-weight: 700;
 }
-
 @media (max-width: 768px) {
   .payment-section h3 {
     font-size: 0.8rem;
   }
 }
-
 .payment-section .line {
-  background-color: #357a8d;
+  background-color: var(--red-light);
   height: 2px;
   width: 17%;
   position: relative;
   display: inline-block;
 }
-
 .payment-section .line::after {
   content: "";
   display: block;
-  background: #357a8e;
+  background: var(--red-light);
   width: 12px;
   height: 12px;
   text-align: center;
@@ -236,13 +222,13 @@ body {
   top: 2px;
   right: 50%;
 }
-
 @media (max-width: 768px) {
   .payment-section .line::after {
     right: 45%;
+    width: 10px;
+    height: 10px;
   }
 }
-
 @media (max-width: 768px) {
   .payment-section .line {
     width: 41%;
@@ -255,12 +241,10 @@ body {
   border-radius: 4px;
   background-color: #fff;
 }
-
 .payment-section .payment .image-box img {
   width: 145px;
   padding: 10px;
 }
-
 @media (max-width: 768px) {
   .payment-section .payment .image-box img {
     width: 60px;
@@ -268,105 +252,98 @@ body {
   }
 }
 
-.register {
-  text-decoration: none;
-}
-
-.register:hover {
-  text-decoration: underline;
-}
-
-.form-label {
-  font-size: 13px;
-  font-weight: 700;
-}
-
 .table {
   white-space: wrap;
 }
-
 .table thead tr th {
-  font-size: 0.85rem;
+  font-size: 0.72rem;
+  background-color: #f5f5f5;
+  vertical-align: middle;
 }
-
 @media (max-width: 768px) {
   .table thead tr th {
-    font-size: 0.65rem;
+    font-size: 0.62rem;
   }
 }
-
 .table tbody tr td {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
-
 @media (max-width: 768px) {
   .table tbody tr td {
-    font-size: 0.6rem;
+    font-size: 0.65rem;
   }
 }
 
 .register-section {
   background-color: #fbf8f8;
 }
-
 .register-section .card-header {
-  font-size: 0.7rem;
+  font-size: 0.9rem;
+}
+@media (max-width: 768px) {
+  .register-section .card-header {
+    font-size: 0.7rem;
+  }
+}
+.register-section .heading {
+  color: var(--red-dark);
 }
 
-.register-section .heading {
-  color: #5c9bad;
+.form-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.form-control, .form-group {
+  font-size: 0.8rem;
+}
+.form-control span, .form-group span {
+  font-size: 0.8rem;
 }
 
 @media (max-width: 768px) {
-  .form-control {
-    padding: 0.175rem 0.45rem;
-  }
-
   .form-label {
     font-size: 0.64rem;
   }
+  .form-control, .form-group {
+    font-size: 0.75rem;
+  }
+  .form-control {
+    padding: 0.175rem 0.45rem;
+  }
 }
-
 .footer-section {
   font-size: 0.7rem;
-  background: linear-gradient(270deg, #8f1717, #d22122);
-  /* background: #357a8e; */
+  background: var(--text-gray);
   color: #fff;
+}
+@media (max-width: 768px) {
+  .footer-section {
+    font-size: 0.56rem;
+  }
 }
 
 .fixed-vh {
-  height: 80vh;
+  height: 100%;
+  min-height: 100vh;
 }
 
 .message-section {
-  background-image: linear-gradient(2deg, rgba(187, 240, 255, 0.3490196078), #f3f2f2);
+  background-color: #e5e5e5;
 }
-
-.message-section .success-icon,
-.message-section .error-icon {
-  width: 80px;
+.message-section .success-icon, .message-section .error-icon {
+  width: 50px;
+  margin-top: 5rem;
 }
-
-.message-section .success-title,
-.message-section .error-title {
+.message-section .success-title, .message-section .error-title {
   font-size: 1.5rem;
 }
 
 @media (max-width: 768px) {
-
-  .message-section .success-icon,
-  .message-section .error-icon {
-    width: 40px;
+  .message-section .success-icon, .message-section .error-icon {
+    width: 30px;
   }
-
-  .message-section .success-title,
-  .message-section .error-title {
+  .message-section .success-title, .message-section .error-title {
     font-size: 1rem;
   }
-}
-
-.form-group span {
-  font-size: 0.8rem;
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

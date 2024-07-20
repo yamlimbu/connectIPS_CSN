@@ -20,15 +20,14 @@
 
 
                     @if (URL::current() == route('event.register', 1))
-                        <a href="{{ URL::to('/') }}" class="d-none">
-                            <i class="fa fa-home" aria-hidden="true"></i>
-                            <span>Home</span>
-                        </a>
+                    <a href="{{ URL::to('/') }}" class="d-none">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        <span>Home</span>
+                    </a>
                     @else
-                        <a href="{{ route('event.register', 1) }}"
-                            class="btn btn-navy text-danger text-dark d-none d-md-block">
-                            <i class="fa fa-registered" aria-hidden="true"></i> Register Now
-                        </a>
+                    <a href="{{ route('event.register', 1) }}" class="btn btn-gray d-none d-md-block">
+                        Register Now
+                    </a>
                     @endif
 
 
