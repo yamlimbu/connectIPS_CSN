@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap");
+
 ::-webkit-scrollbar {
   width: 3px;
   height: 5px;
@@ -9,8 +10,8 @@
 }
 
 :root {
-  --csn--blue-text: #3558b7;
-  --csn--primary: #3558b7;
+  --csn--blue-text: #404042;
+  --csn--primary: #404042;
   --font-family: "Overpass", sans-serif;
 }
 
@@ -21,85 +22,116 @@ body {
   color: var(--bs-dark);
   height: 100%;
 }
+
 @media (max-width: 768px) {
   body {
     font-size: 0.7rem;
   }
 }
 
-.header-top {
-  background: linear-gradient(270deg, #8f1717, #d22122);
-  padding: 0.75rem 0.9375rem;
-  font-size: 14px;
+.container {
+  padding: 0 2.75rem !important;
 }
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.65rem !important;
+  }
+}
+
+.header-top {
+  /* background: linear-gradient(270deg, #164a58, #357a8e); */
+  background: linear-gradient(270deg, #8f1717, #d22122);
+
+  padding: 0.75rem 0;
+  font-size: 0.9rem;
+}
+
 @media (max-width: 768px) {
   .header-top {
-    font-size: 11px;
+    font-size: 0.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .btn {
-    font-size: 11px;
+    font-size: 10px;
+    white-space: nowrap;
   }
 }
 
-.btn-danger {
-  background-color: #c0161d;
-  border-color: #c0161d;
+.btn-navy {
+  background-color: #307285;
+  border-color: #317386;
+  color: #fff;
 }
-.btn-danger.hover:hover {
+
+.btn-navy.hover:hover {
   background-color: #fff;
   color: #000;
 }
 
-.banner-title.extra-bold {
+.btn-navy.text-danger {
+  background-color: white;
+  color: #c0161d !important;
+  border: #c0161d !important;
   font-weight: 700;
 }
-@media (max-width: 768px) {
-  .banner-title.extra-bold {
-    font-size: 16px;
-  }
-}
-.banner-title.warning {
-  color: #ef7918;
-}
-.banner-title.small-text {
-  font-size: 12px;
-  color: #5c9bad;
-}
+
 @media (max-width: 768px) {
   .banner-title.small-text {
-    font-size: 10px;
+    font-size: 0.65rem;
+  }
+}
+
+.banner-title.main {
+  background: -webkit-repeating-linear-gradient(58deg, #295865, #00b4e8) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 1.4rem;
+}
+
+@media (max-width: 768px) {
+  .banner-title.main {
+    font-size: 0.8rem;
   }
 }
 
 .navbar-brand img {
-  width: 90px;
-  border: 1px solid #e9e9e9;
+  width: 65px;
+  border: 1px solid #959595;
   border-radius: 50%;
 }
+
 @media (max-width: 768px) {
   .navbar-brand img {
-    width: 60px;
+    width: 38px;
   }
 }
 
 .brand-title {
   font-size: 16px;
-  font-weight: 800;
-  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 1.4;
 }
+
 @media (max-width: 768px) {
   .brand-title {
-    font-size: 12px;
+    font-size: 10px;
   }
+}
+
+.brand-title .text-blue {
+  color: #307285;
 }
 
 .slider_section {
   height: 60vh;
-  background-color: #fbf8f8;
+  background-image: linear-gradient(2deg, rgba(187, 240, 255, 0.3490196078), #f3f2f2);
 }
+
 @media (max-width: 768px) {
   .slider_section {
     height: 100%;
@@ -108,10 +140,11 @@ body {
 
 .reg-fee {
   position: relative;
-  height: 190px;
+  height: 205px;
   color: #fff;
   padding: 27px;
 }
+
 .reg-fee .overlay-img {
   position: absolute;
   background-image: url(../images/bg-img.jpg);
@@ -120,93 +153,125 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
 .reg-fee .fee-content {
   position: absolute;
   z-index: 1;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .reg-fee .fee-content {
+    font-size: 0.55rem;
+    right: 23%;
+    text-align: center;
+    top: 20px;
+  }
+}
+
+.reg-fee .fee-content .banner-title {
+  font-size: 0.86rem;
+}
+
+@media (max-width: 768px) {
+  .reg-fee .fee-content .banner-title {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .reg-fee {
+    height: 170px;
+    padding: 14px;
+  }
 }
 
 .countdown-div {
-  background: #5c9bad;
-  border: 1px solid #5c9bad;
+  background: #357a8e;
+  border: 1px solid #357a8e;
   padding: 7px;
   color: #fff;
-  width: 110px;
+  width: 92px;
+  font-size: 0.8rem;
 }
+
 @media (max-width: 768px) {
   .countdown-div {
-    font-size: 8px;
+    font-size: 0.48rem;
+    padding: 5px;
+    width: 56px;
   }
 }
 
 .payment-section h3 {
-  font-size: 20px;
+  font-size: 1.2rem;
   font-weight: 700;
 }
-.payment-section .line {
-  background-color: #d7d7d7;
-  height: 2px;
-  width: 100%;
-  position: relative;
+
+@media (max-width: 768px) {
+  .payment-section h3 {
+    font-size: 0.8rem;
+  }
 }
+
+.payment-section .line {
+  background-color: #357a8d;
+  height: 2px;
+  width: 17%;
+  position: relative;
+  display: inline-block;
+}
+
 .payment-section .line::after {
   content: "";
   display: block;
-  background: #ae1022;
+  background: #357a8e;
   width: 12px;
   height: 12px;
   text-align: center;
-  margin-bottom: 15px;
-  margin-top: 5px;
+  margin-bottom: 3px;
+  margin-top: -6px;
   border-radius: 100%;
   position: absolute;
-  top: -9px;
+  top: 2px;
+  right: 50%;
 }
 
-.payment-section .payment {
-  position: relative;
-  height: 30vh;
-}
-.payment-section .payment::after {
-  position: absolute;
-  content: "";
-  background-image: url(../images/veins.jpg);
-  inset: 0;
-  background-position: right;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-@media (min-width: 768px) {
-  .payment-section .payment::after {
-    top: -106px;
+@media (max-width: 768px) {
+  .payment-section .line::after {
+    right: 45%;
   }
 }
-.payment-section .payment .payment-methods {
-  position: absolute;
-  z-index: 9;
+
+@media (max-width: 768px) {
+  .payment-section .line {
+    width: 41%;
+  }
 }
+
 .payment-section .payment .image-box {
   border: 1px solid #e0dfdf;
   padding: 10px;
   border-radius: 4px;
   background-color: #fff;
 }
+
 .payment-section .payment .image-box img {
-  width: 150px;
+  width: 145px;
+  padding: 10px;
 }
+
 @media (max-width: 768px) {
   .payment-section .payment .image-box img {
-    width: 80px;
-  }
-}
-@media (max-width: 768px) {
-  .payment-section .payment {
-    height: 20vh;
+    width: 60px;
+    padding: 2px;
   }
 }
 
 .register {
   text-decoration: none;
 }
+
 .register:hover {
   text-decoration: underline;
 }
@@ -219,17 +284,21 @@ body {
 .table {
   white-space: wrap;
 }
+
 .table thead tr th {
   font-size: 0.85rem;
 }
+
 @media (max-width: 768px) {
   .table thead tr th {
     font-size: 0.65rem;
   }
 }
+
 .table tbody tr td {
   font-size: 0.8rem;
 }
+
 @media (max-width: 768px) {
   .table tbody tr td {
     font-size: 0.6rem;
@@ -239,18 +308,65 @@ body {
 .register-section {
   background-color: #fbf8f8;
 }
+
 .register-section .card-header {
-  font-size: 13px;
+  font-size: 0.7rem;
 }
+
 .register-section .heading {
   color: #5c9bad;
 }
 
 @media (max-width: 768px) {
   .form-control {
-    padding: 0.275rem 0.65rem;
+    padding: 0.175rem 0.45rem;
   }
+
   .form-label {
-    font-size: 11px;
+    font-size: 0.64rem;
   }
-}/*# sourceMappingURL=style.css.map */
+}
+
+.footer-section {
+  font-size: 0.7rem;
+  background: linear-gradient(270deg, #8f1717, #d22122);
+  /* background: #357a8e; */
+  color: #fff;
+}
+
+.fixed-vh {
+  height: 80vh;
+}
+
+.message-section {
+  background-image: linear-gradient(2deg, rgba(187, 240, 255, 0.3490196078), #f3f2f2);
+}
+
+.message-section .success-icon,
+.message-section .error-icon {
+  width: 80px;
+}
+
+.message-section .success-title,
+.message-section .error-title {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+
+  .message-section .success-icon,
+  .message-section .error-icon {
+    width: 40px;
+  }
+
+  .message-section .success-title,
+  .message-section .error-title {
+    font-size: 1rem;
+  }
+}
+
+.form-group span {
+  font-size: 0.8rem;
+}
+
+/*# sourceMappingURL=style.css.map */
