@@ -223,16 +223,16 @@ class EventController extends Controller
 
     public function success(Request $request)
     {
-        // $txnid = $request->query('TXNID');
-        // $hold = EventRegistrationHold::where('payment_token', $txnid)->first();
+        $txnid = $request->query('TXNID');
+        $hold = EventRegistrationHold::where('payment_token', $txnid)->first();
 
-        // // Check if the hold record was found
-        // if (!$hold) {
+        // Check if the hold record was found
+        if (!$hold) {
 
-        //     // If not found, redirect to home page with an error message
-        //     return redirect('/')->with('status', 'Event registration hold record not found.');
-        // }
-        // $this->moveDataToEventRegistration($txnid);
+            // If not found, redirect to home page with an error message
+            return redirect('/')->with('status', 'Event registration hold record not found.');
+        }
+        $this->moveDataToEventRegistration($txnid);
 
         // Set a success message in the session
         session()->flash('success', "Transaction has been successfully completed.");
