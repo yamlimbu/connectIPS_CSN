@@ -20,8 +20,8 @@
                 @csrf
                 <input type="hidden" name="event_id" value="{{ $event_id }}">
                 <div class="card">
-                    <div class="card-header fw-bold text-uppercase">Register</div>
-                    <div class="card-body">
+                    <div class="card-header fw-bold text-uppercase p-2 p-md-3">Register</div>
+                    <div class="card-body p-2 p-md-3">
                         <div class="row mb-4">
                             <div class="form-group col-lg-4 mb-2">
                                 <label class="form-label" for="nmc_registration_number">NMC Number</label>
