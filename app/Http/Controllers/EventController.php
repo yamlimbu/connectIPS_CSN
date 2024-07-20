@@ -212,8 +212,8 @@ class EventController extends Controller
             'txnid' => $txnid,
             'currentDate' => $currentDate,
             'txnamt' => $txnamt,
-            // 'token' => $this->generateHash($string),
-            'token' => '',
+            'token' => $this->generateHash($string),
+            // 'token' => '',
             'payment_method' => $payment_method,
             'event_category_ticket_prices_ids' => $payment_data['event_category_ticket_prices_ids']
         ];
