@@ -342,17 +342,29 @@ class EventController extends Controller
     public function fail(Request $request)
     {
         // Fetch the transaction ID from the request query parameters
-        $txnid = $request->query('TXNID');
+       $txnid = $request->query('TXNID');
 
        // Optionally, fetch the hold record based on the transaction ID
        $hold = EventRegistrationHold::where('txnid', $txnid)->first();
+       if($hold){
 
-        // Check if the hold record exists
-        if ($hold) {
-            $hold->status = 'FAILED';
-            $hold->save();
+        $responseValidation = $this->connectIpsService->getPaymentValidation($hold->txnid,$hold->txnamt);
+        if($responseValidation['status'] === 'ERROR'){
+            $hold->status = 'ERROR';
+
         }
-        // Set a success message in the session
+        if($responseValidation['status'] === 'FAILED'){
+            $hold->status = 'FAILED';
+
+        }
+        $hold->save();
+        Log::channel('transaction')->info('Checked payment status for transaction.', [
+            'txnid' => $hold->txnid,
+            'txnamt' => $hold->txnamt,
+            'response' => $responseValidation,
+        ]);
+
+       }
 
         session()->flash('error', "Transaction has been terminated.");
 
