@@ -12,7 +12,7 @@ class EventCodeMail extends Mailable
     use Queueable, SerializesModels;
 
     public $registration;
-    //public $qrCodeBase64;
+    public $qrCodeBase64;
 
     /**
      * Create a new message instance.
@@ -22,7 +22,7 @@ class EventCodeMail extends Mailable
     public function __construct($registration)
     {
         $this->registration = $registration;
-        //$this->qrCodeBase64 = $qrCodeBase64;
+        $this->qrCodeBase64 = $qrCodeBase64;
     }
 
     /**
@@ -36,7 +36,7 @@ class EventCodeMail extends Mailable
                     ->subject('Your Event Registration QR Code')
                     ->with([
                         'registration' => $this->registration,
-                        //'qrCodeBase64' => $this->qrCodeBase64,
+                        'qrCodeBase64' => $this->qrCodeBase64,
                     ]);
     }
 }
