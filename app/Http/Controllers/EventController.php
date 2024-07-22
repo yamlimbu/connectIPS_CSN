@@ -23,7 +23,7 @@ Use App\Services\EventService;
 use App\Http\Controllers\Api\ConnectIPSGatewayController;
 use App\Services\ConnectIpsService;
 use App\Helpers\RecordHelper;
-use App\Http\Controllers\Log;
+use Illuminate\Support\Facades\Log;
 class EventController extends Controller
 {
     protected $apiService;
@@ -323,8 +323,8 @@ class EventController extends Controller
         if($responseTransaction['status'] === 'SUCCESS') {
             $copyRecordResponse = RecordHelper::copyRecord($hold->id);
 
-        $paymentRequested->status = 'SUCCESS';
-        $paymentRequested->save();
+        $hold->status = 'SUCCESS';
+        $hold->save();
 
         Log::channel('transaction')->info('Record copy response: ' . json_encode($copyRecordResponse));
 
@@ -436,72 +436,6 @@ class EventController extends Controller
 
 
         return $paymentDetails;
-    }
-
-    public function moveDataToEventRegistration($txnid)
-    {
-
-        try {
-            // Start transaction
-            DB::beginTransaction();
-            // Fetch data from event registration hold
-            $hold = EventRegistrationHold::where('txnid', $txnid)->first();
-            // Create a new event registration record
-            $registration = EventRegistration::create([
-                'event_id' => $hold->event_id,
-                'nmc_registration_number' =>  $hold->nmc_registration_number,
-                'first_name' =>  $hold->first_name,
-                'last_name' =>  $hold->last_name,
-                'middle_name' =>  $hold->middle_name,
-                'email_address' =>  $hold->email_address,
-                'phone_number' =>  $hold->phone_number,
-                'payment_details' =>  $hold->payment_details,
-                'payment_method' =>  $hold->payment_method,
-                'total_amount' =>  $hold->total_amount,
-                'status' =>  'TRANSACTION SUCCESSFUL',
-                'event_category_id' =>  $hold->event_category_id,
-                'event_category_ticket_id' =>  $hold->event_category_ticket_id,
-                'event_category_ticket_price_id' =>  $hold->event_category_ticket_price_id,
-                'event_category_id_two' =>  $hold->event_category_id_two,
-                'event_category_ticket_id_two' =>  $hold->event_category_ticket_id_two,
-                'event_category_ticket_price_id_two' =>  $hold->event_category_ticket_price_id_two,
-                'txnid'=> $hold->txnid,
-                'txndate' => Carbon::now()->format('Y-m-d'),
-                'txncrncy' => $hold->txncrncy,
-                'txnamt'=> $hold->txnamt,
-                'referenceid'=> $hold->referenceid,
-                'remarks'=> $hold->remarks,
-                'particulars'=> $hold->particulars,
-                'token'=> $hold->token,
-                'ip_address' => $clientDetails['ip_address'],
-                'device'=> $clientDetails['device'],
-                'platform'=> $clientDetails['platform'],
-                'browser'=> $clientDetails['browser'],
-                'browser_version'=> $clientDetails['browser_version'],
-                'is_mobile' => $clientDetails['is_mobile']?? false,
-                'is_tablet' => $clientDetails['is_tablet']?? false,
-                'is_desktop' => $clientDetails['is_desktop']?? false,
-                'is_bot' => $clientDetails['is_bot']?? false,
-                'is_iphone' => $clientDetails['is_iphone']?? false,
-                'is_android' => $clientDetails['is_android']?? false,
-            ]);
-
-
-            $hold->status = 'TRANSACTION SUCCESSFUL'; // Replace 'Updated Status' with the new status
-            $hold->save();
-
-            // Commit transaction
-            DB::commit();
-
-            // Optionally delete the hold record
-            Mail::to($registration->email_address)->send(new EventCodeMail($registration->event_token));
-
-            return response()->json(['']);
-        } catch (Exception $e) {
-            // Rollback transaction on error
-            DB::rollBack();
-            return response()->json(['status' => 'error', 'message' => $e->getMessage()], 500);
-        }
     }
 
     public function combinePaymentDetails($validatedData, $eventTitle, $paymentDetails)
