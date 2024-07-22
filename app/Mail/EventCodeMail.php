@@ -5,22 +5,24 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class EventCodeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $code;
+    public $registration;
+    //public $qrCodeBase64;
 
     /**
      * Create a new message instance.
      *
-     * @param string $code
      * @return void
      */
-    public function __construct($code)
+    public function __construct($registration)
     {
-        $this->code = $code;
+        $this->registration = $registration;
+        //$this->qrCodeBase64 = $qrCodeBase64;
     }
 
     /**
@@ -30,7 +32,11 @@ class EventCodeMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Your Event Registration Code')
-                    ->view('email.registration_code');
+        return $this->markdown('emails.event_code')
+                    ->subject('Your Event Registration QR Code')
+                    ->with([
+                        'registration' => $this->registration,
+                        //'qrCodeBase64' => $this->qrCodeBase64,
+                    ]);
     }
 }

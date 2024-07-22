@@ -11,6 +11,7 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Cardiac Society of Nepal :: XXII International Congress On
     Management Of Cardiovascular Disease</title>

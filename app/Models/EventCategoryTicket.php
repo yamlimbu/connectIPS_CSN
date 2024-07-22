@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use Modules\Event\Models\EventCategory;
-use Modules\Privilege\Models\User;
+// use Modules\Event\Models\EventCategory;
 
 class EventCategoryTicket  extends Model
 {

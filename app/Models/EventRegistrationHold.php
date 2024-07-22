@@ -21,11 +21,35 @@ class EventRegistrationHold extends Model
         'payment_method',
         'total_amount',
         'status',
-        'payment_token',
-        'retry_attempts'
+        'retry_attempts',
+        'ip_address',
+        'device',
+        'platform',
+        'browser',
+        'txnid',
+        'txndate',
+        'txncrncy',
+        'txnamt',
+        'referenceid',
+        'remarks',
+        'particulars',
+        'token',
+        'event_category_id',
+        'event_category_ticket_id',
+        'event_category_ticket_price_id',
+        'event_category_id_two',
+        'event_category_ticket_id_two',
+        'event_category_ticket_price_id_two',
+        'browser_version',
+        'is_mobile',
+        'is_tablet',
+        'is_desktop',
+        'is_bot',
+        'is_iphone',
+        'is_android',
     ];
     protected $casts = [
-        'payment_details' => 'array', // Cast to array for JSONB
+        'payment_details' => 'array', // Cast to array for'
 
     ];
     /**
