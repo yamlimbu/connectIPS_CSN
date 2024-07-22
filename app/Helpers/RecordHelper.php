@@ -93,13 +93,12 @@ class RecordHelper
             $data = self::mapFields($hold);
             $registration = EventRegistration::create($data);
 
-            // Generate QR code
-            //$qrCodePath = self::generateQrCode($registration->event_token);
-
+             // Generate QR code as base64
+             $qrCodeBase64 = self::generateQrCode($registration->event_token);
             // Send email with QR code
             try {
                 // Send email with QR code
-                Mail::to($registration->email_address)->send(new EventCodeMail($registration));
+                Mail::to($registration->email_address)->send(new EventCodeMail($registration, $qrCodeBase64));
 
                 // Log the successful email sending event
                 Log::channel('transaction')->info('Email sent to ' . $registration->email_address . ' with event token ' . $registration->event_token);
@@ -114,17 +113,21 @@ class RecordHelper
             return ['success' => false, 'message' => 'Failed to copy record: ' . $e->getMessage()];
         }
     }
+        /**
+     * Generate a QR code and convert to base64.
+     *
+     * @param string $eventToken
+     * @return string
+     */
     public static function generateQrCode($eventToken)
     {
         try {
             $qrCode = QrCode::format('png')->size(200)->generate($eventToken);
+            $qrCodeBase64 = base64_encode($qrCode);
 
-            $filePath = 'qrcodes/' . $eventToken . '.png';
-            Storage::disk('public')->put($filePath, $qrCode);
+            Log::info('QR code generated for token: ' . $eventToken);
 
-            Log::info('QR code generated and stored at: ' . $filePath);
-
-            return $filePath;
+            return $qrCodeBase64;
         } catch (\Exception $e) {
             Log::error('Failed to generate QR code: ' . $e->getMessage());
             throw $e;
