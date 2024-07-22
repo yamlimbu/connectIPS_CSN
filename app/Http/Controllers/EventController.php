@@ -23,6 +23,7 @@ Use App\Services\EventService;
 use App\Http\Controllers\Api\ConnectIPSGatewayController;
 use App\Services\ConnectIpsService;
 use App\Helpers\RecordHelper;
+use App\Http\Controllers\Log;
 class EventController extends Controller
 {
     protected $apiService;
