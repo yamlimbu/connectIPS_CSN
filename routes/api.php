@@ -29,6 +29,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/payment-initialize', [ConnectIPSGatewayController::class, 'paymentInitialize']);
     Route::get('/payment-constants', [ConnectIPSGatewayController::class, 'paymentConstants']);
     Route::get('/generate-token', [ConnectIPSGatewayController::class, 'generateToken']);
+    Route::get('/generate-txnid-referenceid', [ConnectIPSGatewayController::class, 'generateTxnidReferenceId']);
 
 });
 
