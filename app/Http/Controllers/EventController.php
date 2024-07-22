@@ -288,11 +288,9 @@ class EventController extends Controller
         if($hold){
 
         $responseValidation = $this->connectIpsService->getPaymentValidation($hold->txnid,$hold->txnamt);
+        if($responseValidation['status'] !== 'SUCCESS') {
 
-        if($responseValidation['status'] === 'SUCCESS'){
-            $hold->status = 'SUCCESS';
 
-        }
         if($responseValidation['status'] === 'FAILED'){
             $hold->status = 'FAILED';
 
@@ -302,11 +300,33 @@ class EventController extends Controller
 
         }
         $hold->save();
+    }
 
         $responseTransaction = $this->connectIpsService->getTransactionDetail($hold->txnid,$hold->txnamt);
 
+
+        $responseTransaction = $this->connectIpsService->getTransactionDetail($hold->txnid,$hold->txnamt);
+             // Log transaction details to the transaction log
+             Log::channel('transaction')->info('Transaction Details', [
+                'txnid' => $hold->txnid,
+                'txnamt' => $hold->txnamt,
+                'response' => $responseTransaction,
+            ]);
+
+            // Also log general application info
+            Log::channel('transaction')->info('Checked payment status for transaction.', [
+                'txnid' => $hold->txnid,
+                'txnamt' => $hold->txnamt,
+                'response' => $responseValidation,
+            ]);
         if($responseTransaction['status'] === 'SUCCESS') {
-           (RecordHelper::copyRecord($hold->id));
+            $copyRecordResponse = RecordHelper::copyRecord($hold->id);
+
+        $paymentRequested->status = 'SUCCESS';
+        $paymentRequested->save();
+
+        Log::channel('transaction')->info('Record copy response: ' . json_encode($copyRecordResponse));
+
         }
     }
         // Set a success message in the session
