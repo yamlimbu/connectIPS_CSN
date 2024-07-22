@@ -186,10 +186,11 @@ return [
     ])->toArray(),
 
 
-    'merchantid' => env('MERCHANTID', 'default_value'),
+        'merchantid' => env('MERCHANTID', 'default_value'),
         'appid' => env('APPID', 'default_value'),
         'appname' => env('APPNAME', 'default_value'),
-        'connect_ips_baseurl' => env('CONNECT_IPS_BASEURL', 'default_value'),
+        'connect_ips_baseurl' => env('CONNECTIPS_BASE_URL', 'default_value'),
         'txncrncy' => env('TXNCRNCY', 'default_value'),
+        'connectips_password' => env('CONNECTIPS_PASSWORD', 'default_value'),
 
 ];

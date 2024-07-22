@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Event\Models\EventCategoryTicket;
-use Modules\Privilege\Models\User;
+// use Modules\Event\Models\EventCategoryTicket;
 use Carbon\Carbon;
 
 class EventCategoryTicketPrice  extends Model

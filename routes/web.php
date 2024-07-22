@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\PaymentController;
 
 
 /*
@@ -26,3 +25,7 @@ Route::post('/final_submit', [EventController::class, 'final_submit'])->name('fi
 Route::get('/preview', [EventController::class, 'preview'])->name('preview');
 Route::get('/event-register/success', [EventController::class, 'success'])->name('success');
 Route::get('/event-register/fail', [EventController::class, 'fail'])->name('fail');
+
+
+// Route::post('/store-transaction-log', [TransactionController::class, 'storeTransaction']);
+// Route::post('/transaction-details', [TransactionController::class, 'getTransactionDetails']);
