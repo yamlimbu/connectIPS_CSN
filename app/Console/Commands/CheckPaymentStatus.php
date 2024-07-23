@@ -66,8 +66,8 @@ class CheckPaymentStatus extends Command
             if($responseTransaction['status'] === 'SUCCESS') {
 
               $copyRecordResponse = RecordHelper::copyRecord($paymentRequested->id);
-                // $paymentRequested->status = 'SUCCESS';
-                // $paymentRequested->save();
+                $paymentRequested->status = 'SUCCESS';
+                $paymentRequested->save();
                 Log::channel('transaction')->info('Record copy response: ' . json_encode($copyRecordResponse));
 
 
