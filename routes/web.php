@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\QrCodeController;
 
 
 /*
@@ -29,3 +30,4 @@ Route::get('/event-register/fail', [EventController::class, 'fail'])->name('fail
 
 // Route::post('/store-transaction-log', [TransactionController::class, 'storeTransaction']);
 // Route::post('/transaction-details', [TransactionController::class, 'getTransactionDetails']);
+Route::get('/qr-code/{filename}', [QrCodeController::class, 'show']);

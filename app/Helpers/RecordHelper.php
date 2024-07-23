@@ -81,24 +81,25 @@ class RecordHelper
                 return ['success' => false, 'message' => 'Record not found'];
             }
             // Check if a record already exists with the same hold_id, event_id, and txnid
-            $existingRecord = EventRegistration::where('hold_id', $hold->id)
-                                                ->where('event_id', $hold->event_id)
-                                                ->where('txnid', $hold->txnid)
-                                                ->first();
+            // $existingRecord = EventRegistration::where('hold_id', $hold->id)
+            //                                     ->where('event_id', $hold->event_id)
+            //                                     ->where('txnid', $hold->txnid)
+            //                                     ->first();
 
-            if ($existingRecord) {
-                DB::rollBack();
-                return ['success' => false, 'message' => 'Record already exists with the same hold_id, event_id, and txnid'];
-            }
+            // if ($existingRecord) {
+            //     DB::rollBack();
+            //     return ['success' => false, 'message' => 'Record already exists with the same hold_id, event_id, and txnid'];
+            // }
             $data = self::mapFields($hold);
             $registration = EventRegistration::create($data);
 
              // Generate QR code as base64
-             $qrCodeBase64 = self::generateQrCode($registration->event_token);
+             $qrToken = self::generateQrCode($registration->event_token);
+
             // Send email with QR code
             try {
                 // Send email with QR code
-                Mail::to($registration->email_address)->send(new EventCodeMail($registration, $qrCodeBase64));
+                Mail::to($registration->email_address)->send(new EventCodeMail($registration, $qrToken));
 
                 // Log the successful email sending event
                 Log::channel('transaction')->info('Email sent to ' . $registration->email_address . ' with event token ' . $registration->event_token);
@@ -122,15 +123,18 @@ class RecordHelper
     public static function generateQrCode($eventToken)
     {
         try {
-            $qrCode = QrCode::format('png')->size(200)->generate($eventToken);
-            $qrCodeBase64 = base64_encode($qrCode);
+            $qrCode = QrCode::format('svg')->size(200)->generate($eventToken);
 
-            Log::info('QR code generated for token: ' . $eventToken);
+            $filePath = 'qrcodes/' . $eventToken . '.svg';
+            Storage::disk('public')->put($filePath, $qrCode);
 
-            return $qrCodeBase64;
+            Log::info('QR code generated and stored at: ' . $filePath);
+
+            return $eventToken . '.svg';
         } catch (\Exception $e) {
             Log::error('Failed to generate QR code: ' . $e->getMessage());
             throw $e;
         }
     }
+
 }

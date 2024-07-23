@@ -5,38 +5,27 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Models\EventRegistration;
 
 class EventCodeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $registration;
-    public $qrCodeBase64;
+    public $qrToken;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct($registration)
+    public function __construct(EventRegistration $registration, $qrToken)
     {
         $this->registration = $registration;
-        $this->qrCodeBase64 = $qrCodeBase64;
+        $this->qrToken = $qrToken;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
         return $this->markdown('emails.event_code')
-                    ->subject('Your Event Registration QR Code')
                     ->with([
                         'registration' => $this->registration,
-                        'qrCodeBase64' => $this->qrCodeBase64,
+                        'qrToken' => $this->qrToken,
                     ]);
     }
 }
