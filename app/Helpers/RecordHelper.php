@@ -120,21 +120,28 @@ class RecordHelper
      * @param string $eventToken
      * @return string
      */
+
     public static function generateQrCode($eventToken)
     {
         try {
-            $qrCode = QrCode::format('svg')->size(200)->generate($eventToken);
+            // Generate QR code in PNG format
+            $qrCode = QrCode::format('png')->size(200)->generate($eventToken);
 
-            $filePath = 'qrcodes/' . $eventToken . '.svg';
+            // Define the file path for the PNG QR code
+            $filePath = 'qrcodes/' . $eventToken . '.png';
+
+            // Store the QR code image in the public disk
             Storage::disk('public')->put($filePath, $qrCode);
 
             Log::info('QR code generated and stored at: ' . $filePath);
 
-            return $eventToken . '.svg';
+            // Return the path to the PNG file
+            return $filePath;
         } catch (\Exception $e) {
             Log::error('Failed to generate QR code: ' . $e->getMessage());
             throw $e;
         }
     }
+
 
 }
