@@ -81,15 +81,15 @@ class RecordHelper
                 return ['success' => false, 'message' => 'Record not found'];
             }
             // Check if a record already exists with the same hold_id, event_id, and txnid
-            // $existingRecord = EventRegistration::where('hold_id', $hold->id)
-            //                                     ->where('event_id', $hold->event_id)
-            //                                     ->where('txnid', $hold->txnid)
-            //                                     ->first();
+            $existingRecord = EventRegistration::where('hold_id', $hold->id)
+                                                ->where('event_id', $hold->event_id)
+                                                ->where('txnid', $hold->txnid)
+                                                ->first();
 
-            // if ($existingRecord) {
-            //     DB::rollBack();
-            //     return ['success' => false, 'message' => 'Record already exists with the same hold_id, event_id, and txnid'];
-            // }
+            if ($existingRecord) {
+                DB::rollBack();
+                return ['success' => false, 'message' => 'Record already exists with the same hold_id, event_id, and txnid'];
+            }
             $data = self::mapFields($hold);
             $registration = EventRegistration::create($data);
 
@@ -125,7 +125,10 @@ class RecordHelper
     {
         try {
             // Generate QR code in PNG format
-            $qrCode = QrCode::format('png')->size(200)->generate($eventToken);
+            $qrCode = QrCode::format('png')
+            ->size(400) // Increase size for better quality
+            ->errorCorrection('H') // High error correction level
+            ->generate($eventToken);
 
             // Define the file path for the PNG QR code
             $filePath = 'qrcodes/' . $eventToken . '.png';
