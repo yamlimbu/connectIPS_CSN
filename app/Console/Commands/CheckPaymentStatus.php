@@ -38,7 +38,6 @@ class CheckPaymentStatus extends Command
             // Instantiate the PaymentController
 
             $responseValidation = $this->connectIpsService->getPaymentValidation($paymentRequested->txnid,$paymentRequested->txnamt);
-
             if($responseValidation['status'] !== 'SUCCESS') {
                     if($responseValidation['status'] === 'FAILED'){
                         $paymentRequested->status = 'FAILED';
