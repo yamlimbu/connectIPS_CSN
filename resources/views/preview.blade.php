@@ -7,7 +7,6 @@
             <div class="card">
                 <div class="card-header fw-bold text-uppercase p-2 p-md-3">Your Details</div>
                 <div class="card-body p-2 p-md-3">
-                    <input type="hidden" name="event_id" value="1">
                     <div class="row mb-2 mb-md-4">
                         <div class="form-group col-md-4">
                             <label class="form-label" for="nmc_registration_number"><strong>NMC Number</strong> </label>:-
@@ -143,7 +142,6 @@
 
                     <input type="hidden" name="TOKEN" id="TOKEN" value="{{ $data['token'] }}" />
 
-                    <input type="hidden" name="event_id" value="{{ $data['event_id'] }}" />
                     <input type="hidden" id="event_id" name="event_id" value="{{ $data['event_id'] }}" />
                     <input type="hidden" id="nmc_registration_number" name="nmc_registration_number" value="{{ $data['nmc_registration_number'] }}" />
                     <input type="hidden" id="first_name" name="first_name" value="{{ $data['first_name'] }}" />
@@ -188,7 +186,7 @@
         });
 
         $('#register-payment').click(function() {
-
+            event.preventDefault();
             var data = {
                 merchantid: $('#MERCHANTID').val(),
                 appid: $('#APPID').val(),
@@ -228,6 +226,7 @@
 
                 success: function(response) {
                     console.log('Server response:', response);
+                    $('form').off('submit').submit();
                 },
                 error: function(xhr, status, error) {
                     console.error('AJAX error:', status, error);

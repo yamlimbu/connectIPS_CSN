@@ -115,9 +115,9 @@
                                                 </td>
                                                 <td>
                                                     @if ($lateOnsitePrice)
-                                                    <div class="form-group col-lg-12">
+                                                    <div class="form-group col-lg-12"  style="color: lightgray;">
                                                         <input class="form-check-input" type="radio" name="event_category_ticket_prices_ids[{{ $category->id }}]" id="ticket_{{ $ticket->id }}_late_onsite" value="{{ $lateOnsitePrice->id }}" {{ $oldPriceId == $lateOnsitePrice->id ? 'checked' : '' }} {{ $isDisabled ? 'disabled' : '' }}>
-                                                        <span style="color: lightgrey;">{{ $lateOnsitePrice->price }}</span>
+                                                        {{ $lateOnsitePrice->price }}
                                                     </div>
                                                     @else
                                                     <div class="form-group col-lg-12">
