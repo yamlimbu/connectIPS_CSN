@@ -10,7 +10,7 @@
             </div>
             <h2 class="success-title">Registration success!! </h2>
             <p class="success-description mb-2 mb-md-4">You have successfully completed the registration process.</p>
-            <a href="{{ url('/') }}" class="btn btn-success btn-sm">Go to Homepage</a>
+            @if (!$isMobile)<a href="{{ url('/') }}" class="btn btn-success btn-sm">Go to Homepage</a> @endif
         </div>
         @endif
     </div>

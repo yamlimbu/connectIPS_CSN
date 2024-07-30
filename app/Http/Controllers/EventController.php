@@ -301,7 +301,7 @@ class EventController extends Controller
 
         }
         $hold->save();
-    }
+        }
 
         $responseTransaction = $this->connectIpsService->getTransactionDetail($hold->txnid,$hold->txnamt);
 
@@ -335,7 +335,8 @@ class EventController extends Controller
         // Clear the session data
         session()->forget('data');
         // Return the success view
-        return view('success');
+        $isMobile = (bool) $hold->is_mobile;
+        return view('success', compact('isMobile'));
     }
 
 
@@ -367,9 +368,9 @@ class EventController extends Controller
        }
 
         session()->flash('error', "Transaction has been terminated.");
-
+        $isMobile = (bool) $hold->is_mobile;
         // Return the success view
-        return view('fail');
+        return view('fail', compact('isMobile'));
     }
 
     private function fetchPaymentDetails($event_id, $event_category_ticket_prices_ids)
