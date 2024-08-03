@@ -19,9 +19,13 @@ class EventRegisterRequest extends FormRequest
         $categories = EventCategory::all();
         return [
             'nmc_registration_number' => 'required|string',
-            'first_name' => 'required|string',
-            'middle_name' => 'nullable|string',
-            'last_name' => 'required|string',
+            // 'first_name' => 'required|string',
+            // 'middle_name' => 'nullable|string',
+            // 'last_name' => 'required|string',
+            'full_name' => 'required|string',
+            'address' => 'required|string',
+            'degree' => 'required|string',
+            'gender' => 'nullable|string',
             'email_address' => [
                 'required',
                 'email',
@@ -31,7 +35,7 @@ class EventRegisterRequest extends FormRequest
                 }),
             ],
             'phone_number' => 'required|string',
-'event_category_ticket_prices_ids' => [
+            'event_category_ticket_prices_ids' => [
                 'required',
                 'array',
                 new AtLeastOneTicket($categories),
@@ -51,6 +55,10 @@ class EventRegisterRequest extends FormRequest
             'email_address.required' => 'Please enter your Email Address.',
             'email_address.email' => 'Please enter a valid Email Address.',
             'phone_number.required' => 'Please enter your Phone Number.',
+            'full_name.required' => 'Please enter your Full Name.',
+            'address.required' => 'Please enter your Address.',
+            'degree.required' => 'Please enter your Degree.',
+
             // 'payment_method.required' => 'Please select a Payment Method.',
         ];
     }

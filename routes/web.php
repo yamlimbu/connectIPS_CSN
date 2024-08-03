@@ -31,3 +31,4 @@ Route::get('/event-register/fail', [EventController::class, 'fail'])->name('fail
 // Route::post('/store-transaction-log', [TransactionController::class, 'storeTransaction']);
 // Route::post('/transaction-details', [TransactionController::class, 'getTransactionDetails']);
 Route::get('/qr-code/{filename}', [QrCodeController::class, 'show']);
+Route::get('/search/nmc', [EventController::class, 'searchNmc'])->name('search.nmc');

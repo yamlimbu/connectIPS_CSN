@@ -49,6 +49,12 @@ class EventRegistration extends Model
         'is_bot',
         'is_iphone',
         'is_android',
+        'profession',
+        'current_working_institution',
+        'full_name',
+        'address',
+        'degree',
+        'gender'
     ];
 
     /**
