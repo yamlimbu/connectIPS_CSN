@@ -149,9 +149,13 @@ class EventController extends Controller
 
         }
         $nmc_registration_number = $payment_data['nmc_registration_number'];
-        $first_name = $payment_data['first_name'];
-        $middle_name = $payment_data['middle_name'];
-        $last_name = $payment_data['last_name'];
+        // $first_name = $payment_data['first_name'];
+        // $middle_name = $payment_data['middle_name'];
+        // $last_name = $payment_data['last_name'];
+        $full_name = $payment_data['full_name'];
+        $address = $payment_data['address'];
+        $degree = $payment_data['degree'];
+        $gender = $payment_data['gender'];
         $email_address = $payment_data['email_address'];
         $phone_number = $payment_data['phone_number'];
 
@@ -228,9 +232,13 @@ class EventController extends Controller
         $combainedDetails = [
             'event_title' => $event->name,
             'nmc_registration_number' => $nmc_registration_number,
-            'first_name' => $first_name,
-            'middle_name' => $middle_name,
-            'last_name' => $last_name,
+            // 'first_name' => $first_name,
+            // 'middle_name' => $middle_name,
+            // 'last_name' => $last_name,
+            'full_name' => $full_name,
+            'address' => $address,
+            'degree' => $degree,
+            'gender' => $gender,
             'email_address' => $email_address,
             'phone_number' => $phone_number,
             'txnamt' => $txnamt / 100,
@@ -248,9 +256,13 @@ class EventController extends Controller
             'event_name' => $event->name,
             'event_id' => $event_id,
             'nmc_registration_number' => $nmc_registration_number,
-            'first_name' => $first_name,
-            'middle_name' => $middle_name,
-            'last_name' => $last_name,
+            // 'first_name' => $first_name,
+            // 'middle_name' => $middle_name,
+            // 'last_name' => $last_name,
+            'full_name' => $full_name,
+            'address' => $address,
+            'degree' => $degree,
+            'gender' => $gender,
             'email_address' => $email_address,
             'phone_number' => $phone_number,
             'merchantid' => $merchantid,
@@ -296,9 +308,13 @@ class EventController extends Controller
             $hold->status = 'FAILED';
 
         }
-        if($responseValidation['status'] === 'ERROR'){
-            $hold->status = 'ERROR';
-
+        if($responseValidation['status'] === 'ERROR' && $responseValidation['statusDesc'] === 'TRANSACTION NOT FOUND'){
+            $hold->status = 'NOT_FOUND';
+            $status = 'not_found';
+        }
+        if($responseValidation['status'] === 'ERROR' && $responseValidation['statusDesc'] === 'TRANSACTION INCOMPLETE'){
+            $hold->status = 'INCOMPLETE';
+            $status = 'incomplete';
         }
         $hold->save();
         }
@@ -350,10 +366,10 @@ class EventController extends Controller
        if($hold){
 
         $responseValidation = $this->connectIpsService->getPaymentValidation($hold->txnid,$hold->txnamt);
-        if($responseValidation['status'] === 'ERROR'){
-            $hold->status = 'ERROR';
+        // if($responseValidation['status'] === 'ERROR'){
+        //     $hold->status = 'ERROR';
 
-        }
+        // }
         if($responseValidation['status'] === 'FAILED'){
             $hold->status = 'FAILED';
 
@@ -368,7 +384,7 @@ class EventController extends Controller
        }
 
         session()->flash('error', "Transaction has been terminated.");
-        $isMobile = (bool) $hold->is_mobile;
+        $isMobile = $hold !== null ? (bool) $hold->is_mobile : false;
         // Return the success view
         return view('fail', compact('isMobile'));
     }
@@ -463,5 +479,22 @@ class EventController extends Controller
             'event_title' => $eventTitle,
             'payment_details' => $paymentDetails,
         ];
+    }
+
+    public function searchNmc(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Load the JSON file from the public disk
+        $jsonContent = Storage::disk('public')->get('nmc/doctors_details.json');
+        $data = json_decode($jsonContent, true);
+
+        // Filter the data based on the query
+        $results = array_filter($data, function($item) use ($query) {
+            return stripos($item['nmc_no'], $query) !== false;
+        });
+
+        // Return the results as JSON
+        return response()->json(array_values($results));
     }
 }

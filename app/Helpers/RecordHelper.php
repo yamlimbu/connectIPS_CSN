@@ -59,6 +59,12 @@ class RecordHelper
             'is_bot' => $hold->is_bot,
             'is_iphone' => $hold->is_iphone,
             'is_android' => $hold->is_android,
+            'profession' => $hold->profession,
+            'current_working_institution' => $hold->current_working_institution,
+            'full_name' => $hold->full_name,
+            'address' => $hold->address,
+            'degree' => $hold->degree,
+            'gender' => $hold->gender,
         ];
     }
 
@@ -73,13 +79,13 @@ class RecordHelper
         DB::beginTransaction();
 
         try {
-
             $hold = EventRegistrationHold::where('id', $holdId)->first();
 
             if (!$hold) {
                 DB::rollBack();
                 return ['success' => false, 'message' => 'Record not found'];
             }
+
             // Check if a record already exists with the same hold_id, event_id, and txnid
             $existingRecord = EventRegistration::where('hold_id', $hold->id)
                                                 ->where('event_id', $hold->event_id)
@@ -88,29 +94,52 @@ class RecordHelper
 
             if ($existingRecord) {
                 DB::rollBack();
-                return ['success' => false, 'message' => 'Record already exists with the same hold_id, event_id, and txnid'];
+                Log::channel('transaction')->info('Record already exists with the same hold_id, event_id, and txnid : '.$hold->txnid);
+
+                return ['event_token' => $existingRecord->event_token];
             }
+
             $data = self::mapFields($hold);
             $registration = EventRegistration::create($data);
 
-             // Generate QR code as base64
-             $qrToken = self::generateQrCode($registration->event_token);
-
-            // Send email with QR code
-            try {
-                // Send email with QR code
-                Mail::to($registration->email_address)->send(new EventCodeMail($registration, $qrToken));
-
-                // Log the successful email sending event
-                Log::channel('transaction')->info('Email sent to ' . $registration->email_address . ' with event token ' . $registration->event_token);
-            } catch (\Exception $e) {
-                // Log the error if email sending fails
-                Log::channel('transaction')->error('Failed to send email to ' . $registration->email_address . ': ' . $e->getMessage());
-            }
+            // Commit the transaction as the record is successfully copied
             DB::commit();
-            return ['success' => true, 'message' => 'Record copied successfully'];
+
+            // Generate QR code as base64
+            $qrToken = null;
+            $emailStatus = 'Succeeded';
+
+            try {
+                $qrToken = self::generateQrCode($registration->event_token);
+
+                // Send email with QR code
+                try {
+                    Mail::to($registration->email_address)->send(new EventCodeMail($registration, $qrToken));
+                    // Log the successful email sending event
+                    Log::channel('transaction')->info('Email sent to ' . $registration->email_address . ' with event token ' . $registration->event_token);
+                } catch (\Exception $e) {
+                    // Log the error if email sending fails
+                    Log::channel('transaction')->error('Failed to send email to ' . $registration->email_address . ': ' . $e->getMessage());
+                    // Set email sending status as failed
+                    $emailStatus = 'Failed';
+                }
+
+            } catch (\Exception $e) {
+                // Handle QR code generation failure
+                Log::channel('transaction')->error('Failed to generate QR code for event token ' . $registration->event_token . ': ' . $e->getMessage());
+                // Set email status to failed if QR code generation fails
+                $emailStatus = 'Failed';
+            }
+            Log::channel('transaction')->info('Record copied successfully. Email sending status: ' . $emailStatus);
+
+            return [
+                'event_token' => $registration->event_token
+            ];
+
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::channel('transaction')->info('Failed to copy record: ' . $e->getMessage());
+
             return ['success' => false, 'message' => 'Failed to copy record: ' . $e->getMessage()];
         }
     }

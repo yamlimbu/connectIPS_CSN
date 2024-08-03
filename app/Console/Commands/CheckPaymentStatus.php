@@ -34,43 +34,45 @@ class CheckPaymentStatus extends Command
         $paymentRequesteds = EventRegistrationHold::where('status', 'REQUESTED')->get();
         if ($paymentRequesteds->isNotEmpty()) {
 
-        foreach ($paymentRequesteds as $paymentRequested) {
+        foreach ($paymentRequesteds as $hold) {
             // Instantiate the PaymentController
 
-            $responseValidation = $this->connectIpsService->getPaymentValidation($paymentRequested->txnid,$paymentRequested->txnamt);
+            $responseValidation = $this->connectIpsService->getPaymentValidation($hold->txnid,$hold->txnamt);
             if($responseValidation['status'] !== 'SUCCESS') {
                     if($responseValidation['status'] === 'FAILED'){
-                        $paymentRequested->status = 'FAILED';
+                        $hold->status = 'FAILED';
 
                     }
-                    if($responseValidation['status'] === 'ERROR'){
-                        $paymentRequested->status = 'ERROR';
-
+                    if($responseValidation['status'] === 'ERROR' && $responseValidation['statusDesc'] === 'TRANSACTION NOT FOUND'){
+                        $hold->status = 'NOT_FOUND';
+                        $status = 'not_found';
                     }
-                    $paymentRequested->save();
+                    if($responseValidation['status'] === 'ERROR' && $responseValidation['statusDesc'] === 'TRANSACTION INCOMPLETE'){
+                        $hold->status = 'INCOMPLETE';
+                        $status = 'incomplete';
+                    }
+                    $hold->save();
                 }
-            $responseTransaction = $this->connectIpsService->getTransactionDetail($paymentRequested->txnid,$paymentRequested->txnamt);
+            $responseTransaction = $this->connectIpsService->getTransactionDetail($hold->txnid,$hold->txnamt);
              // Log transaction details to the transaction log
              Log::channel('transaction')->info('Transaction Details', [
-                'txnid' => $paymentRequested->txnid,
-                'txnamt' => $paymentRequested->txnamt,
+                'txnid' => $hold->txnid,
+                'txnamt' => $hold->txnamt,
                 'response' => $responseTransaction,
             ]);
 
             // Also log general application info
             Log::channel('transaction')->info('Checked payment status for transaction.', [
-                'txnid' => $paymentRequested->txnid,
-                'txnamt' => $paymentRequested->txnamt,
+                'txnid' => $hold->txnid,
+                'txnamt' => $hold->txnamt,
                 'response' => $responseValidation,
             ]);
             if($responseTransaction['status'] === 'SUCCESS') {
 
-              $copyRecordResponse = RecordHelper::copyRecord($paymentRequested->id);
-                $paymentRequested->status = 'SUCCESS';
-                $paymentRequested->save();
+              $copyRecordResponse = RecordHelper::copyRecord($hold->id);
+                $hold->status = 'SUCCESS';
+                $hold->save();
                 Log::channel('transaction')->info('Record copy response: ' . json_encode($copyRecordResponse));
-
-
             }
             $this->info('Payment status checked and notifications sent.');
         }

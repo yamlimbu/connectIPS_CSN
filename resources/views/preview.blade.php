@@ -12,7 +12,7 @@
                             <label class="form-label" for="nmc_registration_number"><strong>NMC Number</strong> </label>:-
                             {{ $data['nmc_registration_number'] ?? 'N/A' }}
                         </div>
-                        <div class="form-group col-md-4">
+                        <!-- <div class="form-group col-md-4">
                             <label class="form-label" for="nmc_registration_number"><strong>First Name</strong> </label>:-
                             {{ $data['first_name'] ?? 'N/A' }}
                         </div>
@@ -23,6 +23,18 @@
                         <div class="form-group col-md-4">
                             <label class="form-label" for="nmc_registration_number"><strong>Last Name</strong> </label>:-
                             {{ $data['last_name'] ?? 'N/A' }}
+                        </div> -->
+                        <div class="form-group col-md-4">
+                            <label class="form-label" for="full_name"><strong>Full Name</strong> </label>:-
+                            {{ $data['full_name'] ?? 'N/A' }}
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="form-label" for="address"><strong>Address</strong> </label>:-
+                            {{ $data['address'] ?? 'N/A' }}
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="form-label" for="degree"><strong>Degree</strong> </label>:-
+                            {{ $data['degree'] ?? 'N/A' }}
                         </div>
                         <div class="form-group col-md-4">
                             <label class="form-label" for="nmc_registration_number"><strong>Email Address</strong> </label>:-
@@ -144,9 +156,13 @@
 
                     <input type="hidden" id="event_id" name="event_id" value="{{ $data['event_id'] }}" />
                     <input type="hidden" id="nmc_registration_number" name="nmc_registration_number" value="{{ $data['nmc_registration_number'] }}" />
-                    <input type="hidden" id="first_name" name="first_name" value="{{ $data['first_name'] }}" />
+                    {{--<!-- <input type="hidden" id="first_name" name="first_name" value="{{ $data['first_name'] }}" />
                     <input type="hidden" id="middle_name" name="middle_name" value="{{ $data['middle_name'] }}" />
-                    <input type="hidden" id="last_name" name="last_name" value="{{ $data['last_name'] }}" />
+                    <input type="hidden" id="last_name" name="last_name" value="{{ $data['last_name'] }}" /> -->--}}
+                    <input type="hidden" id="full_name" name="full_name" value="{{ $data['full_name'] }}" />
+                    <input type="hidden" id="address" name="address" value="{{ $data['address'] }}" />
+                    <input type="hidden" id="gender" name="gender" value="{{ $data['gender'] }}" />
+                    <input type="hidden" id="degree" name="degree" value="{{ $data['degree'] }}" />
                     <input type="hidden" id="email_address" name="email_address" value="{{ $data['email_address'] }}" />
                     <input type="hidden" id="phone_number" name="phone_number" value="{{ $data['phone_number'] }}" />
                     <input type="hidden" id="payment_details" name="payment_details" value="{{ $data['payment_details'] }}" />
@@ -201,9 +217,13 @@
                 token: $('#TOKEN').val(),
                 event_id: $('#event_id').val(),
                 nmc_registration_number: $('#nmc_registration_number').val(),
-                first_name: $('#first_name').val(),
-                last_name: $('#last_name').val(),
-                middle_name: $('#middle_name').val(),
+                // first_name: $('#first_name').val(),
+                // last_name: $('#last_name').val(),
+                // middle_name: $('#middle_name').val(),
+                full_name: $('#full_name').val(),
+                address: $('#address').val(),
+                degree: $('#degree').val(),
+                gender: $('#gender').val(),
                 email_address: $('#email_address').val(),
                 phone_number: $('#phone_number').val(),
                 payment_details: $('#payment_details').val(),
