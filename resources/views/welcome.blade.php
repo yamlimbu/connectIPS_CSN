@@ -109,9 +109,9 @@
                             </div>
 
                         </div>
-                        <!-- <a href="{{ route('event.register', 1) }}" class="text-dark text-decoration-none">
+                        <a href="{{ route('event.register', 1) }}" class="btn btn-register">
                             Register Now
-                        </a> -->
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-4 align-self-center pb-4 pb-md-0">

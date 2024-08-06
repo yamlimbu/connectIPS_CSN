@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Kathmandu', // Set your desired timezone here
 
     /*
     |--------------------------------------------------------------------------
@@ -186,11 +186,11 @@ return [
     ])->toArray(),
 
 
-        'merchantid' => env('MERCHANTID', 'default_value'),
-        'appid' => env('APPID', 'default_value'),
-        'appname' => env('APPNAME', 'default_value'),
-        'connect_ips_baseurl' => env('CONNECTIPS_BASE_URL', 'default_value'),
-        'txncrncy' => env('TXNCRNCY', 'default_value'),
-        'connectips_password' => env('CONNECTIPS_PASSWORD', 'default_value'),
+    'merchantid' => env('MERCHANTID', 'default_value'),
+    'appid' => env('APPID', 'default_value'),
+    'appname' => env('APPNAME', 'default_value'),
+    'connect_ips_baseurl' => env('CONNECTIPS_BASE_URL', 'default_value'),
+    'txncrncy' => env('TXNCRNCY', 'default_value'),
+    'connectips_password' => env('CONNECTIPS_PASSWORD', 'default_value'),
 
 ];
