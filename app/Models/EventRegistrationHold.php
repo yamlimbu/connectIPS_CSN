@@ -52,11 +52,14 @@ class EventRegistrationHold extends Model
         'full_name',
         'address',
         'degree',
-        'gender'
+        'gender',
+        'event_category_ticket_prices_ids'
+
 
     ];
     protected $casts = [
         'payment_details' => 'array', // Cast to array for'
+        'event_category_ticket_prices_ids' => 'array', // Cast to array for'
 
     ];
     /**

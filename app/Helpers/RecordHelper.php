@@ -65,6 +65,7 @@ class RecordHelper
             'address' => $hold->address,
             'degree' => $hold->degree,
             'gender' => $hold->gender,
+            'event_category_ticket_prices_ids' => $hold->event_category_ticket_prices_ids,
         ];
     }
 

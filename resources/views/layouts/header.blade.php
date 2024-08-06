@@ -1,8 +1,11 @@
 <header class="header_section">
     <div class="header-top text-center text-white">
         <div class="container d-flex justify-content-center align-items-center gap-3">
+            @if (URL::current() !== route('event.register', 1) && URL::current() !== route('preview'))
             <div>Join us for Management Of Cardiovascular Disease 2024, October 25-26 in Kathmandu, Nepal.</div>
             <a href="{{ route('event.register', 1) }}" class="btn btn-navy hover">Join Us</a>
+
+        @endif
         </div>
     </div>
     <div class="header_bottom">
@@ -19,11 +22,12 @@
                 <div class="quote_btn-container">
 
 
-                    @if (URL::current() == route('event.register', 1))
-                        <a href="{{ URL::to('/') }}" class="d-none">
+                    @if (URL::current() == route('event.register', 1) || Route::is('preview'))
+                    <a href="{{ URL::to('/') }}"  class="btn btn-navy text-danger text-dark d-none d-md-block">
                             <i class="fa fa-home" aria-hidden="true"></i>
                             <span>Home</span>
                         </a>
+
                     @else
                         <a href="{{ route('event.register', 1) }}"
                             class="btn btn-navy text-danger text-dark d-none d-md-block">

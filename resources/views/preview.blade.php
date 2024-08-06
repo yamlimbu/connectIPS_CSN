@@ -131,58 +131,35 @@
                     <input type="hidden" name="APPNAME" id="APPNAME" value="{{ config('app.appname') }}" />
 
 
-                    <input type="hidden" name="TXNID" id="TXNID" value="{{ $data['txnid'] }}" />
+                    <input type="hidden" name="TXNID" id="TXNID" value="{{ $hold->txnid }}" />
 
 
-                    <input type="hidden" name="TXNDATE" id="TXNDATE" value="{{ $data['currentDate'] }}" />
+                    <input type="hidden" name="TXNDATE" id="TXNDATE" value="{{ \Carbon\Carbon::parse($hold->txndate)->format('d-m-Y') }}" />
 
 
                     <input type="hidden" name="TXNCRNCY" id="TXNCRNCY" value="NPR" />
 
 
-                    <input type="hidden" name="TXNAMT" id="TXNAMT" value="{{ $data['txnamt'] }}" />
+                    <input type="hidden" name="TXNAMT" id="TXNAMT" value="{{ $hold->txnamt }}" />
 
 
-                    <input type="hidden" name="REFERENCEID" id="REFERENCEID" value="{{$data['referenceid']}}" />
+                    <input type="hidden" name="REFERENCEID" id="REFERENCEID" value="{{$hold->referenceid}}" />
 
 
-                    <input type="hidden" name="REMARKS" id="REMARKS" value="{{$data['remarks']}}" />
+                    <input type="hidden" name="REMARKS" id="REMARKS" value="{{$hold->remarks}}" />
 
 
-                    <input type="hidden" name="PARTICULARS" id="PARTICULARS" value="{{$data['particulars']}}" />
+                    <input type="hidden" name="PARTICULARS" id="PARTICULARS" value="{{$hold->particulars}}" />
 
 
-                    <input type="hidden" name="TOKEN" id="TOKEN" value="{{ $data['token'] }}" />
+                    <input type="hidden" name="TOKEN" id="TOKEN" value="{{ $hold->token }}" />
 
-                    <input type="hidden" id="event_id" name="event_id" value="{{ $data['event_id'] }}" />
-                    <input type="hidden" id="nmc_registration_number" name="nmc_registration_number" value="{{ $data['nmc_registration_number'] }}" />
-                    {{--<!-- <input type="hidden" id="first_name" name="first_name" value="{{ $data['first_name'] }}" />
-                    <input type="hidden" id="middle_name" name="middle_name" value="{{ $data['middle_name'] }}" />
-                    <input type="hidden" id="last_name" name="last_name" value="{{ $data['last_name'] }}" /> -->--}}
-                    <input type="hidden" id="full_name" name="full_name" value="{{ $data['full_name'] }}" />
-                    <input type="hidden" id="address" name="address" value="{{ $data['address'] }}" />
-                    <input type="hidden" id="gender" name="gender" value="{{ $data['gender'] }}" />
-                    <input type="hidden" id="degree" name="degree" value="{{ $data['degree'] }}" />
-                    <input type="hidden" id="email_address" name="email_address" value="{{ $data['email_address'] }}" />
-                    <input type="hidden" id="phone_number" name="phone_number" value="{{ $data['phone_number'] }}" />
-                    <input type="hidden" id="payment_details" name="payment_details" value="{{ $data['payment_details'] }}" />
-                    <input type="hidden" id="payment_method" name="payment_method" value="{{ $data['payment_method'] }}" />
-                    <input type="hidden" id="total_amount" name="total_amount" value="{{ $data['total_amount'] }}" />
-                    <input type="hidden" id="status" name="status" value="{{ $data['status'] }}" />
-                    <input type="hidden" id="event_category_id" name="event_category_id" value="{{ $data['event_category_id'] }}" />
-                    <input type="hidden" id="event_category_ticket_id" name="event_category_ticket_id" value="{{ $data['event_category_ticket_id'] }}" />
-                    <input type="hidden" id="event_category_ticket_price_id" name="event_category_ticket_price_id" value="{{ $data['event_category_ticket_price_id'] }}" />
-                    <input type="hidden" id="event_category_id_two" name="event_category_id_two" value="{{ $data['event_category_id_two'] }}" />
-                    <input type="hidden" id="event_category_ticket_id_two" name="event_category_ticket_id_two" value="{{ $data['event_category_ticket_id_two'] }}" />
-                    <input type="hidden" id="event_category_ticket_price_id_two" name="event_category_ticket_price_id_two" value="{{ $data['event_category_ticket_price_id_two'] }}" />
-
-                    <input type="hidden" id="event_category_ticket_price_id_two" name="event_category_ticket_price_id_two" value="{{ json_encode($data['event_category_ticket_prices_ids']) }}" />
 
                 </div>
                 <div class="card-footer text-end">
                     <button type="submit" id="register-payment" name="registration_form" value="submitted" class="btn btn-primary btn-sm">Proceed to Payment</button>
-                    <a href="{{ route('event.register', 1) }}" class="btn btn-danger btn-sm">Edit</a>
-                </div>
+                    <a href="{{ route('event.register', ['event_id' => 1]) }}?hold_id={{$hold->id}}" class="btn btn-danger btn-sm">Edit</a>
+                    </div>
             </div>
         </form>
     </div>
@@ -215,27 +192,8 @@
                 remarks: $('#REMARKS').val(),
                 particulars: $('#PARTICULARS').val(),
                 token: $('#TOKEN').val(),
-                event_id: $('#event_id').val(),
-                nmc_registration_number: $('#nmc_registration_number').val(),
-                // first_name: $('#first_name').val(),
-                // last_name: $('#last_name').val(),
-                // middle_name: $('#middle_name').val(),
-                full_name: $('#full_name').val(),
-                address: $('#address').val(),
-                degree: $('#degree').val(),
-                gender: $('#gender').val(),
-                email_address: $('#email_address').val(),
-                phone_number: $('#phone_number').val(),
-                payment_details: $('#payment_details').val(),
-                payment_method: $('#payment_method').val(),
-                total_amount: $('#total_amount').val(),
-                status: $('#status').val(),
-                event_category_id: $('#event_category_id').val(),
-                event_category_ticket_id: $('#event_category_ticket_id').val(),
-                event_category_ticket_price_id: $('#event_category_ticket_price_id').val(),
-                event_category_id_two: $('#event_category_id_two').val(),
-                event_category_ticket_id_two: $('#event_category_ticket_id_two').val(),
-                event_category_ticket_price_id_two: $('#event_category_ticket_price_id_two').val(),
+                hold_id: {{$hold->id}},
+
             };
 
             // Example: Send the value to the server via an AJAX request

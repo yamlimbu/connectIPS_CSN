@@ -54,7 +54,8 @@ class EventRegistration extends Model
         'full_name',
         'address',
         'degree',
-        'gender'
+        'gender',
+        'event_category_ticket_prices_ids'
     ];
 
     /**

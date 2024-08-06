@@ -54,6 +54,7 @@ class EventRegisterRequest extends FormRequest
             'last_name.required' => 'Please enter your Last Name.',
             'email_address.required' => 'Please enter your Email Address.',
             'email_address.email' => 'Please enter a valid Email Address.',
+            'email_address.unique' => 'This email address has already been registered for the selected event. Please enter a different email',
             'phone_number.required' => 'Please enter your Phone Number.',
             'full_name.required' => 'Please enter your Full Name.',
             'address.required' => 'Please enter your Address.',
