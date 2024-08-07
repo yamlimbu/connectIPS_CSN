@@ -99,89 +99,87 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div>
                     @foreach ($data->eventCategories as $category)
-                    <div class="col-md-6">
-                        <div class="card mb-2 mb-md-4">
-                            <div class="card-header fw-bold text-uppercase p-2 p-md-3 d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div>{{ $category->title }}</div>
-                                    <small class="text-danger text-capitalize fw-normal">{{ $errors->first('event_category_ticket_prices_ids') }}</small>
-                                </div>
-
-                                <button type="button" onclick="deselectRadioButton({{ $category->id }})" class="btn btn-danger btn-sm pre-congress" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="CLear Data">Reset</button>
+                    <div class="card mb-2 mb-md-4">
+                        <div class="card-header fw-bold text-uppercase p-2 p-md-3 d-flex justify-content-between align-items-center">
+                            <div>
+                                <div>{{ $category->title }}</div>
+                                <small class="text-danger text-capitalize fw-normal">{{ $errors->first('event_category_ticket_prices_ids') }}</small>
                             </div>
 
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead class="bg-light">
-                                            <tr>
-                                                <th>Ticket</th>
-                                                <th>Early Bird</th>
-                                                <th>Late & On-Site</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($category->tickets as $ticket)
-                                            @php
-                                            $earlyBirdPrice = $ticket->prices->firstWhere('event_category_ticket_name', 'Early Bird');
-                                            $lateOnsitePrice = $ticket->prices->firstWhere('event_category_ticket_name', 'Late & On-site');
-                                            $selectedPriceId = old('event_category_ticket_prices_ids.' . $category->id, $eventRegistrationHold->event_category_ticket_prices_ids[$category->id] ?? null);
+                            <button type="button" onclick="deselectRadioButton({{ $category->id }})" class="btn btn-danger btn-sm pre-congress" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Reset"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                        </div>
 
-                                            // Set your desired timezone
-                                            $timezone = 'Asia/Kathmandu';
-                                            $currentDate = \Carbon\Carbon::now($timezone);
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th>Ticket</th>
+                                            <th>Early Bird</th>
+                                            <th>Late & On-Site</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($category->tickets as $ticket)
+                                        @php
+                                        $earlyBirdPrice = $ticket->prices->firstWhere('event_category_ticket_name', 'Early Bird');
+                                        $lateOnsitePrice = $ticket->prices->firstWhere('event_category_ticket_name', 'Late & On-site');
+                                        $selectedPriceId = old('event_category_ticket_prices_ids.' . $category->id, $eventRegistrationHold->event_category_ticket_prices_ids[$category->id] ?? null);
 
-                                            // Convert offer_price_end_date to the correct timezone
-                                            $earlyBirdEndDate = $earlyBirdPrice ? \Carbon\Carbon::parse($earlyBirdPrice->offer_price_end_date)->setTimezone($timezone) : null;
-                                            $lateOnsiteEndDate = $lateOnsitePrice ? \Carbon\Carbon::parse($lateOnsitePrice->offer_price_end_date)->setTimezone($timezone) : null;
+                                        // Set your desired timezone
+                                        $timezone = 'Asia/Kathmandu';
+                                        $currentDate = \Carbon\Carbon::now($timezone);
 
-                                            // Determine if Early Bird and Late On-Site prices should be enabled or disabled
-                                            $isEarlyBirdDisabled = $earlyBirdEndDate ? $currentDate->greaterThanOrEqualTo($earlyBirdEndDate) : true;
-                                            $isLateOnsiteDisabled = $lateOnsiteEndDate ? $currentDate->lessThan($lateOnsiteEndDate) : true;
+                                        // Convert offer_price_end_date to the correct timezone
+                                        $earlyBirdEndDate = $earlyBirdPrice ? \Carbon\Carbon::parse($earlyBirdPrice->offer_price_end_date)->setTimezone($timezone) : null;
+                                        $lateOnsiteEndDate = $lateOnsitePrice ? \Carbon\Carbon::parse($lateOnsitePrice->offer_price_end_date)->setTimezone($timezone) : null;
 
-                                            // Debugging: Output the values
-                                            echo "<!-- Ticket Title: {$ticket->title} -->";
-                                            echo "<!-- Early Bird Price: " . ($earlyBirdPrice ? $earlyBirdPrice->price : 'Not Found') . " -->";
-                                            echo "<!-- Late On-site Price: " . ($lateOnsitePrice ? $lateOnsitePrice->price : 'Not Found') . " -->";
-                                            echo "<!-- Selected Price ID: " . $selectedPriceId . " -->";
-                                            echo "<!-- Early Bird Disabled: " . ($isEarlyBirdDisabled ? 'true' : 'false') . " -->";
-                                            echo "<!-- Late On-site Disabled: " . ($isLateOnsiteDisabled ? 'true' : 'false') . " -->";
-                                            @endphp
-                                            <tr>
-                                                <td width="50%">
-                                                    {{ $ticket->title }}
-                                                </td>
-                                                <td>
-                                                    @if ($earlyBirdPrice)
-                                                    <div class="form-group col-lg-12" style="{{ $isEarlyBirdDisabled ? 'color: lightgray;' : '' }}">
-                                                        <input class="form-check-input" type="radio" name="event_category_ticket_prices_ids[{{ $category->id }}]" id="ticket_{{ $ticket->id }}_early_bird" value="{{ $earlyBirdPrice->id }}" {{ $selectedPriceId == $earlyBirdPrice->id ? 'checked' : '' }} {{ $isEarlyBirdDisabled ? 'disabled' : '' }}>
-                                                        {{ $earlyBirdPrice->price }}
-                                                    </div>
-                                                    @else
-                                                    <div class="form-group col-lg-12">
-                                                        N/A
-                                                    </div>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if ($lateOnsitePrice)
-                                                    <div class="form-group col-lg-12" style="{{ $isLateOnsiteDisabled ? 'color: lightgray;' : '' }}">
-                                                        <input class="form-check-input" type="radio" name="event_category_ticket_prices_ids[{{ $category->id }}]" id="ticket_{{ $ticket->id }}_late_onsite" value="{{ $lateOnsitePrice->id }}" {{ $selectedPriceId == $lateOnsitePrice->id ? 'checked' : '' }} {{ $isLateOnsiteDisabled ? 'disabled' : '' }}>
-                                                        {{ $lateOnsitePrice->price }}
-                                                    </div>
-                                                    @else
-                                                    <div class="form-group col-lg-12">
-                                                        N/A
-                                                    </div>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        // Determine if Early Bird and Late On-Site prices should be enabled or disabled
+                                        $isEarlyBirdDisabled = $earlyBirdEndDate ? $currentDate->greaterThanOrEqualTo($earlyBirdEndDate) : true;
+                                        $isLateOnsiteDisabled = $lateOnsiteEndDate ? $currentDate->lessThan($lateOnsiteEndDate) : true;
+
+                                        // Debugging: Output the values
+                                        echo "<!-- Ticket Title: {$ticket->title} -->";
+                                        echo "<!-- Early Bird Price: " . ($earlyBirdPrice ? $earlyBirdPrice->price : 'Not Found') . " -->";
+                                        echo "<!-- Late On-site Price: " . ($lateOnsitePrice ? $lateOnsitePrice->price : 'Not Found') . " -->";
+                                        echo "<!-- Selected Price ID: " . $selectedPriceId . " -->";
+                                        echo "<!-- Early Bird Disabled: " . ($isEarlyBirdDisabled ? 'true' : 'false') . " -->";
+                                        echo "<!-- Late On-site Disabled: " . ($isLateOnsiteDisabled ? 'true' : 'false') . " -->";
+                                        @endphp
+                                        <tr>
+                                            <td width="50%">
+                                                {{ $ticket->title }}
+                                            </td>
+                                            <td>
+                                                @if ($earlyBirdPrice)
+                                                <div class="form-group col-lg-12" style="{{ $isEarlyBirdDisabled ? 'color: lightgray;' : '' }}">
+                                                    <input class="form-check-input" type="radio" name="event_category_ticket_prices_ids[{{ $category->id }}]" id="ticket_{{ $ticket->id }}_early_bird" value="{{ $earlyBirdPrice->id }}" {{ $selectedPriceId == $earlyBirdPrice->id ? 'checked' : '' }} {{ $isEarlyBirdDisabled ? 'disabled' : '' }}>
+                                                    {{ $earlyBirdPrice->price }}
+                                                </div>
+                                                @else
+                                                <div class="form-group col-lg-12">
+                                                    N/A
+                                                </div>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($lateOnsitePrice)
+                                                <div class="form-group col-lg-12" style="{{ $isLateOnsiteDisabled ? 'color: lightgray;' : '' }}">
+                                                    <input class="form-check-input" type="radio" name="event_category_ticket_prices_ids[{{ $category->id }}]" id="ticket_{{ $ticket->id }}_late_onsite" value="{{ $lateOnsitePrice->id }}" {{ $selectedPriceId == $lateOnsitePrice->id ? 'checked' : '' }} {{ $isLateOnsiteDisabled ? 'disabled' : '' }}>
+                                                    {{ $lateOnsitePrice->price }}
+                                                </div>
+                                                @else
+                                                <div class="form-group col-lg-12">
+                                                    N/A
+                                                </div>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
