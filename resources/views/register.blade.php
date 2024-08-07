@@ -19,92 +19,100 @@
             <form method="POST" action="{{ route('event_register') }}">
                 @csrf
                 <input type="hidden" name="event_id" value="{{ $event_id }}">
-                <div class="card">
+                <div class="card mb-4">
                     <div class="card-header fw-bold text-uppercase p-2 p-md-3">Register</div>
-                    <div class="card-body p-2 p-md-3">
-                        <div class="row mb-4">
-                            <div class="form-group col-lg-4 mb-2">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-lg-4 mb-3">
                                 <label class="form-label" for="nmc_registration_number">NMC Number</label>
                                 <div class="input-group">
 
                                     <input type="text" class="form-control " id="nmc_registration_number" name="nmc_registration_number" placeholder="" value="{{ old('nmc_registration_number', $eventRegistrationHold['nmc_registration_number'] ?? '') }}">
                                     <div class="input-group-append">
-                                        <button class="btn btn-secondary" type="button" id="search-nmc">
+                                        <button class="btn btn-primary" type="button" id="search-nmc">
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </div>
                                 </div>
                                 @if ($errors->has('nmc_registration_number'))
-                                <span class="text-danger">{{ $errors->first('nmc_registration_number') }}</span>
+                                <small class="text-danger">{{ $errors->first('nmc_registration_number') }}</small>
                                 @endif
                             </div>
-                            <div class="form-group col-lg-4 mb-2">
+                            <div class="form-group col-lg-4 mb-3">
                                 <label class="form-label" for="full_name">Full Name</label>
                                 <input type="text" class="form-control" id="full_name" name="full_name" placeholder="" value="{{ old('full_name', $eventRegistrationHold['full_name'] ?? '') }}">
                                 @if ($errors->has('full_name'))
-                                <span class="text-danger">{{ $errors->first('full_name') }}</span>
+                                <small class="text-danger">{{ $errors->first('full_name') }}</small>
                                 @endif
                             </div>
-                            <div class="form-group col-lg-4 mb-2">
+                            <div class="form-group col-lg-4 mb-3">
                                 <label class="form-label" for="address">Address</label>
                                 <input type="text" class="form-control" id="address" name="address" placeholder="" value="{{ old('address', $eventRegistrationHold['address'] ?? '') }}">
                                 @if ($errors->has('address'))
-                                <span class="text-danger">{{ $errors->first('address') }}</span>
+                                <small class="text-danger">{{ $errors->first('address') }}</small>
                                 @endif
                             </div>
-                            <div class="form-group col-lg-4 mb-2">
+                            <div class="form-group col-lg-4 mb-3 mb-md-0">
                                 <label class="form-label" for="degree">Degree</label>
                                 <input type="text" class="form-control" id="degree" name="degree" placeholder="" value="{{ old('degree', $eventRegistrationHold['degree'] ?? '') }}">
                                 @if ($errors->has('degree'))
-                                <span class="text-danger">{{ $errors->first('degree') }}</span>
+                                <small class="text-danger">{{ $errors->first('degree') }}</small>
                                 @endif
                             </div>
                             <input type="hidden" class="form-control" id="gender" name="gender" placeholder="" value="{{ old('gender', $eventRegistrationHold['gender'] ?? '') }}">
 
-                            <!-- <div class="form-group col-lg-4 mb-2">
+                            <!-- <div class="form-group col-lg-4 mb-3">
                                 <label class="form-label" for="first_name">First Name</label>
                                 <input type="text" class="form-control" id="first_name" name="first_name" placeholder="" value="{{ old('first_name', session('data.first_name')) }}">
                                 @if ($errors->has('first_name'))
                                 <span class="text-danger">{{ $errors->first('first_name') }}</span>
                                 @endif
                             </div>
-                            <div class="form-group col-lg-4 mb-2">
+                            <div class="form-group col-lg-4 mb-3">
                                 <label class="form-label" for="middle_name">Middle Name</label>
                                 <input type="text" class="form-control" id="middle_name" name="middle_name" placeholder="" value="{{ old('middle_name', session('data.middle_name')) }}">
                                 @if ($errors->has('middle_name'))
                                 <span class="text-danger">{{ $errors->first('middle_name') }}</span>
                                 @endif
                             </div>
-                            <div class="form-group col-lg-4 mb-2">
+                            <div class="form-group col-lg-4 mb-3">
                                 <label class="form-label" for="last_name">Last Name</label>
                                 <input type="text" class="form-control" id="last_name" name="last_name" placeholder="" value="{{ old('last_name', session('data.last_name')) }}">
                                 @if ($errors->has('last_name'))
                                 <span class="text-danger">{{ $errors->first('last_name', session('data.last_name')) }}</span>
                                 @endif
                             </div> -->
-                            <div class="form-group col-lg-4 mb-2">
+                            <div class="form-group col-lg-4 mb-3 mb-md-0">
                                 <label class="form-label" for="email_address">Email Address</label>
                                 <input type="text" class="form-control" id="email_address" name="email_address" placeholder="" value="{{ old('email_address', $eventRegistrationHold['email_address'] ?? '') }}">
                                 @if ($errors->has('email_address'))
-                                <span class="text-danger">{{ $errors->first('email_address') }}</span>
+                                <small class="text-danger">{{ $errors->first('email_address') }}</small>
                                 @endif
                             </div>
-                            <div class="form-group col-lg-4 mb-2">
+                            <div class="form-group col-lg-4 mb-3 mb-md-0">
                                 <label class="form-label" for="phone_number">Phone Number</label>
                                 <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="" value="{{ old('phone_number', $eventRegistrationHold['phone_number'] ?? '') }}">
                                 @if ($errors->has('phone_number'))
-                                <span class="text-danger">{{ $errors->first('phone_number') }}</span>
+                                <small class="text-danger">{{ $errors->first('phone_number') }}</small>
                                 @endif
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach ($data->eventCategories as $category)
+                    <div class="col-md-6">
+                        <div class="card mb-2 mb-md-4">
+                            <div class="card-header fw-bold text-uppercase p-2 p-md-3 d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div>{{ $category->title }}</div>
+                                    <small class="text-danger text-capitalize fw-normal">{{ $errors->first('event_category_ticket_prices_ids') }}</small>
+                                </div>
 
-                        <div>
-                            @foreach ($data->eventCategories as $category)
-                            <div class="mb-2 mb-md-4">
-                                <div class="heading mb-2">{{ $category->title }}</div>
-                                <button type="button" onclick="deselectRadioButton({{ $category->id }})" class="pre-congress">Reset</button>
+                                <button type="button" onclick="deselectRadioButton({{ $category->id }})" class="btn btn-danger btn-sm pre-congress" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="CLear Data">Reset</button>
+                            </div>
 
-                                <span class="text-danger">{{ $errors->first('event_category_ticket_prices_ids') }}</span>
+                            <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead class="bg-light">
@@ -175,16 +183,15 @@
                                     </table>
                                 </div>
                             </div>
-                            @endforeach
-
                         </div>
-                        @if(request()->query('hold_id'))
-                        <input type="hidden" name="hold_id" value="{{ request()->query('hold_id') }}">
-                        @endif
                     </div>
-                    <div class="card-footer text-end border-0">
-                        <button type="submit" name="registration_form" value="submitted" class="btn btn-primary btn-sm float-right">Register</button>
-                    </div>
+                    @endforeach
+                </div>
+                @if(request()->query('hold_id'))
+                <input type="hidden" name="hold_id" value="{{ request()->query('hold_id') }}">
+                @endif
+                <div class="card-footer text-end border-0">
+                    <button type="submit" name="registration_form" value="submitted" class="btn btn-primary float-right">Register Now</button>
                 </div>
             </form>
         </div>
