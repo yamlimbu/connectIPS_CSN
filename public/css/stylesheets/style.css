@@ -153,7 +153,7 @@ body {
 
 .reg-fee {
   position: relative;
-  height: 205px;
+  height: 230px;
   color: #fff;
   padding: 27px;
 }
@@ -178,6 +178,12 @@ body {
   .reg-fee .fee-content {
     font-size: 0.55rem;
     text-align: center;
+  }
+}
+@media (max-width: 768px) {
+  .reg-fee .fee-content {
+    left: 50%;
+    transform: translateX(-76px);
   }
 }
 .reg-fee .fee-content .banner-title {

@@ -147,7 +147,7 @@ body {
 
 .reg-fee {
     position: relative;
-    height: 205px;
+    height: 230px;
     color: #fff;
     padding: 27px;
     .overlay-img {
@@ -171,6 +171,11 @@ body {
             font-size: 0.55rem;
             text-align: center;
         }
+        @media (max-width: 768px) {
+            left: 50%;
+            transform: translateX(-76px);
+        }
+
         .banner-title {
             font-size: 0.86rem;
             @media (max-width: 768px) {
