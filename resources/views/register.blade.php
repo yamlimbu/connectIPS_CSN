@@ -35,28 +35,28 @@
                                     </div>
                                 </div>
                                 @if ($errors->has('nmc_registration_number'))
-                                <span class="text-danger">{{ $errors->first('nmc_registration_number') }}</span>
+                                <small class="text-danger">{{ $errors->first('nmc_registration_number') }}</small>
                                 @endif
                             </div>
                             <div class="form-group col-lg-4 mb-3">
                                 <label class="form-label" for="full_name">Full Name</label>
                                 <input type="text" class="form-control" id="full_name" name="full_name" placeholder="" value="{{ old('full_name', $eventRegistrationHold['full_name'] ?? '') }}">
                                 @if ($errors->has('full_name'))
-                                <span class="text-danger">{{ $errors->first('full_name') }}</span>
+                                <small class="text-danger">{{ $errors->first('full_name') }}</small>
                                 @endif
                             </div>
                             <div class="form-group col-lg-4 mb-3">
                                 <label class="form-label" for="address">Address</label>
                                 <input type="text" class="form-control" id="address" name="address" placeholder="" value="{{ old('address', $eventRegistrationHold['address'] ?? '') }}">
                                 @if ($errors->has('address'))
-                                <span class="text-danger">{{ $errors->first('address') }}</span>
+                                <small class="text-danger">{{ $errors->first('address') }}</small>
                                 @endif
                             </div>
                             <div class="form-group col-lg-4 mb-3 mb-md-0">
                                 <label class="form-label" for="degree">Degree</label>
                                 <input type="text" class="form-control" id="degree" name="degree" placeholder="" value="{{ old('degree', $eventRegistrationHold['degree'] ?? '') }}">
                                 @if ($errors->has('degree'))
-                                <span class="text-danger">{{ $errors->first('degree') }}</span>
+                                <small class="text-danger">{{ $errors->first('degree') }}</small>
                                 @endif
                             </div>
                             <input type="hidden" class="form-control" id="gender" name="gender" placeholder="" value="{{ old('gender', $eventRegistrationHold['gender'] ?? '') }}">
@@ -86,14 +86,14 @@
                                 <label class="form-label" for="email_address">Email Address</label>
                                 <input type="text" class="form-control" id="email_address" name="email_address" placeholder="" value="{{ old('email_address', $eventRegistrationHold['email_address'] ?? '') }}">
                                 @if ($errors->has('email_address'))
-                                <span class="text-danger">{{ $errors->first('email_address') }}</span>
+                                <small class="text-danger">{{ $errors->first('email_address') }}</small>
                                 @endif
                             </div>
                             <div class="form-group col-lg-4 mb-3 mb-md-0">
                                 <label class="form-label" for="phone_number">Phone Number</label>
                                 <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="" value="{{ old('phone_number', $eventRegistrationHold['phone_number'] ?? '') }}">
                                 @if ($errors->has('phone_number'))
-                                <span class="text-danger">{{ $errors->first('phone_number') }}</span>
+                                <small class="text-danger">{{ $errors->first('phone_number') }}</small>
                                 @endif
                             </div>
                         </div>
@@ -104,11 +104,14 @@
                     <div class="col-md-6">
                         <div class="card mb-2 mb-md-4">
                             <div class="card-header fw-bold text-uppercase p-2 p-md-3 d-flex justify-content-between align-items-center">
-                                <div>{{ $category->title }}</div>
+                                <div>
+                                    <div>{{ $category->title }}</div>
+                                    <small class="text-danger text-capitalize fw-normal">{{ $errors->first('event_category_ticket_prices_ids') }}</small>
+                                </div>
+
                                 <button type="button" onclick="deselectRadioButton({{ $category->id }})" class="btn btn-danger btn-sm pre-congress" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="CLear Data">Reset</button>
                             </div>
 
-                            <span class="text-danger">{{ $errors->first('event_category_ticket_prices_ids') }}</span>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
