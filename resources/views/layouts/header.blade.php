@@ -4,8 +4,11 @@
             @if (URL::current() !== route('event.register', 1) && URL::current() !== route('preview'))
             <div>Join us for Management Of Cardiovascular Disease 2024, October 25-26 in Kathmandu, Nepal.</div>
             <a href="{{ route('event.register', 1) }}" class="btn btn-navy hover">Join Us</a>
+            @else
+            <div>XXII International Congress On
+            Management Of Cardiovascular Disease 2024, October 25-26 in Kathmandu, Nepal.</div>
+            @endif
 
-        @endif
         </div>
     </div>
     <div class="header_bottom">

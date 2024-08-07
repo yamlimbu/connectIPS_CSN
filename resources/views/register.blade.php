@@ -102,7 +102,7 @@
                             @foreach ($data->eventCategories as $category)
                             <div class="mb-2 mb-md-4">
                                 <div class="heading mb-2">{{ $category->title }}</div>
-                                <button type="button" onclick="deselectRadioButton({{ $category->id }})" class="pre-congress">Deselect</button>
+                                <button type="button" onclick="deselectRadioButton({{ $category->id }})" class="pre-congress">Reset</button>
 
                                 <span class="text-danger">{{ $errors->first('event_category_ticket_prices_ids') }}</span>
                                 <div class="table-responsive">
