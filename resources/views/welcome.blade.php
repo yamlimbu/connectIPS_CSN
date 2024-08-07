@@ -72,7 +72,7 @@ use Illuminate\Support\Str;
     <div class="container h-100">
         <div class="row h-100 align-content-center justify-content-between">
             <div class="col-md-7">
-                <div class="detail-box py-4 py-md-0 mb-4 mb-md-0">
+                <div class="detail-box py-4 py-md-0 mb-2 mb-md-0">
                     <p class="banner-title small-text fw-bold mb-1 mb-md-2">Conquering heart disease in the himalayan
                         region</p>
 
@@ -108,13 +108,14 @@ use Illuminate\Support\Str;
                         </div>
 
                     </div>
+
                 </div>
             </div>
             <div class="col-md-4 align-self-center pb-4 pb-md-0">
                 <div class="card">
                     <div class="card-body reg-fee">
                         <div class="overlay-img"><img src="images/bg-img.jpg" alt=""></div>
-                        <div class="fee-content position-absolute top-50 start-50 translate-middle">
+                        <div class="fee-content">
                             <div class="banner-title fw-bold text-uppercase mb-2 mb-md-3">Registration Fee</div>
                             <div class="mb-1 mb-md-2">
                                 <span class="fw-bold">CSN Members:-</span>
@@ -133,7 +134,7 @@ use Illuminate\Support\Str;
                                 <span class="fw-bold">Cardiovascular Specialists:-</span>
                                 <span>Rs 5000</span>
                             </div>
-                            <a href="{{ route('event.register', 1) }}" class="btn btn-navy text-danger d-md-none">Register Now</a>
+                            <a href="{{ route('event.register', 1) }}" class="btn btn-navy text-danger">Register Now</a>
                         </div>
                     </div>
                 </div>
