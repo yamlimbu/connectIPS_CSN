@@ -57,7 +57,11 @@ class EventRegistration extends Model
         'gender',
         'event_category_ticket_prices_ids'
     ];
+    protected $casts = [
+        'payment_details' => 'array', // Cast to array for'
+        'event_category_ticket_prices_ids' => 'array', // Cast to array for'
 
+    ];
     /**
      * Get the event associated with the registration.
      */
