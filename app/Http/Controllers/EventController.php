@@ -422,7 +422,8 @@ class EventController extends Controller
         $ticketDerails = EventCategoryTicketPrice::with(['eventcategoryticket.eventcategory.event'])
             ->find($event_category_ticket_prices_ids);
 
-        return view('success', compact('isMobile', 'registration', 'ticketDerails'));
+        $event = Event::find($registration->event_id);
+        return view('success', compact('isMobile', 'registration', 'ticketDerails', 'event'));
     }
 
 
