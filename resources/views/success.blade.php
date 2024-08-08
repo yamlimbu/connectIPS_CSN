@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('page-content')
 <section class="message-section fixed-vh d-flex align-items-center">
     <div class="container text-center">
@@ -10,32 +9,31 @@
             </div>
             <h2 class="success-title">Registration success!! </h2>
             <p class="success-description mb-2 mb-md-4">You have successfully completed the registration process.</p>
-            @if (!$isMobile)<a href="{{ url('/') }}" class="btn btn-success btn-sm">Go to Homepage</a> @endif
+
         </div>
         @endif
-    </div>
-    <div class="container">
-    <div class="card">
-    <div class="card-header fw-bold text-uppercase p-2 p-md-3">Event Details</div>
-    <div class="card-body p-2 p-md-3">
-                <div class="row mb-2 mb-md-4">
-    <p class="banner-title small-text fw-bold mb-1 mb-md-2">Conquering heart disease in the himalayan
-                        region</p>
 
-                    <h3 class="banner-title main">XXII International Congress On <br> Management Of Cardiovascular
-                        Disease</h3>
+
+        <div class="card">
+            <div class="card-header fw-bold text-uppercase p-2 p-md-3">Event Details</div>
+            <div class="card-body p-2 p-md-3">
+                <div class="row mb-2 mb-md-4">
+                    <p class="banner-title small-text fw-bold mb-1 mb-md-2">{{$event->banner_text}}</p>
+
+                    <h3 class="banner-title main">{{$event->name}}</h3>
 
                     <p class="mb-1">
                         <strong>Date:</strong>
-                        25 - 26 October 2024
+                        {{ \Carbon\Carbon::parse($event->start_date)->format('d') }}
+                        - {{ \Carbon\Carbon::parse($event->end_date)->format('d F Y') }}
                     </p>
                     <p class="mb-2 mb-md-4">
                         <strong>Venue:</strong>
-                        Kathmandu, Nepal
+                        {{$event->location}}
                     </p>
-                    </div>
-                    </div>
-    </div>
+                </div>
+            </div>
+        </div>
         <div class="card">
             <div class="card-header fw-bold text-uppercase p-2 p-md-3">Your Details</div>
             <div class="card-body p-2 p-md-3">
@@ -66,9 +64,9 @@
                         {{$registration->phone_number}}
                     </div>
                 </div>
-@foreach($ticketDerails as $ticket)
+                @foreach($ticketDerails as $ticket)
 
-        <div class="form-row mb-4">
+                <div class="form-row mb-4">
                     <div class="col-md-12">
                         <div class="heading mb-2">{{$ticket->eventcategoryticket->eventcategory->title}}</div>
                         <div class="table-responsive">
@@ -84,10 +82,10 @@
                                     <tr>
                                         <td width="50%">{{ $ticket->eventcategoryticket->title }}</td>
                                         <td>
-                                        {{ $ticket->event_category_ticket_name == 'Early Bird' ? '✔' : '' }}
+                                            {{ $ticket->event_category_ticket_name == 'Early Bird' ? '✔' : '' }}
                                         </td>
                                         <td>
-                                        {{ $ticket->event_category_ticket_name != 'Early Bird' ? '✔' : '' }}
+                                            {{ $ticket->event_category_ticket_name != 'Early Bird' ? '✔' : '' }}
 
                                         </td>
                                     </tr>
@@ -97,24 +95,24 @@
                         </div>
                     </div>
 
-
-
-
                 </div>
 
-@endforeach
-
-
-
-
-
-
+                @endforeach
             </div>
 
         </div>
-        </form>
+        <div class="card">
+            <div class="card-header fw-bold text-uppercase p-2 p-md-3">Please find QR for your entrance</div>
+            <div class="card-body p-2 p-md-3">
+                <div class="row mb-2 mb-md-4 text-center">
+                    <img src="{{ asset('images/sample-qr.png') }}" style="width: 150px; height: auto;" />
+                </div>
+            </div>
+        </div>
+        @if (!$isMobile)<a href="{{ url('/') }}" class="btn btn-success btn-sm">Go to Homepage</a> @endif
+
+    </div>
+
     </div>
 </section>
-
-
 @endsection
