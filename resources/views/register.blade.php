@@ -3,12 +3,6 @@
 <section class="register-section py-4">
     <div class="container">
 
-        @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-        @endif
-
         @if ($errors->has('error'))
         <div class="alert alert-danger">
             {{ $errors->first('error') }}
@@ -24,7 +18,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group col-lg-4 mb-3">
-                                <label class="form-label" for="nmc_registration_number">NMC Number</label>
+                                <label class="form-label" for="nmc_registration_number">NMC Number<span class="text-danger">*</span></label>
                                 <div class="input-group">
 
                                     <input type="text" class="form-control " id="nmc_registration_number" name="nmc_registration_number" placeholder="" value="{{ old('nmc_registration_number', $eventRegistrationHold['nmc_registration_number'] ?? '') }}">
@@ -39,21 +33,21 @@
                                 @endif
                             </div>
                             <div class="form-group col-lg-4 mb-3">
-                                <label class="form-label" for="full_name">Full Name</label>
+                                <label class="form-label" for="full_name">Full Name<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="full_name" name="full_name" placeholder="" value="{{ old('full_name', $eventRegistrationHold['full_name'] ?? '') }}">
                                 @if ($errors->has('full_name'))
                                 <small class="text-danger">{{ $errors->first('full_name') }}</small>
                                 @endif
                             </div>
                             <div class="form-group col-lg-4 mb-3">
-                                <label class="form-label" for="address">Address</label>
+                                <label class="form-label" for="address">Address<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="address" name="address" placeholder="" value="{{ old('address', $eventRegistrationHold['address'] ?? '') }}">
                                 @if ($errors->has('address'))
                                 <small class="text-danger">{{ $errors->first('address') }}</small>
                                 @endif
                             </div>
                             <div class="form-group col-lg-4 mb-3 mb-md-0">
-                                <label class="form-label" for="degree">Degree</label>
+                                <label class="form-label" for="degree">Degree<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="degree" name="degree" placeholder="" value="{{ old('degree', $eventRegistrationHold['degree'] ?? '') }}">
                                 @if ($errors->has('degree'))
                                 <small class="text-danger">{{ $errors->first('degree') }}</small>
@@ -83,14 +77,14 @@
                                 @endif
                             </div> -->
                             <div class="form-group col-lg-4 mb-3 mb-md-0">
-                                <label class="form-label" for="email_address">Email Address</label>
+                                <label class="form-label" for="email_address">Email Address<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="email_address" name="email_address" placeholder="" value="{{ old('email_address', $eventRegistrationHold['email_address'] ?? '') }}">
                                 @if ($errors->has('email_address'))
                                 <small class="text-danger">{{ $errors->first('email_address') }}</small>
                                 @endif
                             </div>
                             <div class="form-group col-lg-4 mb-3 mb-md-0">
-                                <label class="form-label" for="phone_number">Phone Number</label>
+                                <label class="form-label" for="phone_number">Phone Number<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="" value="{{ old('phone_number', $eventRegistrationHold['phone_number'] ?? '') }}">
                                 @if ($errors->has('phone_number'))
                                 <small class="text-danger">{{ $errors->first('phone_number') }}</small>

@@ -386,11 +386,8 @@ class EventController extends Controller
                 }
                 $hold->save();
             }
-
             $responseTransaction = $this->connectIpsService->getTransactionDetail($hold->txnid, $hold->txnamt);
 
-
-            $responseTransaction = $this->connectIpsService->getTransactionDetail($hold->txnid, $hold->txnamt);
             // Log transaction details to the transaction log
             Log::channel('transaction')->info('Transaction Details', [
                 'txnid' => $hold->txnid,
@@ -411,6 +408,8 @@ class EventController extends Controller
                 $hold->save();
 
                 Log::channel('transaction')->info('Record copy response: ' . json_encode($copyRecordResponse));
+                $registration = EventRegistration::where('event_token', $copyRecordResponse['event_token'])->first();
+
             }
         }
         // Set a success message in the session
@@ -419,7 +418,11 @@ class EventController extends Controller
         session()->forget('data');
         // Return the success view
         $isMobile = (bool) $hold->is_mobile;
-        return view('success', compact('isMobile'));
+        $event_category_ticket_prices_ids = ($registration->event_category_ticket_prices_ids);
+        $ticketDerails = EventCategoryTicketPrice::with(['eventcategoryticket.eventcategory.event'])
+            ->find($event_category_ticket_prices_ids);
+
+        return view('success', compact('isMobile', 'registration', 'ticketDerails'));
     }
 
 

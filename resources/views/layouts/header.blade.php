@@ -26,7 +26,7 @@
 
 
                     @if (URL::current() == route('event.register', 1) || Route::is('preview'))
-                    <a href="{{ URL::to('/') }}" class="d-none">
+                    <a href="{{ URL::to('/') }}" >
                         <i class="fa fa-home" aria-hidden="true"></i>
                         <span>Home</span>
                     </a>
