@@ -8,7 +8,8 @@
                 <img src="{{ asset('images/success.png') }}" alt="Success Icon" class="success-icon">
             </div>
             <h2 class="success-title">Registration success!! </h2>
-            <p class="success-description mb-2 mb-md-4">You have successfully completed the registration process.</p>
+            <p class="success-description mb-2 mb-md-2">You have successfully completed the registration process.</p>
+            <p class="success-description mb-2 mb-md-2">Please find the details of the events.</p>
 
         </div>
         @endif
@@ -102,14 +103,19 @@
 
         </div>
         <div class="card">
-            <div class="card-header fw-bold text-uppercase p-2 p-md-3">Please find QR for your entrance</div>
-            <div class="card-body p-2 p-md-3">
-                <div class="row mb-2 mb-md-4 text-center">
-                    <img src="{{ asset('images/sample-qr.png') }}" style="width: 150px; height: auto;" />
-                </div>
+    <div class="card-header fw-bold text-uppercase p-2 p-md-3">
+        Please find QR for your entrance
+    </div>
+    <div class="card-body p-2 p-md-3">
+        <div class="row mb-2 mb-md-4">
+            <div class="col text-center">
+                <img src="{{ asset('images/sample-qr.png') }}" style="width: 150px; height: auto; max-width: 100%;" />
             </div>
         </div>
-        @if (!$isMobile)<a href="{{ url('/') }}" class="btn btn-success btn-sm">Go to Homepage</a> @endif
+    </div>
+</div>
+
+        @if (!$isMobile)<div class="mt-4 mb-4"><a href="{{ url('/') }}" class="btn btn-success btn-sm">Go to Homepage</a></div>@endif
 
     </div>
 
