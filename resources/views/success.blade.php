@@ -66,7 +66,8 @@
                     </div>
                 </div>
                 @foreach($ticketDerails as $ticket)
-
+        @php
+        @endphp
                 <div class="form-row mb-4">
                     <div class="col-md-12">
                         <div class="heading mb-2">{{$ticket->eventcategoryticket->eventcategory->title}}</div>
@@ -83,10 +84,10 @@
                                     <tr>
                                         <td width="50%">{{ $ticket->eventcategoryticket->title }}</td>
                                         <td>
-                                            {{ $ticket->event_category_ticket_name == 'Early Bird' ? '✔' : '' }}
+                                            {{ $ticket->eventCategoryTicketPriceType->name == 'Early Bird' ? '✔' : '' }}
                                         </td>
                                         <td>
-                                            {{ $ticket->event_category_ticket_name != 'Early Bird' ? '✔' : '' }}
+                                            {{ $ticket->eventCategoryTicketPriceType->name != 'Early Bird' ? '✔' : '' }}
 
                                         </td>
                                     </tr>

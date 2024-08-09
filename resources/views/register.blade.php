@@ -117,62 +117,29 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($category->tickets as $ticket)
-                                        @php
-                                        $earlyBirdPrice = $ticket->prices->firstWhere('event_category_ticket_name', 'Early Bird');
-                                        $lateOnsitePrice = $ticket->prices->firstWhere('event_category_ticket_name', 'Late & On-site');
-                                        $selectedPriceId = old('event_category_ticket_prices_ids.' . $category->id, $eventRegistrationHold->event_category_ticket_prices_ids[$category->id] ?? null);
-
-                                        // Set your desired timezone
-                                        $timezone = 'Asia/Kathmandu';
-                                        $currentDate = \Carbon\Carbon::now($timezone);
-
-                                        // Convert offer_price_end_date to the correct timezone
-                                        $earlyBirdEndDate = $earlyBirdPrice ? \Carbon\Carbon::parse($earlyBirdPrice->offer_price_end_date)->setTimezone($timezone) : null;
-                                        $lateOnsiteEndDate = $lateOnsitePrice ? \Carbon\Carbon::parse($lateOnsitePrice->offer_price_end_date)->setTimezone($timezone) : null;
-
-                                        // Determine if Early Bird and Late On-Site prices should be enabled or disabled
-                                        $isEarlyBirdDisabled = $earlyBirdEndDate ? $currentDate->greaterThanOrEqualTo($earlyBirdEndDate) : true;
-                                        $isLateOnsiteDisabled = $lateOnsiteEndDate ? $currentDate->lessThan($lateOnsiteEndDate) : true;
-
-                                        // Debugging: Output the values
-                                        echo "<!-- Ticket Title: {$ticket->title} -->";
-                                        echo "<!-- Early Bird Price: " . ($earlyBirdPrice ? $earlyBirdPrice->price : 'Not Found') . " -->";
-                                        echo "<!-- Late On-site Price: " . ($lateOnsitePrice ? $lateOnsitePrice->price : 'Not Found') . " -->";
-                                        echo "<!-- Selected Price ID: " . $selectedPriceId . " -->";
-                                        echo "<!-- Early Bird Disabled: " . ($isEarlyBirdDisabled ? 'true' : 'false') . " -->";
-                                        echo "<!-- Late On-site Disabled: " . ($isLateOnsiteDisabled ? 'true' : 'false') . " -->";
-                                        @endphp
                                         <tr>
                                             <td width="50%">
                                                 {{ $ticket->title }}
                                             </td>
+                                            @foreach ($ticket->prices as $price)
+                                            @php
+                                            $priceTypeName = $price->eventCategoryTicketPriceType->name;
+                                            $isPriceActive = $price->is_active;
+                                            $isChecked = old('event_category_ticket_prices_ids.' . $category->id, $eventRegistrationHold['event_category_ticket_prices_ids'][$category->id] ?? '') == $price->id;
+
+                                            @endphp
                                             <td>
-                                                @if ($earlyBirdPrice)
-                                                <div class="form-group col-lg-12" style="{{ $isEarlyBirdDisabled ? 'color: lightgray;' : '' }}">
-                                                    <input class="form-check-input" type="radio" name="event_category_ticket_prices_ids[{{ $category->id }}]" id="ticket_{{ $ticket->id }}_early_bird" value="{{ $earlyBirdPrice->id }}" {{ $selectedPriceId == $earlyBirdPrice->id ? 'checked' : '' }} {{ $isEarlyBirdDisabled ? 'disabled' : '' }}>
-                                                    {{ $earlyBirdPrice->price }}
+                                                <div class="form-group col-lg-12" style="{{ !$isPriceActive ? 'color: lightgray;' : '' }}">
+                                                    <input class="form-check-input" type="radio" name="event_category_ticket_prices_ids[{{ $category->id }}]" id="ticket_{{ $ticket->id }}_{{ strtolower(str_replace(' ', '_', $priceTypeName)) }}" value="{{ $price->id }}" {{ $isPriceActive ? ($isChecked ? 'checked' : '') : 'disabled' }}>
+                                                    {{ $price->price }}
                                                 </div>
-                                                @else
-                                                <div class="form-group col-lg-12">
-                                                    N/A
-                                                </div>
-                                                @endif
                                             </td>
-                                            <td>
-                                                @if ($lateOnsitePrice)
-                                                <div class="form-group col-lg-12" style="{{ $isLateOnsiteDisabled ? 'color: lightgray;' : '' }}">
-                                                    <input class="form-check-input" type="radio" name="event_category_ticket_prices_ids[{{ $category->id }}]" id="ticket_{{ $ticket->id }}_late_onsite" value="{{ $lateOnsitePrice->id }}" {{ $selectedPriceId == $lateOnsitePrice->id ? 'checked' : '' }} {{ $isLateOnsiteDisabled ? 'disabled' : '' }}>
-                                                    {{ $lateOnsitePrice->price }}
-                                                </div>
-                                                @else
-                                                <div class="form-group col-lg-12">
-                                                    N/A
-                                                </div>
-                                                @endif
-                                            </td>
+                                            @endforeach
+
                                         </tr>
                                         @endforeach
                                     </tbody>
+
                                 </table>
                             </div>
                         </div>

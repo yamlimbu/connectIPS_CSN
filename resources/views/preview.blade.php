@@ -48,6 +48,8 @@
 
                     <div class="form-row mb-4">
                         @foreach ($paymentDetails as $paymentDetail)
+                        @php
+                        @endphp
                         <div class="col-md-12">
                             <div class="heading mb-2">{{ $paymentDetail['category_title'] }}</div>
                             <div class="table-responsive">
@@ -62,9 +64,9 @@
                                     <tbody>
                                         <tr>
                                             <td width="50%">{{ $paymentDetail['title'] }}</td>
-                                            <td>{{ $paymentDetail['event_category_ticket_name'] == 'Early Bird' ? $paymentDetail['price'] : '-' }}
+                                            <td>{{ $paymentDetail['price_type'] == 'Early Bird' ? $paymentDetail['price'] : '-' }}
                                             </td>
-                                            <td>{{ $paymentDetail['event_category_ticket_name'] == 'Late & On-site' ? $paymentDetail['price'] : '-' }}
+                                            <td>{{ $paymentDetail['price_type'] == 'Late & On-Site' ? $paymentDetail['price'] : '-' }}
                                             </td>
 
                                         </tr>
@@ -158,7 +160,7 @@
                 </div>
                 <div class="card-footer text-end">
                     <button type="submit" id="register-payment" name="registration_form" value="submitted" class="btn btn-primary btn-sm">Proceed to Payment</button>
-                    <a href="{{ route('event.register', ['event_id' => 1]) }}?hold_id={{$hold->id}}" class="btn btn-danger btn-sm">Edit</a>
+                    <a href="{{ route('event.register', ['event_id' => $hold->event_id]) }}?hold_id={{$hold->id}}" class="btn btn-danger btn-sm">Edit</a>
                     </div>
             </div>
         </form>

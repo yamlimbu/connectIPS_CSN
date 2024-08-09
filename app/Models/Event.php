@@ -22,7 +22,10 @@ class Event extends Model
         'information',
         'application_id',
         'created_by',
-        'updated_by'
+        'updated_by',
+        'is_featured',
+        'is_active'
+
     ];
 
     protected $hidden = [];
