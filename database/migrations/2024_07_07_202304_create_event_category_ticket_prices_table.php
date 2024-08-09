@@ -15,9 +15,7 @@ return new class extends Migration
     {
         Schema::create('event_category_ticket_prices', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('event_category_ticket_name', 255)->nullable();
             $table->bigInteger('event_category_ticket_id')->nullable();
-            $table->timestamp('offer_price_start_date', 6)->nullable();
             $table->timestamp('offer_price_end_date', 6)->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->bigInteger('created_by')->nullable();
