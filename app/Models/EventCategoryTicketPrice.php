@@ -21,7 +21,6 @@ class EventCategoryTicketPrice  extends Model
         'offer_price_end_date',
         'price',
         'event_category_ticket_price_types_id',
-        'is_active'
     ];
 
     /**

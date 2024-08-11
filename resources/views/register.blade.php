@@ -111,8 +111,9 @@
                                     <thead class="bg-light">
                                         <tr>
                                             <th>Ticket</th>
-                                            <th>Early Bird</th>
-                                            <th>Late & On-Site</th>
+                                            @foreach ($category->tickets->first()->prices->unique('eventCategoryTicketPriceType.name') as $price)
+                                            <th>{{ $price->eventCategoryTicketPriceType->name }}</th>
+                                            @endforeach
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -124,7 +125,7 @@
                                             @foreach ($ticket->prices as $price)
                                             @php
                                             $priceTypeName = $price->eventCategoryTicketPriceType->name;
-                                            $isPriceActive = $price->is_active;
+                                            $isPriceActive = $price->eventCategoryTicketPriceType->is_active;
                                             $isChecked = old('event_category_ticket_prices_ids.' . $category->id, $eventRegistrationHold['event_category_ticket_prices_ids'][$category->id] ?? '') == $price->id;
 
                                             @endphp
