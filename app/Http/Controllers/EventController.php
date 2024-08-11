@@ -65,23 +65,23 @@ class EventController extends Controller
         $event_id = $request->event_id;
         // Fetch data from DB
         $data = Event::where('is_active', true)
-    ->with([
-        'eventCategories' => function ($query) {
-            $query->orderBy('id')->with([
-                'tickets' => function ($query) {
-                    $query->orderBy('id')->with([
-                        'prices' => function ($query) {
-                            $query->join('event_category_ticket_price_types', 'event_category_ticket_prices.event_category_ticket_price_types_id', '=', 'event_category_ticket_price_types.id')
-                                ->orderBy('event_category_ticket_price_types.name')
-                                ->select('event_category_ticket_prices.*')
-                                ->with('eventCategoryTicketPriceType'); // Load the price type
-                        }
-                    ]);
-                }
-            ]);
-        }
-    ])
-    ->findOrFail($event_id);
+        ->with([
+            'eventCategories' => function ($query) {
+                $query->orderBy('id')->with([
+                    'tickets' => function ($query) {
+                        $query->orderBy('id')->with([
+                            'prices' => function ($query) {
+                                $query->join('event_category_ticket_price_types', 'event_category_ticket_prices.event_category_ticket_price_types_id', '=', 'event_category_ticket_price_types.id')
+                                    ->orderBy('event_category_ticket_price_types.order', 'asc') // Ordering by the 'order' column in event_category_ticket_price_types table
+                                    ->orderBy('price', 'asc') // Optional: Further ordering by price
+                                    ->select('event_category_ticket_prices.*', 'event_category_ticket_price_types.order as price_type_order'); // Select required columns and include 'order' if needed
+                            }
+                        ]);
+                    }
+                ]);
+            }
+        ])
+        ->findOrFail($event_id);
 
 
 
