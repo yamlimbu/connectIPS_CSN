@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\AtLeastOneTicket;
 use Illuminate\Validation\Rule;
 use App\Models\EventCategory;
+use Illuminate\Support\Facades\Crypt;
+
 class EventRegisterRequest extends FormRequest
 {
     public function authorize()
@@ -15,7 +17,7 @@ class EventRegisterRequest extends FormRequest
 
     public function rules()
     {
-        $event_id = $this->input('event_id');
+        $event_id = Crypt::decrypt($this->input('event_id'));
         $categories = EventCategory::all();
         return [
             'nmc_registration_number' => 'required|string',

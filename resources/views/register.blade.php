@@ -12,7 +12,7 @@
         <div class="bg-light mb-5">
             <form method="POST" action="{{ route('event_register') }}">
                 @csrf
-                <input type="hidden" name="event_id" value="{{ $event_id }}">
+                <input type="hidden" name="event_id" value="{{ Crypt::encrypt($event_id) }}">
                 <div class="card mb-4">
                     <div class="card-header fw-bold text-uppercase p-2 p-md-3">Register</div>
                     <div class="card-body">
