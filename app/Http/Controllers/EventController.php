@@ -54,7 +54,7 @@ class EventController extends Controller
         $events = null;
         // Pass data to the view
 
-        $event_id = 3;
+        $event_id = 1;
         $encryptedId = Crypt::encrypt($event_id);
 
         return view('welcome', compact('events', 'encryptedId'));
