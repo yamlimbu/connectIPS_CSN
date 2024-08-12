@@ -25,6 +25,7 @@ use App\Services\ConnectIpsService;
 use App\Helpers\RecordHelper;
 use Illuminate\Support\Facades\Log;
 use App\Services\TransactionService;
+use Illuminate\Support\Facades\Crypt;
 
 class EventController extends Controller
 {
@@ -52,17 +53,27 @@ class EventController extends Controller
 
         $events = null;
         // Pass data to the view
-        return view('welcome', compact('events'));
+
+        $event_id = 3;
+        $encryptedId = Crypt::encrypt($event_id);
+
+        return view('welcome', compact('events', 'encryptedId'));
     }
 
 
     public function register(Request $request)
     {
-        $hold_id = $request->query('hold_id');
+        $eventRegistrationHold = null;
+        if($request->query('hold_id')){
+        $hold_id = Crypt::decrypt($request->query('hold_id'));
+
         $eventRegistrationHold = EventRegistrationHold::where('id', $hold_id)->first();
+        }
         session()->forget('data');
 
-        $event_id = $request->event_id;
+        $event_id = Crypt::decrypt($request->event_id);
+        $encryptedId = Crypt::encrypt($event_id);
+
         // Fetch data from DB
         $data = Event::where('is_active', true)
         ->with([
@@ -83,12 +94,8 @@ class EventController extends Controller
         ])
         ->findOrFail($event_id);
 
-
-
-
-
         // Pass data to the view
-        return view('register', compact('data', 'event_id', 'eventRegistrationHold'));
+        return view('register', compact('data', 'event_id', 'eventRegistrationHold', 'encryptedId'));
     }
 
     public function details($event_id)
@@ -134,7 +141,7 @@ class EventController extends Controller
         $appname = config('app.appname');
         $txncrncy = config('app.txncrncy');
         $payment_data = session('data');
-        $event_id = $payment_data['event_id'];
+        $event_id = Crypt::decrypt($payment_data['event_id']);
 
         // Check if $paymentData is not empty
         if (empty($payment_data)) {
@@ -276,7 +283,7 @@ class EventController extends Controller
         $clientDetails = $this->transactionService->getClientDetails($request);
         //insert in hold table
         if (isset($payment_data['hold_id'])) {
-            $hold_id = $payment_data['hold_id'];
+            $hold_id = Crypt::decrypt($payment_data['hold_id']);
             $hold = EventRegistrationHold::find($hold_id);
             if ($hold) {
                 // Update the existing record

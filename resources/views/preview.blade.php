@@ -160,7 +160,7 @@
                 </div>
                 <div class="card-footer text-end">
                     <button type="submit" id="register-payment" name="registration_form" value="submitted" class="btn btn-primary btn-sm">Proceed to Payment</button>
-                    <a href="{{ route('event.register', ['event_id' => $hold->event_id]) }}?hold_id={{$hold->id}}" class="btn btn-danger btn-sm">Edit</a>
+                    <a href="{{ route('event.register', ['event_id' => Crypt::encrypt($hold->event_id)]) }}?hold_id={{ Crypt::encrypt($hold->id)}}" class="btn btn-danger btn-sm">Edit</a>
                     </div>
             </div>
         </form>

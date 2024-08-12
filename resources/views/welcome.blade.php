@@ -134,7 +134,7 @@ use Illuminate\Support\Str;
                                 <span class="fw-bold">Cardiovascular Specialists:-</span>
                                 <span>Rs 5000</span>
                             </div>
-                            <a href="{{ route('event.register', 1) }}" class="btn btn-navy text-danger mt-2">Register Now</a>
+                            <a href="{{ route('event.register', $encryptedId) }}" class="btn btn-navy text-danger mt-2">Register Now</a>
                         </div>
                     </div>
                 </div>
