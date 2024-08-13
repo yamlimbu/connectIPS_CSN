@@ -440,7 +440,9 @@ class EventController extends Controller
             ->find($event_category_ticket_prices_ids);
 
         $event = Event::find($registration->event_id);
-        return view('success', compact('isMobile', 'registration', 'ticketDerails', 'event'));
+        $encryptedId = Crypt::encrypt($registration->event_id);
+
+        return view('success', compact('isMobile', 'registration', 'ticketDerails', 'event', 'encryptedId'));
     }
 
 
@@ -471,8 +473,10 @@ class EventController extends Controller
 
         session()->flash('error', "Transaction has been terminated.");
         $isMobile = $hold !== null ? (bool) $hold->is_mobile : false;
+        $encryptedId = Crypt::encrypt($hold->event_id);
+
         // Return the success view
-        return view('fail', compact('isMobile'));
+        return view('fail', compact('isMobile', 'encryptedId'));
     }
 
     private function fetchPaymentDetails($event_id, $event_category_ticket_prices_ids)
