@@ -591,4 +591,17 @@ class EventController extends Controller
         // Return the results as JSON
         return response()->json(array_values($results));
     }
+
+    public function eventRegistrationDetails(Request $request)
+    {
+        $registration = EventRegistration::where('event_token', $request->event_token)->first();
+
+        $event_category_ticket_prices_ids = ($registration->event_category_ticket_prices_ids);
+        $ticketDerails = EventCategoryTicketPrice::with(['eventcategoryticket.eventcategory.event'])
+            ->find($event_category_ticket_prices_ids);
+
+        $event = Event::find($registration->event_id);
+        return view('gatepass-detail', compact('registration','event', 'ticketDerails'));
+
+    }
 }

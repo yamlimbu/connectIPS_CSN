@@ -32,3 +32,4 @@ Route::get('/event-register/fail', [EventController::class, 'fail'])->name('fail
 // Route::post('/transaction-details', [TransactionController::class, 'getTransactionDetails']);
 Route::get('/qr-code/{filename}', [QrCodeController::class, 'show']);
 Route::get('/search/nmc', [EventController::class, 'searchNmc'])->name('search.nmc');
+Route::get('eventregistrations/gatepass-details/{event_token}', [EventController::class,'eventRegistrationDetails'])->name('eventregistrations.gatepass.details'); // handle fail
