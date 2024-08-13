@@ -19,7 +19,7 @@
             <div class="card-header fw-bold text-uppercase p-2 p-md-3">Event Details</div>
             <div class="card-body p-2 p-md-3">
                 <div class="row mb-2 mb-md-4">
-                    <p class="banner-title small-text fw-bold mb-1 mb-md-2">{{$event->banner_text}}</p>
+                    <p class="banner-title small-text fw-bold mb-1 mb-md-2">{!! $event->banner_text !!}</p>
 
                     <h3 class="banner-title main">{{$event->name}}</h3>
 

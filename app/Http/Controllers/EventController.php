@@ -404,7 +404,6 @@ class EventController extends Controller
                 $hold->save();
             }
             $responseTransaction = $this->connectIpsService->getTransactionDetail($hold->txnid, $hold->txnamt);
-
             // Log transaction details to the transaction log
             Log::channel('transaction')->info('Transaction Details', [
                 'txnid' => $hold->txnid,
