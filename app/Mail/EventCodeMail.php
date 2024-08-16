@@ -58,8 +58,9 @@ public function generateQrGatepass()
         $filePathToken = 'qrcodes/' . $this->registration->event_token . '.png';
         $filePathGatePass = 'gatepass/' . $this->registration->event_token . '.png';
 
-        return $this->markdown('emails.event_code')
-                    ->with([
+        return $this->subject('Thank You for Your Registration for the ' . $this->registration->event->name)
+        ->view('emails.event_code')
+                        ->with([
                         'registration' => $this->registration,
                         'qrToken' => $this->qrToken,
                         'qrGatePass' => $this->qrGatePass,
