@@ -1,12 +1,15 @@
 <header class="header_section">
     <div class="header-top text-center text-white">
         <div class="container d-flex justify-content-center align-items-center gap-2">
-            @if (URL::current() !== route('event.register', 1) && URL::current() !== route('preview'))
-            <div>Join us for Management Of Cardiovascular Disease 2024, October 25-26 in Kathmandu, Nepal.</div>
-            <a href="{{ route('event.register', $encryptedId) }}" class="btn btn-navy hover">Join Us</a>
-            @else
+    @php
+    @endphp
+            @if (str_contains(URL::current(), '/register') or str_contains(URL::current(), '/preview') )
             <div>XXII International Congress On
                 Management Of Cardiovascular Disease 2024, October 25-26 in Kathmandu, Nepal.</div>
+
+            @else
+            <div>Join us for Management Of Cardiovascular Disease 2024, October 25-26 in Kathmandu, Nepal.</div>
+            <a href="{{ route('event.register', $encryptedId) }}" class="btn btn-navy hover">Join Us</a>
             @endif
 
         </div>
@@ -23,10 +26,8 @@
                 </a>
 
                 <div class="quote_btn-container">
-
-
-                    @if (URL::current() == route('event.register', 1) || Route::is('preview'))
-                    <a href="{{ URL::to('/') }}" >
+                @if (str_contains(URL::current(), '/register') or str_contains(URL::current(), '/preview') )
+                <a href="{{ URL::to('/') }}" >
                         <i class="fa fa-home" aria-hidden="true"></i>
                         <span>Home</span>
                     </a>
@@ -36,7 +37,6 @@
                         Register Now
                     </a>
                     @endif
-
 
 
                 </div>
