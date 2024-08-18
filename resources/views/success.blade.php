@@ -110,7 +110,7 @@
     <div class="card-body p-2 p-md-3">
         <div class="row mb-2 mb-md-4">
             <div class="col text-center">
-                <img src="{{ asset('images/sample-qr.png') }}" style="width: 150px; height: auto; max-width: 100%;" />
+                <img src="{{ asset('storage/qrcodes/' . $registration->event_token . '.png') }}" style="width: 150px; height: auto; max-width: 100%;" />
             </div>
         </div>
     </div>
