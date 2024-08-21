@@ -78,4 +78,12 @@ class EventRegistration extends Model
             $registration->event_token = \Str::random(10); // Generate a unique API token
         });
     }
+    public function eventCategory()
+    {
+        return $this->belongsTo(EventCategory::class, 'event_category_id');
+    }
+    public function eventRegistrationHold()
+    {
+        return $this->belongsTo(EventRegistrationHold::class, 'hold_id');
+    }
 }

@@ -41,13 +41,37 @@
     <div class="container">
 
         <p>Dear {{ $registration->full_name }},</p>
+@if(count($eventCategoryTickets) > 1)
 
-        <p>We are pleased to confirm your registration for the <strong>{{ $registration->event->name }}</strong>. We are also delighted to inform you that you are eligible to attend the Congress, which will take place on the 25th and 26th of October 2024 at Hotel Yak and Yeti, Kathmandu.</p>
+<p>We are pleased to confirm your registration for the <strong>{{ $eventCategoryTickets[0]->title }}</strong> and <strong>XXII International Congress on Management of Cardiovascular Disease</strong>. </p>
+<p>We are also delighted to inform you that you are eligible to attend the {{ $eventCategoryTickets[0]->title }}, which will take place on the 24th of October 2024 at Hotel Radisson, Lazimpat. A lunch session will be included as part of the Session.
 
-        <p>As a registered participant, you will be eligible to receive the registration kit, and enjoy Lunch on 25th & 26th of October at Hotel Yak & Yeti and Gala Dinner on 25th of October at Hotel Radisson, Lazimpat.</p>
+</p>
+We are also delighted to inform you that you are eligible to attend the Congress, which will take place on the 25th and 26th of October 2024 at Hotel Yak and Yeti, Kathmandu.
+    </p>
+    <p>
+As a registered participant, you will be eligible to receive the registration kit, and enjoy Lunch on 25th & 26th of October at Hitel Yak & Yeti and Gala Dinner on 25th of October at Hotel Radisson, Lazimpat.
 
-        <p>Details of the timing will be shared in the registration kit.</p>
+</p>
+<p>
+Details of the timing will be shared in the registration kit.
+</p>
 
+
+@else
+        <p>We are pleased to confirm your registration for the <strong>@if($eventCategoryTickets[0]->event_category_id == 1){{ $eventCategoryTickets[0]->title }}@else {{ $registration->event->name}} @endif</strong>.
+@if($eventCategoryTickets[0]->event_category_id == 1)
+<p>We are pleased to confirm your registration for the {{ $eventCategoryTickets[0]->title }}. We are also delighted to inform you that you are eligible to attend the Nursing Symposium 2024, which will take place on the 24th of October 2024 at {{ $eventCategoryTickets[0]->location }}. A lunch session will be included as part of the @if($eventCategoryTickets[0]->id == 1)symposium @else Session @endif.</p>
+
+<p>Should you require any further information or have any questions, please feel free to reach out.</p>
+@else
+<p>We are pleased to confirm your registration for the XXII International Congress on Management of Cardiovascular Disease. We are also delighted to inform you that you are eligible to attend the Congress, which will take place on the 25th and 26th of October 2024 at Hotel Yak and Yeti, Kathmandu.</p>
+
+<p>As a registered participant, you will be eligible to receive the registration kit, and enjoy Lunch on 25th & 26th of October at Hitel Yak & Yeti and Gala Dinner on 25th of October at Hotel Radisson, Lazimpat.</p>
+
+<p>Details of the timing will be shared in the registration kit.</p>
+@endif
+@endif
         <p>We look forward to your active participation.</p>
 
         <p><strong>Event Token:</strong> {{ $registration->event_token }}</p>
@@ -57,12 +81,7 @@
             <img src="{{ asset('storage/' . $qrToken) }}" alt="QR Code">
         </div>
 
-        <div class="panel">
-            <p>Scan the QR code below to view your gatepass details:</p>
-            <img src="{{ asset('storage/' . $qrGatePass) }}" alt="Details QR Code">
-        </div>
-
-        <p>Thanks,<br>Cardiac Society of Nepal</p>
+         <p>Thanks,<br>Cardiac Society of Nepal</p>
     </div>
 </body>
 </html>
