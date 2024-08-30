@@ -192,5 +192,6 @@ return [
     'connect_ips_baseurl' => env('CONNECTIPS_BASE_URL', 'default_value'),
     'txncrncy' => env('TXNCRNCY', 'default_value'),
     'connectips_password' => env('CONNECTIPS_PASSWORD', 'default_value'),
+    'connectips_pfx_password' => env('CONNECTIPS_PFX_PASSWORD', 'default_value'),
 
 ];
