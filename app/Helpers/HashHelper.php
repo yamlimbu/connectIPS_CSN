@@ -16,7 +16,7 @@ class HashHelper
         date_default_timezone_set("Asia/Kathmandu");
 
         // Try to locate certificate file
-        $filePath = 'CREDITOR.pfx';
+        $filePath = env('PFX_FILE_PATH');
         $fullPath = storage_path('app/private/' . $filePath);
 
         if (!Storage::disk('private')->exists($filePath)) {
@@ -25,7 +25,7 @@ class HashHelper
         }         // Try to locate certificate file
         $cert_store = Storage::disk('private')->get($filePath);
         // Try to read certificate file
-        $password = "123";
+        $password = env('CONNECTIPS_PFX_PASSWORD');
         // Try to read the certificate file
         if (openssl_pkcs12_read($cert_store, $cert_info, $password)) {
             if (isset($cert_info['pkey']) && $private_key = openssl_pkey_get_private($cert_info['pkey'])) {
