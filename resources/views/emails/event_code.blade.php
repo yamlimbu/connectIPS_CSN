@@ -76,11 +76,6 @@ Details of the timing will be shared in the registration kit.
 
         <p><strong>Event Token:</strong> {{ $registration->event_token }}</p>
 
-        <div class="panel">
-            <p>Scan the QR code below to get your event token:</p>
-            <img src="{{ asset('storage/' . $qrToken) }}" alt="QR Code">
-        </div>
-
          <p>Thanks,<br>Cardiac Society of Nepal</p>
     </div>
 </body>

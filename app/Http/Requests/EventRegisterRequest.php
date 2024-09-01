@@ -65,4 +65,12 @@ class EventRegisterRequest extends FormRequest
             // 'payment_method.required' => 'Please select a Payment Method.',
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        // Convert email to lowercase before validation
+        $this->merge([
+            'email_address' => strtolower($this->input('email_address')),
+        ]);
+    }
 }
