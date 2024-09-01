@@ -123,18 +123,16 @@ return [
             'handler' => NullHandler::class,
         ],
 
-        'emergency' => [
-            'path' => storage_path('logs/laravel.log'),
-        ],
-    ],
-    'channels' => [
-        // Other channels...
-
         'transaction' => [
             'driver' => 'single',
             'path' => storage_path('logs/transaction.log'),
             'level' => 'info',
         ],
-],
+
+        'emergency' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/laravel.log'),
+        ],
+    ],
 
 ];
