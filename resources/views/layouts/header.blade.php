@@ -5,10 +5,10 @@
     @endphp
             @if (str_contains(URL::current(), '/register') or str_contains(URL::current(), '/preview') )
             <div>XXII International Congress On
-                Management Of Cardiovascular Disease 2024, October 25-26 in Kathmandu, Nepal.</div>
+                Management Of Cardiovascular Disease 2024, October 24, 25, 26 in Kathmandu, Nepal.</div>
 
             @else
-            <div>Join us for Management Of Cardiovascular Disease 2024, October 25-26 in Kathmandu, Nepal.</div>
+            <div>Join us for Management Of Cardiovascular Disease 2024, October 24, 25, 26 in Kathmandu, Nepal.</div>
             <a href="{{ route('event.register', $encryptedId) }}" class="btn btn-navy hover">Join Us</a>
             @endif
 
