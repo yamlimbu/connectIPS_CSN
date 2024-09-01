@@ -7,9 +7,10 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use App\Helpers\EventHelper;
-use App\Models\EventCategoryTicket;
-use App\Models\EventRegistration;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Modules\Event\Models\EventCategoryTicket;
+use Modules\Event\Models\EventRegistration;
 
 class EventCodeMail extends Mailable
 {
@@ -17,62 +18,84 @@ class EventCodeMail extends Mailable
 
     public $registration;
     public $qrToken;
+    public $pdfPath;
 
     public function __construct($registration)
     {
         $this->registration = $registration;
         $this->qrToken = $this->generateQrCode();
+        $this->pdfPath = $this->generatePdfWithQrCode();
     }
 
-    public function generateQrCode()
+    private function generateQrCode()
     {
-        // Create the QR code
         $qrCodeData = QrCode::format('png')->size(300)->generate($this->registration->event_token);
-
-        // Define the file path
         $filePath = 'qrcodes/' . $this->registration->event_token . '.png';
-
-        // Save the QR code to storage
         Storage::disk('public')->put($filePath, $qrCodeData);
-
         return $filePath;
     }
-    public function generateQrGatepass()
+
+    private function generatePdfWithQrCode()
     {
-        // Create the QR code
-        $url = route('api/v1/eventregistrations.gatepass.details', ['event_token' => $this->registration->event_token]);
+        // Get the QR code image data
+        $qrCodePath = storage_path('app/public/' . $this->qrToken);
+        $qrCodeImage = file_get_contents($qrCodePath);
+        $qrCodeBase64 = base64_encode($qrCodeImage);
 
-        // Create the QR code for the details page
-        $qrCodeData = QrCode::format('png')->size(300)->generate($url);
+        // Full name in uppercase (as seen in the PDF)
+        $fullName = strtoupper($this->registration->full_name);
 
-        // Define the file path
-        $filePath = 'gatepass/' . $this->registration->event_token . '.png';
+        // Define the HTML content for the PDF with the Base64 image and styled name
+        $html = '
+            <html>
+                <body>
+                    <div style="text-align: center;">
+                        <img src="data:image/png;base64,' . $qrCodeBase64 . '" alt="QR Code">
+                       <p style="font-family: Helvetica, Arial, sans-serif; font-size: 23px; text-align: center; text-transform: uppercase; line-height: 1.5; margin: 10px 0;">
+    ' . htmlspecialchars($fullName, ENT_QUOTES, 'UTF-8') . '
+</p>
 
-        // Save the QR code to storage
-        Storage::disk('public')->put($filePath, $qrCodeData);
+
+                    </div>
+                </body>
+            </html>';
+
+        // Initialize Dompdf
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        // Save the PDF to storage
+        $filePath = 'pdfs/' . $this->registration->event_token . '.pdf';
+        Storage::disk('public')->put($filePath, $dompdf->output());
 
         return $filePath;
     }
+
+
+
+
+
+
+
 
     public function build()
     {
-        $filePathToken = 'qrcodes/' . $this->registration->event_token . '.png';
-
         $eventRegistration = EventRegistration::findOrFail($this->registration->id);
-
-        // Decode the JSON 'event_category_ticket_prices_ids' column into an array
         $ticketPriceIds = array_values($eventRegistration->event_category_ticket_prices_ids);
 
-        // Fetch event category tickets using the related `event_category_ticket_price` records
         $eventCategoryTickets = EventCategoryTicket::select('event_category_tickets.*')
             ->join('event_category_ticket_prices', 'event_category_ticket_prices.event_category_ticket_id', '=', 'event_category_tickets.id')
             ->whereIn('event_category_ticket_prices.id', $ticketPriceIds)
-            ->distinct()  // Ensure distinct results in case of multiple matches
+            ->distinct()
             ->get();
+
+        $subject = 'Thank You for Your Registration for the ' . $eventCategoryTickets[0]->title;
         if (count($eventCategoryTickets) > 1) {
-            $subject = 'Thank You for Your Registration for the ' . $eventCategoryTickets[0]->title . ' and ' . $this->registration->event->name;
-        } else {
-            $subject = 'Thank You for Your Registration for the ' . $eventCategoryTickets[0]->title;
+            $subject .= ' and ' . $this->registration->event->name;
         }
 
         return $this->subject($subject)
@@ -80,11 +103,11 @@ class EventCodeMail extends Mailable
             ->with([
                 'registration' => $this->registration,
                 'qrToken' => $this->qrToken,
-                'eventCategoryTickets' => $eventCategoryTickets
-
-            ])->attach(storage_path('app/public/' . $filePathToken), [
-                'as' => 'qrcode.png',
-                'mime' => 'image/png',
+                'eventCategoryTickets' => $eventCategoryTickets,
+            ])
+            ->attach(storage_path('app/public/' . $this->pdfPath), [
+                'as' => 'event_qr_code.pdf',
+                'mime' => 'application/pdf',
             ]);
     }
 }
