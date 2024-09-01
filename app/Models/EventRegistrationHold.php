@@ -62,6 +62,9 @@ class EventRegistrationHold extends Model
         'event_category_ticket_prices_ids' => 'array', // Cast to array for'
 
     ];
+    protected $attributes = [
+        'role' => 'delegate',
+    ];
     /**
      * Get the event associated with the registration.
      */
