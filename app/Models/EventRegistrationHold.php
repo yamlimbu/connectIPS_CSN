@@ -73,4 +73,9 @@ class EventRegistrationHold extends Model
         return $this->belongsTo(Event::class);
     }
 
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email_address'] = strtolower($value);
+    }
+
 }

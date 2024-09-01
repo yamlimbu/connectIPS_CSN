@@ -2,6 +2,8 @@
 
 namespace App\Mail;
 
+use App\Models\EventCategoryTicket;
+use App\Models\EventRegistration;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -9,8 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use Modules\Event\Models\EventCategoryTicket;
-use Modules\Event\Models\EventRegistration;
+
 
 class EventCodeMail extends Mailable
 {
