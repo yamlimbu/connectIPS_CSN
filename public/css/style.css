@@ -340,11 +340,42 @@ body {
   font-size: 1.5rem;
 }
 
-@media (max-width: 768px) {
-  .message-section .success-icon, .message-section .error-icon {
-    width: 30px;
-  }
-  .message-section .success-title, .message-section .error-title {
-    font-size: 1rem;
-  }
-}/*# sourceMappingURL=style.css.map */
+/*
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+ .col-xs-12,
+.col-sm-12,
+.col-md-6,
+.col-lg-6 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/*# sourceMappingURL=style.css.map */
+
+.counter {
+  background-color: #f8f9fa;
+  /* Set your desired background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Add a subtle box shadow */
+  padding: 20px;
+  /* Add some padding */
+  border-radius: 8px;
+  /* Optional: Add rounded corners */
+  text-align: center;
+  /* Center align the text */
+  margin-top: 20px;
+  /* Add some margin on top */
+}
+
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}

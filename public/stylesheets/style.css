@@ -403,4 +403,18 @@ body {
   }
 }
 
+.form-group span {
+  font-size: 0.8rem;
+}
+
 /*# sourceMappingURL=style.css.map */
+
+input {
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    /* height: 30px;
+    padding: 10px; */
+}
+input.loading {
+    background: url(http://www.xiconeditor.com/image/icons/loading.gif) no-repeat right center;
+}

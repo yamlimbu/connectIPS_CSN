@@ -11,9 +11,10 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Cardiac Society of Nepal :: XXII International Congress On
-    Management Of Cardiovascular Disease</title>
+        Management Of Cardiovascular Disease</title>
 
     <link rel="shortcut icon" type="image" href="{{ asset('images/favicon.png') }}" />
 
@@ -35,7 +36,7 @@
     <!-- datepicker -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
     <!-- Custom styles for this template -->
-    <link href="{{ asset('stylesheets/style.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/stylesheets/style.css') }}" rel="stylesheet" />
 
     <!-- responsive style -->
     <!-- <link href="{{ asset('css/responsive.css') }}" rel="stylesheet" /> -->

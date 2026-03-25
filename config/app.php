@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Kathmandu', // Set your desired timezone here
 
     /*
     |--------------------------------------------------------------------------
@@ -187,9 +187,11 @@ return [
 
 
     'merchantid' => env('MERCHANTID', 'default_value'),
-        'appid' => env('APPID', 'default_value'),
-        'appname' => env('APPNAME', 'default_value'),
-        'connect_ips_baseurl' => env('CONNECT_IPS_BASEURL', 'default_value'),
-        'txncrncy' => env('TXNCRNCY', 'default_value'),
+    'appid' => env('APPID', 'default_value'),
+    'appname' => env('APPNAME', 'default_value'),
+    'connect_ips_baseurl' => env('CONNECT_IPS_BASEURL', 'https://uat.connectips.com'),
+    'txncrncy' => env('TXNCRNCY', 'default_value'),
+    'connectips_password' => env('CONNECTIPS_PASSWORD', 'default_value'),
+    'connectips_pfx_password' => env('CONNECTIPS_PFX_PASSWORD', 'default_value'),
 
 ];

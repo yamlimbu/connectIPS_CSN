@@ -81,7 +81,7 @@ use Illuminate\Support\Str;
 
                     <p class="mb-1">
                         <strong>Date:</strong>
-                        25 - 26 October 2024
+                        24, 25, 26 October 2024
                     </p>
                     <p class="mb-2 mb-md-4">
                         <strong>Venue:</strong>
@@ -108,32 +108,34 @@ use Illuminate\Support\Str;
                         </div>
 
                     </div>
+
                 </div>
             </div>
             <div class="col-md-4 align-self-center pb-4 pb-md-0">
                 <div class="card">
                     <div class="card-body reg-fee">
-                        <div class="overlay-img"></div>
-                        <div class="fee-content position-absolute top-50 start-50 translate-middle">
-                            <div class="banner-title fw-bold text-uppercase mb-2 mb-md-3">Registration Fee</div>
+                        <div class="overlay-img"><img src="images/bg-img.jpg" alt=""></div>
+                        <div class="fee-content">
+                            <div class="banner-title fw-bold text-uppercase mb-2 mb-md-3"></div>
                             <div class="mb-1 mb-md-2">
-                                <span class="fw-bold">CSN Members:-</span>
-                                <span>Rs 10000</span>
+                                <span class="fw-bold"></span>
+                                <span></span>
                             </div>
-                            <div class="mb-1 mb-md-2">
-                                <span class="fw-bold">Delegates:-</span>
-                                <span>Rs 12000</span>
+                            <div class="ml-20 mb-1 mb-md-2">
+                                <span><a href="{{ route('event.register', $encryptedId) }}" class="btn btn-navy text-danger mt-2 custom-btn">Click here to register</a></span>
+                                <span></span>
                             </div>
 
                             <div class="mb-1 mb-md-2">
-                                <span class="fw-bold">Residents/Fellow:-</span>
-                                <span>Rs 5000</span>
+                                <span class="fw-bold"></span>
+                                <span></span>
                             </div>
                             <div class="mb-3 mb-md-2">
-                                <span class="fw-bold">Cardiovascular Specialists:-</span>
-                                <span>Rs 5000</span>
+                                <span class="fw-bold"></span>
+                                <span></span>
                             </div>
-                            <a href="{{ route('event.register', 1) }}" class="btn btn-navy text-danger d-md-none">Register Now</a>
+
+
                         </div>
                     </div>
                 </div>
@@ -147,7 +149,7 @@ use Illuminate\Support\Str;
     <div class="container">
         <div class="payment-section">
             <div class="mb-4 text-center">
-                <h3 class="mb-0 mb-md-1">Payment Options </h3>
+                <h3 class="mb-1">Payment Options </h3>
                 <div class="line"></div>
             </div>
             <div class="card payment border-0">
@@ -187,7 +189,7 @@ use Illuminate\Support\Str;
         days: 'Days',
         hideOnComplete: true
     }, function(container) {
-        alert('Done!');
+        // alert('Done!');
     });
 </script>
 @endpush

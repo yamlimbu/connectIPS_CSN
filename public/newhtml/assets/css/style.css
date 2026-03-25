@@ -1,0 +1,32 @@
+
+@font-face {
+    font-family: Impact, sans-serif;
+    src: url(fonts/Impacted.ttf) format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Helvetica, sans-serif;
+    src: url(fonts/Helvetica.ttf) format('truetype');
+}
+.qr{
+    height: 100vh;
+}
+
+body{
+    font-family: Helvetica, sans-serif;
+
+}
+
+.title{
+    font-family: Impact, sans-serif;
+    letter-spacing: 0.3px;
+}
+
+.text-pink{
+    color: #EC008C;
+}
+
+.qr-bg{
+    background-color: #EC008C;
+}

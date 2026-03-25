@@ -11,8 +11,8 @@
             <h2 class="error-title">Registration Unsuccessful!</h2>
             <p class="error-description mb-2 mb-md-4">We regret to inform you that your registration was not completed
                 successfully.</p>
-            <a href="{{ url('/') }}" class="btn btn-success">Go to Homepage</a>
-            <a href="{{ url('/register/1') }}" class="btn btn-secondary">Try Again</a>
+                @if (!$isMobile)<a href="{{ url('/') }}" class="btn btn-success">Go to Homepage</a>
+            <a href="{{ url('/register/1') }}" class="btn btn-secondary">Try Again</a>@endif
         </div>
         @endif
     </div>

@@ -1,8 +1,17 @@
 <header class="header_section">
     <div class="header-top text-center text-white">
         <div class="container d-flex justify-content-center align-items-center gap-2">
-            <div>Join us for Management Of Cardiovascular Disease 2024, October 25-26 in Kathmandu, Nepal.</div>
-            <a href="{{ route('event.register', 1) }}" class="btn btn-navy hover">Join Us</a>
+    @php
+    @endphp
+            @if (str_contains(URL::current(), '/register') or str_contains(URL::current(), '/preview') )
+            <div>XXII International Congress On
+                Management Of Cardiovascular Disease 2024, October 24, 25, 26 in Kathmandu, Nepal.</div>
+
+            @else
+            <div>Join us for Management Of Cardiovascular Disease 2024, October 24, 25, 26 in Kathmandu, Nepal.</div>
+            <a href="{{ route('event.register', $encryptedId) }}" class="btn btn-navy hover">Join Us</a>
+            @endif
+
         </div>
     </div>
     <div class="header_bottom">
@@ -17,19 +26,17 @@
                 </a>
 
                 <div class="quote_btn-container">
-
-
-                    @if (URL::current() == route('event.register', 1))
-                    <a href="{{ URL::to('/') }}" class="d-none">
+                @if (str_contains(URL::current(), '/register') or str_contains(URL::current(), '/preview') )
+                <a href="{{ URL::to('/') }}" >
                         <i class="fa fa-home" aria-hidden="true"></i>
                         <span>Home</span>
                     </a>
+
                     @else
-                    <a href="{{ route('event.register', 1) }}" class="btn btn-gray d-none d-md-block">
+                    <a href="{{ route('event.register', $encryptedId) }}" class="btn btn-gray d-none d-md-block fw-bold">
                         Register Now
                     </a>
                     @endif
-
 
 
                 </div>

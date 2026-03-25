@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Modules\Event\Models\EventCategoryTicket;
-use Modules\Privilege\Models\User;
 use Carbon\Carbon;
 
 class EventCategoryTicketPrice  extends Model
@@ -19,11 +17,10 @@ class EventCategoryTicketPrice  extends Model
         'updated_by',
         'created_at',
         'updated_at',
-        'event_category_ticket_name',
         'event_category_ticket_id',
-        'offer_price_start_date',
         'offer_price_end_date',
         'price',
+        'event_category_ticket_price_types_id',
     ];
 
     /**
@@ -34,7 +31,6 @@ class EventCategoryTicketPrice  extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'offer_price_start_date' => 'datetime',
         'offer_price_end_date' => 'datetime',
         'price' => 'decimal:2',
     ];
@@ -75,14 +71,20 @@ class EventCategoryTicketPrice  extends Model
             return Carbon::parse($value)->setTimezone('UTC');
         }
 
-        // Convert dates to UTC format before saving
-    public function setOfferPriceStartDateAttribute($value)
-    {
-        $this->attributes['offer_price_start_date'] = Carbon::parse($value)->setTimezone('UTC')->toDateTimeString();
-    }
+
 
     public function setOfferPriceEndDateAttribute($value)
     {
         $this->attributes['offer_price_end_date'] = Carbon::parse($value)->setTimezone('UTC')->toDateTimeString();
+    }
+    public function eventCategoryTicketPriceType()
+    {
+        return $this->belongsTo(EventCategoryTicketPriceType::class, 'event_category_ticket_price_types_id');
+    }
+
+    // Add this relationship
+    public function priceType()
+    {
+        return $this->belongsTo(EventCategoryTicketPriceType::class, 'event_category_ticket_types_id', 'id');
     }
 }
